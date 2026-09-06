@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corinthian Technologies Incorporated</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --brand:#0C447C;--brand2:#185FA5;--brand3:#378ADD;
+  --brand-light:#E6F1FB;--brand-mid:#B5D4F4;--brand-dark:#042C53;
+  --text:#1a1a1a;--muted:#6b7280;--border:rgba(0,0,0,0.08);
+  --bg:#ffffff;--surface:#f9f9f7;
+}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);font-size:15px;line-height:1.6;}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;border-bottom:0.5px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;}
+.nav-logo svg{width:40px;height:40px;}
+.logo-text{display:flex;flex-direction:column;line-height:1.1;}
+.logo-name{font-family:'DM Serif Display',serif;font-size:14px;color:var(--brand);letter-spacing:0.01em;}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+.nav-links{display:flex;gap:2rem;}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none;cursor:pointer;padding-bottom:2px;border-bottom:1.5px solid transparent;transition:color 0.15s,border-color 0.15s;}
+.nav-links a:hover,.nav-links a.active{color:var(--brand);border-bottom-color:var(--brand3);}
+.nav-cta{font-size:13px;padding:7px 18px;border:0.5px solid var(--brand);color:var(--brand);background:transparent;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s;}
+.nav-cta:hover{background:var(--brand);color:#fff;}
+
+/* PAGES */
+.page{display:none;animation:fadein 0.22s ease;}
+.page.active{display:block;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* HOME */
+.hero{padding:5rem 2.5rem 4rem;display:grid;grid-template-columns:1fr 220px;gap:2rem;align-items:center;border-bottom:0.5px solid var(--border);}
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--brand3);margin-bottom:1rem;}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4.5vw,3rem);line-height:1.15;margin-bottom:1.1rem;}
+.hero h1 em{font-style:italic;color:var(--brand2);}
+.hero-desc{font-size:15px;color:var(--muted);max-width:460px;line-height:1.8;margin-bottom:1.8rem;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.8rem;}
+.hero-tag{font-size:11px;padding:4px 12px;border-radius:100px;border:0.5px solid var(--border);color:var(--muted);}
+.hero-tag.blue{background:var(--brand-light);color:var(--brand);border-color:var(--brand-mid);}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.btn-p{padding:10px 24px;background:var(--brand);color:#fff;border:none;border-radius:100px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background 0.15s;}
+.btn-p:hover{background:var(--brand2);}
+.btn-g{padding:10px 24px;background:transparent;color:var(--brand);border:0.5px solid var(--brand);border-radius:100px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.15s;}
+.btn-g:hover{background:var(--brand-light);}
+.hero-mark{display:flex;align-items:center;justify-content:center;}
+.hero-mark svg{width:180px;height:180px;}
+.home-grid{display:grid;grid-template-columns:repeat(3,1fr);}
+.home-card{padding:2.2rem 2.5rem;border-right:0.5px solid var(--border);cursor:pointer;transition:background 0.15s;}
+.home-card:last-child{border-right:none;}
+.home-card:hover{background:var(--brand-light);}
+.hc-icon{font-size:22px;color:var(--brand3);margin-bottom:0.9rem;}
+.home-card h3{font-size:14px;font-weight:500;margin-bottom:0.3rem;}
+.home-card p{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* PAGE HEADER */
+.page-header{padding:2.8rem 2.5rem 2rem;border-bottom:0.5px solid var(--border);}
+.page-header h2{font-family:'DM Serif Display',serif;font-size:1.9rem;margin-bottom:0.3rem;}
+.page-header p{color:var(--muted);font-size:13px;}
+
+/* BLOG */
+.blog-filters{display:flex;gap:8px;padding:1.2rem 2.5rem;border-bottom:0.5px solid var(--border);flex-wrap:wrap;}
+.filter-btn{font-size:12px;padding:5px 14px;border-radius:100px;border:0.5px solid var(--border);background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--muted);transition:all 0.15s;}
+.filter-btn:hover,.filter-btn.on{background:var(--brand);color:#fff;border-color:var(--brand);}
+.blog-list{padding:0 2.5rem;}
+.blog-post{padding:2rem 0;border-bottom:0.5px solid var(--border);display:grid;grid-template-columns:56px 1fr;gap:1.5rem;align-items:start;cursor:pointer;}
+.blog-post:last-child{border-bottom:none;}
+.blog-post:hover .bp-title{color:var(--brand2);}
+.bp-num{font-family:'DM Serif Display',serif;font-size:2.2rem;color:var(--brand-mid);line-height:1;}
+.bp-cat{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--brand3);margin-bottom:0.4rem;}
+.bp-title{font-family:'DM Serif Display',serif;font-size:1.25rem;line-height:1.25;margin-bottom:0.5rem;transition:color 0.15s;}
+.bp-excerpt{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:0.8rem;}
+.bp-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.bp-tag{font-size:11px;padding:3px 10px;border-radius:100px;}
+.bp-tag.bio{background:#E1F5EE;color:#085041;}
+.bp-tag.sys{background:#EEEDFE;color:#3C3489;}
+.bp-tag.pol{background:#FAEEDA;color:#633806;}
+
+/* SKETCH GALLERY */
+.sketch-gallery-wrap{padding:2rem 2.5rem 2.5rem;border-top:0.5px solid var(--border);}
+.sketch-gallery-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+.sketch-gallery{display:flex;gap:1.2rem;overflow-x:auto;padding-bottom:1rem;scrollbar-width:thin;scrollbar-color:var(--border) transparent;-webkit-overflow-scrolling:touch;}
+.sketch-gallery::-webkit-scrollbar{height:4px;}
+.sketch-gallery::-webkit-scrollbar-track{background:transparent;}
+.sketch-gallery::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.gallery-item{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:0.5rem;}
+.gallery-item img{width:160px;height:200px;object-fit:cover;border-radius:8px;border:0.5px solid var(--border);filter:contrast(1.05);background:#fff;transition:transform 0.2s,box-shadow 0.2s;}
+.gallery-item img:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.25);}
+/* ACKNOWLEDGEMENTS */
+.acknowledgements{padding:2rem 2.5rem 3rem;border-top:0.5px solid var(--border);}
+.acknowledgements p{font-size:14px;color:var(--muted);line-height:1.8;}
+.acknowledgements strong{color:var(--text);}
+/* DISCLAIMER BANNER */
+.disclaimer-banner{background:#1a1a2e;border-bottom:2px solid var(--brand3);padding:1rem 2.5rem;text-align:center;}
+.disclaimer-banner strong{display:block;font-size:15px;font-weight:700;color:#fff;letter-spacing:0.03em;margin-bottom:0.4rem;}
+.disclaimer-banner p{font-size:12px;color:rgba(255,255,255,0.6);margin:0;line-height:1.6;max-width:800px;margin:0 auto;}
+/* READER */
+.reader-wrap{padding:3.5rem 3rem;}
+.reader-back{font-size:13px;color:var(--brand2);cursor:pointer;display:inline-flex;align-items:center;gap:6px;margin-bottom:2rem;text-decoration:none;}
+.reader-back:hover{text-decoration:underline;}
+.reader-cat{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--brand3);margin-bottom:0.6rem;}
+.reader-title{font-family:'DM Serif Display',serif;font-size:1.9rem;line-height:1.2;margin-bottom:0.5rem;}
+.reader-meta{color:var(--muted);font-size:13px;margin-bottom:2rem;padding-bottom:2rem;border-bottom:0.5px solid var(--border);}
+.reader-body{font-size:16px;line-height:1.9;}
+.reader-body h2{font-family:'DM Serif Display',serif;font-size:1.4rem;margin:2.5rem 0 0.8rem;}
+.reader-body h3{font-family:'DM Serif Display',serif;font-size:1.15rem;margin:2rem 0 0.6rem;color:var(--brand);}
+.reader-body p{margin-bottom:1.2rem;color:var(--muted);}
+.reader-body blockquote{border-left:2px solid var(--brand3);padding-left:1.2rem;color:var(--muted);font-style:italic;margin:1.5rem 0;border-radius:0;}
+.pipeline-table{width:100%;border-collapse:collapse;margin:1.8rem 0 2rem;font-size:14px;}
+.pipeline-table th{background:var(--brand);color:#fff;text-align:left;padding:10px 14px;font-weight:500;font-size:13px;}
+.pipeline-table td{padding:11px 14px;border-bottom:0.5px solid var(--border);color:var(--muted);vertical-align:top;line-height:1.6;}
+.pipeline-table tr:nth-child(even) td{background:var(--surface);}
+.pipeline-table tr:last-child td{border-bottom:none;}
+.pipeline-table td:first-child{font-weight:500;color:var(--text);white-space:nowrap;}
+.pipeline-table td:nth-child(2){white-space:nowrap;}
+.check-list{list-style:none;margin:1rem 0 1.5rem;padding:0;display:flex;flex-direction:column;gap:0.9rem;}
+.check-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--muted);line-height:1.7;}
+.check-list li::before{content:"✓";color:var(--brand3);font-weight:700;font-size:14px;margin-top:3px;flex-shrink:0;}
+.check-list li strong{color:var(--text);}
+.base-grid{display:flex;flex-wrap:wrap;gap:8px;margin:1rem 0 1.5rem;}
+.base-pill{font-size:12px;padding:5px 14px;border-radius:100px;background:var(--brand-light);color:var(--brand);border:0.5px solid var(--brand-mid);font-weight:500;}
+.struct-list{list-style:none;margin:1rem 0 1.5rem;padding:0;display:flex;flex-direction:column;gap:0.9rem;}
+.struct-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--muted);line-height:1.7;}
+.struct-list li::before{content:"▲";color:#c0392b;font-size:11px;margin-top:5px;flex-shrink:0;}
+.struct-list li strong{color:var(--text);}
+.citation{font-size:11px;color:var(--brand2);vertical-align:super;margin-left:1px;}
+.citations-block{margin-top:1.5rem;padding:1.2rem 1.5rem;background:var(--surface);border:0.5px solid var(--border);border-radius:6px;font-size:12px;color:var(--muted);line-height:1.8;}
+.citations-block p{font-size:12px;margin-bottom:0.3rem;}
+.solution-box{margin:1.8rem 0;padding:1.6rem 2rem;background:var(--brand-light);border-left:3px solid var(--brand3);border-radius:0 6px 6px 0;}
+.solution-box p{color:var(--text);font-size:15px;margin-bottom:1rem;}
+.solution-box p:last-child{margin-bottom:0;}
+/* table of contents */
+.post-toc{display:none;}
+.post-toc.has-items{display:block;margin-bottom:2.2rem;padding:1.2rem 1.5rem;background:var(--surface);border:0.5px solid var(--border);border-radius:8px;}
+.post-toc-title{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--brand3);margin-bottom:0.7rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;}
+.post-toc-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0.45rem 1.5rem;}
+.post-toc-list.collapsed{display:none;}
+.post-toc-list li a{font-size:13.5px;color:var(--muted);text-decoration:none;cursor:pointer;line-height:1.5;display:inline-block;}
+.post-toc-list li a:hover{color:var(--brand2);text-decoration:underline;}
+.post-toc-list li.toc-sub a{padding-left:0.9rem;font-size:12.5px;opacity:0.85;}
+.post-toc-caret{font-size:10px;transition:transform 0.15s;}
+.post-toc-caret.open{transform:rotate(180deg);}
+@media (max-width:640px){.post-toc-list{grid-template-columns:1fr;}}
+
+
+/* ABOUT */
+.personal-wrap{display:grid;grid-template-columns:250px 1fr;min-height:440px;}
+.personal-sidebar{padding:2.5rem 2rem;border-right:0.5px solid var(--border);}
+.avatar{width:72px;height:72px;border-radius:50%;background:var(--brand);color:var(--brand-light);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.6rem;margin-bottom:1rem;}
+.ps-name{font-size:15px;font-weight:500;margin-bottom:2px;}
+.ps-role{font-size:12px;color:var(--muted);margin-bottom:1.5rem;}
+.ps-links{display:flex;flex-direction:column;gap:0.6rem;}
+.ps-links a{font-size:13px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.ps-links a:hover{color:var(--brand);}
+.personal-main{padding:2.5rem;}
+.personal-main h2{font-family:'DM Serif Display',serif;font-size:1.55rem;margin-bottom:1rem;}
+.personal-main p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:1rem;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:7px;margin:1.2rem 0;}
+.sk{font-size:11px;padding:4px 12px;background:var(--surface);border:0.5px solid var(--border);border-radius:100px;}
+
+/* PROJECTS */
+.proj-list{padding:0 2.5rem 3rem;display:grid;gap:1.5rem;}
+.proj-card{border:0.5px solid var(--border);border-radius:12px;padding:1.8rem 2rem;}
+.proj-top{display:flex;align-items:center;gap:1rem;margin-bottom:0.9rem;}
+.proj-icon{font-size:26px;line-height:1;}
+.proj-status{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.25rem;}
+.proj-status.live{color:#1a8a4a;}
+.proj-status.dev{color:var(--brand2);}
+.proj-card h3{font-family:'DM Serif Display',serif;font-size:1.3rem;}
+.proj-desc{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:0.9rem;}
+.proj-meta{display:flex;flex-wrap:wrap;gap:0.5rem;font-size:12px;color:var(--muted);margin-bottom:0.9rem;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:7px;}
+.proj-link{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--brand2);text-decoration:none;border:0.5px solid var(--brand-mid);border-radius:100px;padding:6px 14px;margin-bottom:1rem;transition:all 0.15s;}
+.proj-link:hover{background:var(--brand-light);border-color:var(--brand);}
+.proj-thesis{background:var(--brand-light);border-radius:8px;padding:1rem 1.2rem;margin:1rem 0;font-size:13px;color:var(--brand-dark);line-height:1.7;}
+.proj-features{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem;margin:1.2rem 0;}
+.proj-feature h5{font-size:12.5px;font-weight:500;margin-bottom:0.3rem;color:var(--text);}
+.proj-feature p{font-size:12.5px;color:var(--muted);line-height:1.7;}
+@media(max-width:700px){.proj-features{grid-template-columns:1fr;}}
+.proj-more{padding-top:0.5rem;}
+.proj-more-title{font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:0.3rem;}
+.proj-more-sub{font-size:13px;color:var(--muted);margin-bottom:1.3rem;}
+.proj-mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.3rem 1.6rem;}
+.proj-mini h5{font-size:13px;font-weight:500;margin-bottom:0.35rem;color:var(--brand2);}
+.proj-mini p{font-size:13px;color:var(--muted);line-height:1.75;}
+@media(max-width:700px){.proj-mini-grid{grid-template-columns:1fr;}}
+.tl{margin-top:1.5rem;}
+.tl-item{display:flex;gap:1rem;margin-bottom:1.3rem;}
+.tl-dot{width:8px;height:8px;border-radius:50%;background:var(--brand3);margin-top:6px;flex-shrink:0;}
+.tl-yr{font-size:11px;font-weight:500;color:var(--brand2);min-width:36px;padding-top:2px;}
+.tl-t h4{font-size:13px;font-weight:500;margin-bottom:2px;}
+.tl-t p{font-size:12px;color:var(--muted);}
+
+/* RESUME DROPDOWN */
+.resume{margin-top:2rem;border:0.5px solid var(--border);border-radius:10px;background:var(--surface);}
+.resume>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:0.75rem;padding:0.95rem 1.2rem;user-select:none;}
+.resume>summary::-webkit-details-marker{display:none;}
+.rs-label{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--brand2);}
+.rs-hint{font-size:12px;color:var(--muted);}
+.rs-chev{margin-left:auto;font-size:11px;color:var(--muted);transition:transform 0.15s;}
+.resume[open]>summary .rs-chev{transform:rotate(180deg);}
+.resume>summary:hover .rs-label{color:var(--brand3);}
+.rs-body{padding:0 1.2rem 1.2rem;border-top:0.5px solid var(--border);}
+.rs-intro{font-size:13px;color:var(--muted);line-height:1.8;padding:1.1rem 0 0.2rem;}
+.rs-sec{margin-top:1.3rem;}
+.rs-sec h4{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--brand3);margin-bottom:0.7rem;}
+.rs-entry{margin-bottom:0.9rem;}
+.rs-entry:last-child{margin-bottom:0;}
+.rs-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;}
+.rs-role{font-size:13px;font-weight:500;}
+.rs-date{font-size:11px;color:var(--brand2);white-space:nowrap;}
+.rs-org{font-size:12px;color:var(--muted);margin-bottom:0.3rem;}
+.rs-body ul{margin:0.2rem 0 0 1.1rem;}
+.rs-body li{font-size:12.5px;color:var(--muted);line-height:1.7;}
+.rs-inline{font-size:12.5px;color:var(--muted);line-height:1.8;}
+
+/* FOOTER */
+footer{border-top:0.5px solid var(--border);padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:4rem;}
+footer p{font-size:12px;color:var(--muted);}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{font-size:12px;color:var(--muted);text-decoration:none;}
+.footer-links a:hover{color:var(--brand);}
+
+@media(max-width:700px){
+  nav{padding:0 1.2rem;}
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;padding:3rem 1.5rem 2.5rem;}
+  .hero-mark{display:none;}
+  .home-grid{grid-template-columns:1fr;}
+  .home-card{border-right:none;border-bottom:0.5px solid var(--border);}
+  .personal-wrap{grid-template-columns:1fr;}
+  .personal-sidebar{border-right:none;border-bottom:0.5px solid var(--border);}
+  .blog-post{grid-template-columns:40px 1fr;}
+  .page-header,.blog-list,.blog-filters,.personal-main,.personal-sidebar{padding-left:1.5rem;padding-right:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- SVG SQUID LOGO (defined once, reused) -->
+<svg style="display:none">
+  <symbol id="squid-logo" viewBox="0 0 80 80">
+    <g transform="translate(40,42)">
+      <ellipse cx="0" cy="-20" rx="13" ry="17" fill="#0C447C" stroke="#042C53" stroke-width="0.6"/>
+      <line x1="-6" y1="-30" x2="-8" y2="-10" stroke="#185FA5" stroke-width="0.4" stroke-linecap="round"/>
+      <line x1="0"  y1="-36" x2="0"  y2="-6"  stroke="#185FA5" stroke-width="0.4" stroke-linecap="round"/>
+      <line x1="6"  y1="-30" x2="8"  y2="-10" stroke="#185FA5" stroke-width="0.4" stroke-linecap="round"/>
+      <path d="M-5,-37 Q0,-44 5,-37" fill="#0C447C" stroke="#042C53" stroke-width="0.6"/>
+      <path d="M-13,-28 Q-20,-26 -19,-18 Q-17,-12 -13,-15" fill="#185FA5" stroke="#042C53" stroke-width="0.5"/>
+      <path d="M13,-28 Q20,-26 19,-18 Q17,-12 13,-15"  fill="#185FA5" stroke="#042C53" stroke-width="0.5"/>
+      <circle cx="-5.5" cy="-24" r="2.8" fill="#E6F1FB" stroke="#042C53" stroke-width="0.5"/>
+      <circle cx="5.5"  cy="-24" r="2.8" fill="#E6F1FB" stroke="#042C53" stroke-width="0.5"/>
+      <circle cx="-5.5" cy="-24" r="1.4" fill="#042C53"/>
+      <circle cx="5.5"  cy="-24" r="1.4" fill="#042C53"/>
+      <circle cx="-4.8" cy="-24.8" r="0.5" fill="#fff"/>
+      <circle cx="6.2"  cy="-24.8" r="0.5" fill="#fff"/>
+      <path d="M-8,-6 Q-8,0 -7,4 L7,4 Q8,0 8,-6 Z" fill="#0C447C" stroke="#042C53" stroke-width="0.5"/>
+      <!-- left tentacles -->
+      <path d="M-7,3 Q-23,10 -28,26 Q-31,38 -26,46 Q-22,52 -18,48 Q-14,44 -16,36 Q-18,28 -14,20 Q-10,13 -4,9" fill="none" stroke="#0C447C" stroke-width="2.8" stroke-linecap="round"/>
+      <path d="M-7,3 Q-23,10 -28,26 Q-31,38 -26,46 Q-22,52 -18,48 Q-14,44 -16,36 Q-18,28 -14,20 Q-10,13 -4,9" fill="none" stroke="#185FA5" stroke-width="0.8" stroke-linecap="round" stroke-dasharray="2,3"/>
+      <path d="M-5,4 Q-15,14 -16,28 Q-17,38 -13,42 Q-9,46 -7,40 Q-5,34 -7,24 Q-9,16 -5,10" fill="none" stroke="#0C447C" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M-2,4 Q-7,14 -6,26 Q-5,34 -2,37 Q1,40 3,35 Q5,30 3,22 Q1,14 2,8" fill="none" stroke="#0C447C" stroke-width="2.4" stroke-linecap="round"/>
+      <!-- right tentacles holding items -->
+      <path d="M2,4 Q8,10 13,8 Q18,6 20,10" fill="none" stroke="#0C447C" stroke-width="2.8" stroke-linecap="round"/>
+      <path d="M5,2 Q14,0 20,-3 Q24,-5 23,-11" fill="none" stroke="#0C447C" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M6,4 Q18,12 20,24 Q22,34 18,39 Q14,44 10,40 Q6,36 8,28 Q10,20 7,14" fill="none" stroke="#0C447C" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M7,3 Q23,10 27,26 Q30,36 25,44 Q21,50 17,46 Q13,42 15,34 Q17,26 13,18 Q9,11 4,7" fill="none" stroke="#0C447C" stroke-width="2.8" stroke-linecap="round"/>
+      <path d="M7,3 Q23,10 27,26 Q30,36 25,44 Q21,50 17,46 Q13,42 15,34 Q17,26 13,18 Q9,11 4,7" fill="none" stroke="#185FA5" stroke-width="0.8" stroke-linecap="round" stroke-dasharray="2,3"/>
+      <!-- suckers -->
+      <circle cx="-20" cy="20" r="1" fill="#B5D4F4" stroke="#042C53" stroke-width="0.3"/>
+      <circle cx="-23" cy="32" r="1" fill="#B5D4F4" stroke="#042C53" stroke-width="0.3"/>
+      <circle cx="19"  cy="20" r="1" fill="#B5D4F4" stroke="#042C53" stroke-width="0.3"/>
+      <circle cx="22"  cy="32" r="1" fill="#B5D4F4" stroke="#042C53" stroke-width="0.3"/>
+      <!-- shield -->
+      <g transform="translate(20,8)">
+        <path d="M-7,-11 L7,-11 L9,-3 Q9,6 0,11 Q-9,6 -9,-3 Z" fill="#E6F1FB" stroke="#0C447C" stroke-width="0.8" stroke-linejoin="round"/>
+        <path d="M-5,-9 L5,-9 L6,-3 Q6,4 0,8 Q-6,4 -6,-3 Z" fill="none" stroke="#378ADD" stroke-width="0.4" stroke-linejoin="round"/>
+        <text x="0" y="-1" text-anchor="middle" font-family="'DM Serif Display', serif" font-size="4.5" fill="#0C447C">CTI</text>
+      </g>
+      <!-- dagger -->
+      <g transform="translate(23,-13) rotate(-35)">
+        <path d="M0,-14 L1.5,-3 L0,0 L-1.5,-3 Z" fill="#B5D4F4" stroke="#042C53" stroke-width="0.5" stroke-linejoin="round"/>
+        <line x1="0" y1="-12" x2="0" y2="-1" stroke="#0C447C" stroke-width="0.3" stroke-linecap="round"/>
+        <rect x="-3.5" y="-1" width="7" height="2" rx="0.8" fill="#0C447C" stroke="#042C53" stroke-width="0.4"/>
+        <rect x="-1.5" y="1" width="3" height="5.5" rx="0.8" fill="#185FA5" stroke="#042C53" stroke-width="0.4"/>
+        <ellipse cx="0" cy="8" rx="2" ry="1.5" fill="#0C447C" stroke="#042C53" stroke-width="0.4"/>
+      </g>
+    </g>
+  </symbol>
+</svg>
+
+<nav>
+  <a class="nav-logo" onclick="show('home')" href="#">
+    <svg><use href="#squid-logo"/></svg>
+    <div class="logo-text">
+      <span class="logo-name">Corinthian Technologies</span>
+      <span class="logo-sub">Incorporated</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a class="active" id="nav-home"     onclick="show('home');return false;"     href="#">Home</a>
+    <a             id="nav-blog"     onclick="show('blog');return false;"     href="#">Blog</a>
+    <a             id="nav-projects" onclick="show('projects');return false;" href="#">Projects</a>
+    <a             id="nav-personal" onclick="show('personal');return false;" href="#">About</a>
+  </div>
+  <button class="nav-cta" onclick="show('blog')">Read latest</button>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="disclaimer-banner">
+    <strong>⚠ FOR INFORMATIONAL PURPOSES ONLY</strong>
+    <p>The author is not a medical professional, legal professional, financial professional, or expert of any kind. Nothing on this site constitutes medical advice, legal advice, financial advice, or professional guidance of any nature. All content is the personal opinion and independent work of the author. Information may be incomplete, out of date, or inaccurate. Do not make any medical, legal, financial, or personal decisions based on content found here. Always consult a qualified professional. The author accepts no liability whatsoever for any action taken or not taken based on the content of this site.</p>
+  </div>
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">Corinthian Technologies Incorporated</div>
+      <h1>Building, researching, and writing at the <em>edge</em> of science and systems.</h1>
+      <p class="hero-desc">Independent app development, science-policy research, and consulting — plus long-form writing on the systems behind medical breakthroughs. All under one roof.</p>
+      <div class="hero-tags">
+        <span class="hero-tag blue">App development</span>
+        <span class="hero-tag blue">Bioscience research</span>
+        <span class="hero-tag blue">Science policy</span>
+        <span class="hero-tag">Systems thinking</span>
+        <span class="hero-tag">Consulting</span>
+      </div>
+      <div class="hero-actions">
+        <button class="btn-p" onclick="show('blog')">Read the blog</button>
+        <button class="btn-g" onclick="show('projects')">See projects</button>
+      </div>
+    </div>
+    <div class="hero-mark">
+      <svg width="180" height="180" viewBox="0 0 80 80"><use href="#squid-logo"/></svg>
+    </div>
+  </div>
+  <div class="home-grid">
+    <div class="home-card" onclick="show('blog')">
+      <div class="hc-icon">&#9652;</div>
+      <h3>Blog</h3>
+      <p>Long-form analysis of bioscience breakthroughs, systems thinking, and science policy.</p>
+    </div>
+<div class="home-card" onclick="show('projects')">
+      <div class="hc-icon">&#9673;</div>
+      <h3>Projects</h3>
+      <p>Software I've built, including frúto, an iOS app live on the App Store.</p>
+    </div>
+<div class="home-card" onclick="show('personal')">
+      <div class="hc-icon">&#9632;</div>
+      <h3>About</h3>
+      <p>The researcher, writer, and systems thinker behind this work.</p>
+    </div>
+  </div>
+<div class="sketch-gallery-wrap">
+  <p class="sketch-gallery-title">Sketches</p>
+  <div class="sketch-gallery">
+    <div class="gallery-item">
+      <img src="assets/gallery-1.jpg" alt="Squid" loading="lazy">
+      
+    </div>
+<div class="gallery-item">
+      <img src="assets/gallery-2.jpg" alt="Tree of Knowledge" loading="lazy">
+      
+    </div>
+<div class="gallery-item">
+      <img src="assets/gallery-3.jpg" alt="Structure" loading="lazy">
+      
+    </div>
+<div class="gallery-item">
+      <img src="assets/gallery-4.jpg" alt="Turtle" loading="lazy">
+      
+    </div>
+<div class="gallery-item">
+      <img src="assets/gallery-5.jpg" alt="Hot Air Balloon" loading="lazy">
+      
+    </div>
+    <div class="gallery-item"><img src="assets/gallery-6.jpg" alt="car" loading="lazy"></div>
+    <div class="gallery-item"><img src="assets/gallery-7.jpg" alt="angler" loading="lazy"></div>
+    <div class="gallery-item"><img src="assets/gallery-8.jpg" alt="bear" loading="lazy"></div>
+
+  </div>
+</div>
+
+<div class="acknowledgements">
+  <p class="sketch-gallery-title">Acknowledgements</p>
+  <p>This project would not have been possible without the tools and resources that made the research, writing, and building of this site feasible for a single student. Thank you to <strong>Claude</strong> (Anthropic) for research assistance, writing support, and help constructing this website; <strong>Notion</strong> for organizing and storing the knowledge base behind every post; <strong>Google</strong> for search, Scholar, and the countless papers and sources that informed this work; and the <strong>University of Pittsburgh</strong> for its library resources, academic access, and the education that made it possible to engage with this material in the first place.</p>
+  <p>On a personal note: thank you to my <strong>mom</strong>, my cousin <strong>Gabriel</strong>, and my friend <strong>Hagen</strong> for amazing and inspiring conversations that shaped how I think about these topics. And to the <strong>Senior Knuckle Head Brigade</strong> and its entire extended family — thank you for the conversation, nourishment, distraction, and support while this project was being built. You know who you are.</p>
+</div>
+</div>
+
+<!-- BLOG -->
+<div id="blog" class="page">
+  <div class="disclaimer-banner">
+    <strong>⚠ ACADEMIC PROJECT — FOR EDUCATIONAL PURPOSES ONLY</strong>
+    <p>This blog is a student school project created for educational purposes. Nothing here constitutes medical, legal, financial, or professional advice. All content is the personal opinion and academic work of the author. Information may be incomplete, out of date, or inaccurate. Always consult a qualified professional before making decisions based on content found here.</p>
+  </div>
+  <div class="page-header">
+    <h2>Blog</h2>
+    <p>Bioscience breakthroughs, systems thinking, and the policy conditions that make science happen.</p>
+  </div>
+  <div class="blog-filters">
+    <button class="filter-btn on" onclick="filterPosts(this,'all')">All</button>
+    <button class="filter-btn" onclick="filterPosts(this,'bio')">Bioscience</button>
+    <button class="filter-btn" onclick="filterPosts(this,'sys')">Systems thinking</button>
+    <button class="filter-btn" onclick="filterPosts(this,'pol')">Policy</button>
+  </div>
+  <div class="blog-list">
+    <div class="blog-post" data-cat="bio" onclick="openPost(1)">
+      <div class="bp-num">01</div>
+      <div>
+        <div class="bp-cat">Bioscience</div>
+        <div class="bp-title">CAR-T for autoimmune disease: what Erlangen proved and what comes next</div>
+        <div class="bp-excerpt">University Hospital Erlangen's CAR-T trials in lupus, myositis, and systemic sclerosis didn't just show remission — they rewrote what remission means for autoimmune patients.</div>
+        <div class="bp-tags"><span class="bp-tag bio">Bioscience</span><span class="bp-tag sys">Systems</span></div>
+      </div>
+    </div>
+    <div class="blog-post" data-cat="bio" onclick="openPost(2)">
+      <div class="bp-num">02</div>
+      <div>
+        <div class="bp-cat">Bioscience</div>
+        <div class="bp-title">The first personalized CRISPR therapy: how CHOP and UPenn pulled it off</div>
+        <div class="bp-excerpt">In 2025, a child with a rare metabolic disorder became the first person treated with a bespoke CRISPR gene therapy designed for their specific mutation. Here is how it happened.</div>
+        <div class="bp-tags"><span class="bp-tag bio">Bioscience</span><span class="bp-tag pol">Policy</span></div>
+      </div>
+    </div>
+    <div class="blog-post" data-cat="sys" onclick="openPost(3)">
+      <div class="bp-num">03</div>
+      <div>
+        <div class="bp-cat">Systems thinking</div>
+        <div class="bp-title">Framework — What It Takes for a Breakthrough to Happen</div>
+        <div class="bp-excerpt">This post explores the full ecosystem required for a scientific breakthrough to occur. It is not just the science itself, but the human, financial, institutional, political, and cultural conditions that make it possible.</div>
+        <div class="bp-tags"><span class="bp-tag sys">Systems</span><span class="bp-tag pol">Policy</span></div>
+      </div>
+    </div>
+    <div class="blog-post" data-cat="bio" onclick="openPost(4)">
+      <div class="bp-num">04</div>
+      <div>
+        <div class="bp-cat">Bioscience</div>
+        <div class="bp-title">The diagnosis before the cure: what an ME/CFS breakthrough actually requires</div>
+        <div class="bp-excerpt">ME/CFS affects more people worldwide than MS, Parkinson's, and HIV combined — with no approved treatment, no biomarker, and a fraction of the research funding. What it would actually take to get unstuck.</div>
+        <div class="bp-tags"><span class="bp-tag bio">Bioscience</span><span class="bp-tag pol">Policy</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POST READER -->
+<div id="post" class="page">
+  <div class="reader-wrap">
+    <a class="reader-back" onclick="show('blog');return false;" href="#">&larr; Back to blog</a>
+    <div class="reader-cat" id="post-cat"></div>
+    <div class="reader-title" id="post-title"></div>
+    <div class="reader-meta" id="post-meta"></div>
+    <div id="post-toc" class="post-toc"></div>
+    <div class="reader-body" id="post-body"></div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div id="projects" class="page">
+  <div class="page-header">
+    <h2>Projects</h2>
+    <p>Software I've built — mostly with Claude, mostly to scratch my own itch first.</p>
+  </div>
+  <div class="proj-list">
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <div>
+          <div class="proj-status live">Live on the App Store</div>
+          <h3>frúto</h3>
+        </div>
+      </div>
+      <p class="proj-desc">A produce price tracker for iOS. Log what you pay for fruits and vegetables, watch how prices move over time, and know when you're actually getting a good deal. Built end-to-end with Claude, backed by Firebase.</p>
+      <a class="proj-link" href="https://apps.apple.com/us/app/fr%C3%BAto/id6787208827" target="_blank" rel="noopener noreferrer">&#128241; Download on the App Store</a>
+      <div class="proj-meta">
+        <span>3 paying users</span>
+        <span>&middot;</span>
+        <span>In-app purchases live</span>
+        <span>&middot;</span>
+        <span>Security hardening in progress</span>
+      </div>
+
+      <div class="proj-thesis">Grocery delivery apps and big retailers know your history, your habits, your willingness to pay. That makes it easy to price around <em>you</em> specifically, instead of quoting one honest number. frúto's prices come from real shoppers reporting what they actually paid, so no single person's data can quietly change what they see. It's meant to be an independent baseline that Instacart's and Walmart's personalized pricing can't touch.</div>
+
+      <div class="proj-features">
+        <div class="proj-feature">
+          <h5>Crowdsourced prices</h5>
+          <p>Every price comes from a shopper logging what they actually paid, not a retailer feed. The data reflects real receipts, and no single user's activity can skew it.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>What's in season</h5>
+          <p>Shows what's actually in season right now, so "cheap" and "in season" line up instead of paying peak price for something shipped in off-season.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>Home screen widgets</h5>
+          <p>Current best prices and what's in season, right on your home screen. No need to open the app just to check.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>Recipes</h5>
+          <p>Browse and submit recipes built around seasonal, well-priced produce. Comments from other users turn it into cooking suggestions tied to what's actually affordable.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>In-app grocery list</h5>
+          <p>Build your grocery list inside the app, tied to the same price data, so planning a shop and tracking the cost happen in one place.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>Receipt scanning</h5>
+          <p>OCR reads prices straight off a photographed receipt. Logging what you paid doesn't mean typing it in by hand.</p>
+        </div>
+      </div>
+
+      <div class="proj-tags">
+        <span class="sk">Swift</span>
+        <span class="sk">Firebase</span>
+        <span class="sk">In-app purchases</span>
+        <span class="sk">App Store</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <div>
+          <div class="proj-status dev">In development</div>
+          <h3>Remember When</h3>
+        </div>
+      </div>
+      <p class="proj-desc">An expansion on the idea behind Snapchat Memories. Record an obscure, specific memory as a short video or voice note, tag the people who were there, and let it resurface again later instead of disappearing into a camera roll.</p>
+
+      <div class="proj-features">
+        <div class="proj-feature">
+          <h5>Built on iCloud, not a server I run</h5>
+          <p>Sharing runs on CloudKit. Tagging someone adds them directly to an iCloud share, the same mechanism behind Apple's own Shared Photo Library, so there's no backend to maintain and no accounts to manage.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>Transcription never leaves the phone</h5>
+          <p>Speech-to-text runs entirely on-device, using Apple's own on-device recognizer. What gets said in a private memory never goes to a server, including mine.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>Automatic albums</h5>
+          <p>Memories that share a person, a place, or a close date link into an album on their own. No folders to build or maintain by hand.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>Daily resurfacing</h5>
+          <p>A rotating prompt and a "remember this?" card bring old memories back into view, so they don't just sit untouched after the day they were made.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>Cleaned-up audio, recorded raw</h5>
+          <p>Voice memories are captured clean, then processed afterward with on-device noise reduction, EQ, and loudness normalization. A before/after toggle means nothing gets altered without your say.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>Yours to keep, off the app entirely</h5>
+          <p>A one-tap export builds a real archive of video, audio, and a browser-playable page. Save it to iCloud Drive or copy it onto a physical drive; it doesn't depend on the app staying installed.</p>
+        </div>
+      </div>
+
+      <div class="proj-tags">
+        <span class="sk">SwiftUI</span>
+        <span class="sk">CloudKit</span>
+        <span class="sk">On-device speech</span>
+        <span class="sk">SwiftData</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <div>
+          <div class="proj-status dev">In development</div>
+          <h3>Tasklight</h3>
+        </div>
+      </div>
+      <p class="proj-desc">A to-do list app built for the way I actually plan: one app, built once, that runs natively on both iPhone and Mac and stays in sync between them.</p>
+
+      <div class="proj-features">
+        <div class="proj-feature">
+          <h5>One app, two platforms</h5>
+          <p>A single codebase compiles into a native iPhone app and a genuine Mac app, not a scaled-up phone screen. iCloud keeps the two in sync.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>Brain Dump</h5>
+          <p>Paste or dictate a messy wall of everything on your mind. It gets parsed into separate tasks, dates and locations picked out automatically, then handed back to you to review and approve.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>Runs instantly, works offline</h5>
+          <p>That parsing happens entirely on-device. No AI model, no network call — just instant, and it keeps working with no signal.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>Sections, projects, and tags</h5>
+          <p>Tasks live in user-created sections and projects, cut across by tags. Drag-to-reorder and multi-select bulk editing make cleaning up a list fast.</p>
+        </div>
+        <div class="proj-feature">
+          <h5>Home screen widget</h5>
+          <p>A Today widget shows what's due right on the home screen, pulling from the same live data as the full app rather than a stale snapshot.</p>
+        </div>
+      </div>
+
+      <div class="proj-tags">
+        <span class="sk">SwiftUI</span>
+        <span class="sk">macOS</span>
+        <span class="sk">CloudKit</span>
+        <span class="sk">WidgetKit</span>
+      </div>
+    </div>
+
+    <div class="proj-more">
+      <h3 class="proj-more-title">More in progress</h3>
+      <p class="proj-more-sub">Smaller projects and experiments. Some are apps, some are just tools I built to solve my own problem.</p>
+      <div class="proj-mini-grid">
+
+        <div class="proj-mini">
+          <h5>Larder</h5>
+          <p>An offline kitchen inventory app. On-device computer vision and barcode scanning recognize groceries as you put them away, then it suggests recipes from what's actually in the fridge, prioritizing whatever's about to expire.</p>
+        </div>
+
+        <div class="proj-mini">
+          <h5>Universe simulators</h5>
+          <p>Two takes on simulating the Big Bang. One is a physically rigorous cosmology sandbox where you tweak the actual constants of physics and watch galaxies form from a real-time particle simulation. The other is a playful arcade version where a universe can run all the way through stars, life, and civilizations before heat death.</p>
+        </div>
+
+        <div class="proj-mini">
+          <h5>Husklight</h5>
+          <p>A hand-built exploration and story game in a Great-Wave, ukiyo-e art style. The world is built inside the corpses of skyscraper-sized insects that all died in a single night.</p>
+        </div>
+
+        <div class="proj-mini">
+          <h5>Local AI tools</h5>
+          <p>A pair of terminal assistants I built for myself. One reads receipts and bank statements to track spending; the other searches federal grant databases for open funding and pulls contact information. Both run entirely on a free, open-source model on my own machine: no subscription, no API key, nothing sent to the cloud.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ABOUT -->
+<div id="personal" class="page">
+  <div class="page-header">
+    <h2>About</h2>
+    <p>The researcher and writer behind Corinthian Technologies Incorporated.</p>
+  </div>
+  <div class="personal-wrap">
+    <div class="personal-sidebar">
+      <div class="avatar">CW</div>
+      <div class="ps-name">Corin Winikoff</div>
+      <div class="ps-role">Founder &middot; Researcher &middot; Writer</div>
+      <div class="ps-links">
+        <a href="mailto:cew110@pitt.edu">cew110@pitt.edu</a>
+        <a href="mailto:corinlovesmath@gmail.com">corinlovesmath@gmail.com</a>
+        <a href="https://www.linkedin.com/in/corin-winikoff-a48392247/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.instagram.com/corin19/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </div>
+    </div>
+    <div class="personal-main">
+      <h2>Curious about how the world works — and how it could work better.</h2>
+      <p>I'm Corin Winikoff, a physics student in the Frederick Honors College at the University of Pittsburgh and the founder of Corinthian Technologies Incorporated. My academic interests span mathematics, engineering, the life sciences, and public health. What holds them together is a persistent question: how do government, industry, and institutions shape the systems that determine outcomes for people?</p>
+      <p>CTI is where I try to think through those questions seriously, and where everything else I build lives too. The blog started with bioscience, out of a conviction that the most important breakthroughs aren't just scientific events. They're the product of funding structures, regulatory decisions, institutional cultures, and individual researchers working inside systems that either enable or obstruct them. That same lens now extends past the blog into independent app development, science-policy research, and consulting work, all under the same roof.</p>
+      <p>Outside of research, I'm an avid reader, writer, and critical thinker who wants to explore as much of the world and its opportunities as possible. I'm drawn to problems at the edge of multiple disciplines, the kind that don't fit cleanly inside any single department or framework.</p>
+      <div class="skill-tags">
+        <span class="sk">Physics</span>
+        <span class="sk">Mathematics</span>
+        <span class="sk">Life sciences</span>
+        <span class="sk">Public health</span>
+        <span class="sk">Systems thinking</span>
+        <span class="sk">Science policy</span>
+        <span class="sk">Long-form writing</span>
+        <span class="sk">Critical analysis</span>
+      </div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-yr">2024–2028</div>
+          <div class="tl-t">
+            <h4>University of Pittsburgh, Frederick Honors College</h4>
+            <p>Physics major, mathematics minor — expected graduation 2028. Pursuing an interdisciplinary education across science, policy, and the humanities.</p>
+          </div>
+        </div>
+      </div>
+
+      <details class="resume" open>
+        <summary>
+          <span class="rs-label">Resume</span>
+          <span class="rs-hint">Education, research, experience, and skills</span>
+          <span class="rs-chev" aria-hidden="true">&#9662;</span>
+        </summary>
+        <div class="rs-body">
+
+          <p class="rs-intro">Corinthian Technologies Incorporated is the home for everything I build and write: independent app development, science-policy research, consulting, and this site's blog and long-form work all live under it.</p>
+
+          <div class="rs-sec">
+            <h4>Education</h4>
+            <div class="rs-entry">
+              <div class="rs-row">
+                <span class="rs-role">University of Pittsburgh &middot; Frederick Honors College</span>
+                <span class="rs-date">Expected May 2028</span>
+              </div>
+              <div class="rs-org">B.S. Physics, minor in Mathematics &middot; GPA 3.95 / 4.00 &middot; Pittsburgh, PA</div>
+              <ul>
+                <li><strong>Physics:</strong> Mechanics, Principles of Modern Physics 1&ndash;2, Thermal &amp; Modern Physics, Analog and Digital Electronics, Modern Physics Measurements, Physics &amp; Quantum Computing Seminar.</li>
+                <li><strong>Mathematics:</strong> Honors Single-Variable Calculus, Analytic Geometry &amp; Calculus 3, Introduction to Matrices &amp; Linear Algebra, Differential Equations, Introduction to Theoretical Mathematics.</li>
+                <li><strong>Honors:</strong> Frederick Firsts &mdash; Bioscience Breakthroughs (study abroad, A+), the seminar this site was built for; Special Topics Seminar &mdash; Imagine a Brain.</li>
+                <li><strong>Other:</strong> General Chemistry 1&ndash;2, Public Speaking, Seminar in Composition.</li>
+                <li><em>In progress (Fall 2026):</em> Computational Methods in Physics, Intermediate Electricity &amp; Magnetism, Introduction to Quantum Mechanics 1.</li>
+              </ul>
+            </div>
+            <div class="rs-entry">
+              <div class="rs-row">
+                <span class="rs-role">Taylor Allderdice High School</span>
+                <span class="rs-date">Graduated June 2024</span>
+              </div>
+              <div class="rs-org">Valedictorian &middot; Engineering Magnet Program &middot; Pittsburgh, PA</div>
+            </div>
+          </div>
+
+          <div class="rs-sec">
+            <h4>Research &amp; Projects</h4>
+            <div class="rs-entry">
+              <div class="rs-row">
+                <span class="rs-role">Directed Study in Combinatorics</span>
+                <span class="rs-date">Spring 2025</span>
+              </div>
+              <div class="rs-org">University of Pittsburgh, with Dr. Jeffrey Wheeler</div>
+              <ul>
+                <li>Investigated Stirling numbers of the first and second kind and Bernoulli numbers; presented findings at the Pitt Spring Undergraduate Research Fair (March 2025).</li>
+                <li>Produced academic articles and presentation posters typeset in LaTeX.</li>
+              </ul>
+            </div>
+            <div class="rs-entry">
+              <div class="rs-row">
+                <span class="rs-role">Founder</span>
+                <span class="rs-date">2026 &ndash; Present</span>
+              </div>
+              <div class="rs-org">Corinthian Technologies Incorporated</div>
+              <ul>
+                <li>Self-directed science writing and research project covering CAR-T therapy, CRISPR gene editing, ME/CFS, and science policy.</li>
+                <li>Publishes long-form analysis applying systems-thinking frameworks to life sciences breakthroughs.</li>
+              </ul>
+            </div>
+            <div class="rs-entry">
+              <div class="rs-row">
+                <span class="rs-role">Eagle Scout Project &mdash; Cemetery Digitization</span>
+                <span class="rs-date">December 2023</span>
+              </div>
+              <ul>
+                <li>Led a team to digitize over 1,500 historical cemetery records, building a searchable online archive for public access.</li>
+                <li>Managed data collection workflow, team coordination, and long-term preservation strategy.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="rs-sec">
+            <h4>Software Projects</h4>
+            <div class="rs-entry">
+              <div class="rs-row">
+                <span class="rs-role">fr&uacute;to &mdash; iOS produce price tracker</span>
+                <span class="rs-date">2026 &ndash; Present</span>
+              </div>
+              <ul>
+                <li>Shipped independently on the App Store; crowdsourced pricing, receipt OCR, recipes, and a home screen widget, backed by Firebase.</li>
+              </ul>
+            </div>
+            <div class="rs-entry">
+              <div class="rs-row">
+                <span class="rs-role">Remember When &amp; Tasklight &mdash; iOS/Mac apps</span>
+                <span class="rs-date">2026</span>
+              </div>
+              <ul>
+                <li>Two apps in development: a CloudKit-backed memory-sharing app with on-device speech transcription, and a cross-platform (iPhone + Mac) to-do app with an on-device natural-language task parser.</li>
+              </ul>
+            </div>
+            <div class="rs-entry">
+              <div class="rs-row">
+                <span class="rs-role">Additional independent projects</span>
+                <span class="rs-date">2026</span>
+              </div>
+              <ul>
+                <li>Several smaller apps and tools: an offline kitchen-inventory app using on-device computer vision, two Big Bang / cosmology simulators, a story-driven exploration game, and two local terminal AI assistants for personal finance and grant research. See the Projects page for details.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="rs-sec">
+            <h4>Work Experience</h4>
+            <div class="rs-entry">
+              <div class="rs-row">
+                <span class="rs-role">Lifeguard</span>
+                <span class="rs-date">Summers 2023, 2024</span>
+              </div>
+              <div class="rs-org">Highland Park Pool, Pittsburgh, PA &mdash; the city's largest public pool, 100,000+ patrons per season</div>
+              <ul>
+                <li>Maintained CPR and first aid certifications; executed crisis response during a critical public safety incident.</li>
+                <li>Monitored a high-traffic facility and enforced safety protocols across a large, diverse patron population.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="rs-sec">
+            <h4>Leadership &amp; Activities</h4>
+            <ul>
+              <li>Vice President, Men's Club Lacrosse &mdash; University of Pittsburgh (2026&ndash;2027 season)</li>
+              <li>Lacrosse Captain, Taylor Allderdice High School (sophomore&ndash;senior year); Swim Captain (senior year)</li>
+              <li>Varsity Lacrosse and Swimming, Taylor Allderdice High School (2020&ndash;2024)</li>
+            </ul>
+          </div>
+
+          <div class="rs-sec">
+            <h4>Skills</h4>
+            <p class="rs-inline"><strong>Languages &amp; tools:</strong> Swift &amp; SwiftUI &middot; Python (data analysis, plotting) &middot; LaTeX &middot; AutoCAD (basic)</p>
+            <p class="rs-inline" style="margin-top:0.4rem;"><strong>Other:</strong> Public speaking &middot; Technical writing &middot; Systems thinking &middot; Science policy &middot; Long-form writing &middot; Critical analysis</p>
+          </div>
+
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 Corinthian Technologies Incorporated</p>
+  <div class="footer-links">
+    <a href="#" onclick="show('blog');return false;">Blog</a>
+    <a href="#" onclick="show('personal');return false;">About</a>
+    <a href="mailto:corinlovesmath@gmail.com">Contact</a>
+  </div>
+</footer>
+
+<script>
+const posts = {
+  1:{cat:"Bioscience",title:"CAR-T for autoimmune disease: what Erlangen proved and what comes next",meta:"June 2026 &nbsp;&middot;&nbsp; 9 min read",body:`<p>For the first time in history, a one-time infusion of genetically engineered immune cells — called CAR-T cells — has been shown to put severe, treatment-resistant autoimmune diseases like lupus into complete, drug-free remission. Patients who had failed every existing treatment over many years were, after a single infusion, able to stop all immunosuppressant drugs entirely. The immune system effectively rebooted itself — clearing the disease-causing cells while leaving the patient able to respond normally to vaccines and infections.</p>
+<blockquote>The patients didn't just improve. Several achieved drug-free remission — a state that, for many autoimmune conditions, was considered functionally impossible.</blockquote>
+<p>Diseases treated to date include Systemic Lupus Erythematosus (SLE), idiopathic inflammatory myositis (IIM), systemic sclerosis (SSc), antiphospholipid syndrome, immune thrombocytopenia (ITP), and autoimmune hemolytic anemia (AIHA).<sup class="citation">[1]</sup></p>
+
+<h2>What the Trials Showed</h2>
+<p>The Erlangen approach targeted CD19, a protein found on B cells — the immune cells that, in autoimmune disease, turn against the body's own tissue. By depleting these cells and allowing the immune system to reconstitute itself from scratch, the therapy appeared to reset the underlying pathology rather than merely suppress it, as conventional immunosuppressants do.<sup class="citation">[1]</sup></p>
+<p>The work itself was the product of more than a decade of groundwork. Schett's lab had been studying B cells and autoantibodies in rheumatic disease for years before CAR-T was shown to be effective in blood cancers like leukemia — a result that suggested the same tool might work on autoimmune disease too.<sup class="citation">[3]</sup> The first SLE patient was treated cautiously in 2021, given how unknown the safety profile of CAR-T was outside of oncology.<sup class="citation">[3]</sup> By September 2022, a landmark paper in <em>Nature Medicine</em> reported that all five treated SLE patients had achieved drug-free remission, with the first patient sustaining remission for over 17 months.<sup class="citation">[2,3]</sup> The results triggered what can only be described as a global biopharma gold rush — by late 2022, more than 30 companies had announced their own autoimmune CAR-T programs.<sup class="citation">[3]</sup></p>
+<p>The evidence base kept building. By June 2023, all eight SLE patients in the trial had reached DORIS remission with a SLEDAI-2K score of zero — meaning no detectable disease activity at all — while off every immunosuppressant.<sup class="citation">[3]</sup> A February 2024 case series in the <em>New England Journal of Medicine</em> reported 15 patients across SLE, myositis, and systemic sclerosis all achieving complete remission after a single infusion.<sup class="citation">[2,3]</sup> Through 2024, the trial expanded into additional autoimmune diseases, with results presented at ACR Convergence.<sup class="citation">[3]</sup> By 2025, safety and long-term efficacy data existed for more than 30 patients, including the first case of CAR-T used to treat a patient with three simultaneous autoimmune diseases at once.<sup class="citation">[3]</sup></p>
+
+<h2>Why Bavaria</h2>
+<p>This breakthrough did not happen at a Boston or Bay Area biotech — it happened at a public university hospital in a mid-sized Bavarian city, and that location is not incidental to the story.</p>
+<p>University Hospital Erlangen (Universitätsklinikum Erlangen) sits at Ulmenweg 18 in Erlangen, Bavaria, as part of Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) — one of Germany's largest research universities, with roughly 40,000 students.<sup class="citation">[1]</sup> The hospital campus is fully integrated with the university's biomedical research infrastructure, and critically, the CAR-T cells used in the trials are manufactured on-site, in the hospital's own GMP (Good Manufacturing Practice) cell therapy facility.<sup class="citation">[1]</sup> That single piece of infrastructure was a decisive logistical advantage: it allowed an academic-led trial to proceed without a commercial manufacturing partner, years before any pharmaceutical company had reason to get involved.</p>
+<p>Bavaria's regional government also played a direct funding role, supporting biotech and academic medical center infrastructure in the state — one layer in a funding stack that, at every level, was public rather than commercial.<sup class="citation">[1]</sup></p>
+
+<h2>Lead Researchers</h2>
+<p><strong>Prof. Dr. Georg Schett</strong> served as Principal Investigator. Born in Austria in 1969, he was in his early-to-mid fifties at the time of the breakthrough. He earned his MD from the University of Innsbruck in 1994, completed postdoctoral training in Internal Medicine and Rheumatology at the University of Vienna, spent time at Amgen in the US, and completed his habilitation — Germany's post-doctoral lecturing qualification — in 2003.<sup class="citation">[1]</sup> He currently serves as Vice President for Research at FAU and as Director of the Department of Medicine 3 for Rheumatology and Immunology at University Hospital Erlangen, a role he has held since 2006.<sup class="citation">[1]</sup> In 2023 he received the Gottfried Wilhelm Leibniz Prize — Germany's most prestigious science award, given by the DFG — and was named to STAT's STATUS List in 2025.<sup class="citation">[1,6]</sup> He also discloses advisory roles at Kyverna Therapeutics and Cabaletta Bio, along with relationships with Bristol-Myers Squibb, Janssen, and Novartis.<sup class="citation">[1]</sup></p>
+<p>He was joined by several co-investigators: <strong>Prof. Dr. Andreas Mackensen</strong>, Director of the Department of Medicine 5 for Hematology and Oncology, who was responsible for the cellular manufacturing of the CAR-T cells used in treatment; <strong>Dr. Fabian Müller</strong>, also in Hematology and Oncology, who served as lead author on several key publications including the landmark 2024 NEJM case series; <strong>Prof. Dr. Dimitrios Mougiakakos</strong>, who led the immunology work and is now at the University of Magdeburg; and <strong>Prof. Dr. Gerhard Krönke</strong>, who worked in Rheumatology and Immunology and is now at Charité Berlin.<sup class="citation">[1]</sup></p>
+
+<h2>Funding</h2>
+<p>The original patient trials were entirely publicly funded academic studies — no pharmaceutical company was involved in the initial breakthrough.<sup class="citation">[1]</sup> The funding stack behind that work came from several public sources: the German Research Foundation (DFG) was the primary public funder, with Schett serving as PI of the IMMUNOBONE collaborative research center, funded since 2008, which laid the mechanistic groundwork years before the first CAR-T patient was ever treated.<sup class="citation">[1]</sup> The 2023 Leibniz Prize itself came with €2.5 million for further research, and European Research Council (ERC) grants supported the underlying autoimmunity and B cell biology work.<sup class="citation">[1]</sup> FAU contributed institutional funding and the GMP manufacturing infrastructure described above, and the Bavarian state government provided regional biotech and academic medical center funding.<sup class="citation">[1]</sup> Schett's industry advisory roles at Kyverna and Cabaletta represent potential future commercial channels rather than funding for the original academic trials.<sup class="citation">[1]</sup></p>
+
+<h2>The Regulatory Path</h2>
+<p>Germany's regulatory framework for advanced therapy medicinal products, or ATMPs — the category CAR-T falls into — involves several distinct bodies. The Paul-Ehrlich-Institut (PEI), Germany's Federal Institute for Vaccines and Biomedicines and the rough equivalent of the FDA's CBER division for biological products, had to approve the Erlangen team's clinical-grade CAR-T cell product before any patient could be treated.<sup class="citation">[1,7]</sup> The Berlin State Office for Health and Social Affairs (LAGeSo) approved the GMP manufacturing of the cell product at the hospital facility, and FAU's own Ethics Committee conducted the institutional ethics review — the German equivalent of a US IRB.<sup class="citation">[1]</sup></p>
+<p>The single most important regulatory detail, though, is the Hospital Exemption pathway. Under EU Regulation 1394/2007, academic hospitals in Germany are permitted to manufacture and administer ATMPs under a national hospital exemption, without going through full EMA marketing authorization.<sup class="citation">[1,5]</sup> This is the specific legal mechanism that allowed Erlangen to proceed with small-scale academic trials outside of a commercial IND-style structure — without it, this breakthrough likely would have required a pharmaceutical partner from day one. Full EMA marketing authorization would still be required for any eventual EU-wide commercial rollout.<sup class="citation">[1]</sup></p>
+
+<h2>IP, Licensing, and the Commercial Response</h2>
+<p>The academic work at Erlangen did not itself generate any patented commercial products — it was basic and translational research, conducted without commercial partners. But it triggered an enormous commercial response almost immediately.<sup class="citation">[1]</sup></p>
+<p>Kyverna Therapeutics, based in Emeryville, California, licensed an exclusive anti-CD19 CAR-T construct from the NIH's National Cancer Institute — specifically from the lab of James N. Kochenderfer, MD — in January 2022, and Schett subsequently joined their scientific advisory board.<sup class="citation">[1]</sup> Kyverna is backed by Gilead Sciences and Vida Ventures, and its lead candidate is KYV-101.<sup class="citation">[1,8]</sup> In a separate 2022 deal, Kyverna licensed Intellia Therapeutics' CRISPR/Cas9 platform to develop an allogeneic, "off-the-shelf" version called KYV-201; Intellia received equity and milestone payments while retaining a US co-commercialization option structured around a 50/50 cost-and-revenue split plus low-to-mid-single-digit royalties.<sup class="citation">[1]</sup></p>
+<p>Cabaletta Bio, based in Philadelphia, is developing its own CD19 CAR-T therapy for autoimmune disease, also with Schett on its advisory board.<sup class="citation">[1,9]</sup> Major pharmaceutical companies — Novartis, Bristol-Myers Squibb, and Janssen — are all actively pursuing their own autoimmune CAR-T programs directly inspired by the Erlangen results, and BioNTech in Mainz is developing an adjacent mRNA-based immune tolerance approach to autoimmune disease.<sup class="citation">[1]</sup> By late 2023, more than 30 companies and 70 programs worldwide traced their origin back to this single academic research effort in Bavaria.<sup class="citation">[1]</sup></p>
+
+<h2>What Comes Next</h2>
+<p>The question now is scale. CAR-T therapy remains expensive, complex to manufacture, and currently requires highly specialized treatment centers — the same on-site GMP manufacturing advantage that made Erlangen's academic trials possible is exactly what most hospitals lack. As of 2026, trials are actively recruiting and multiple Phase II/III commercial trials are underway globally.<sup class="citation">[1]</sup> The path from landmark academic trial to standard of care is long, but for the first time in decades, for a category of disease that medicine had largely treated as a matter of lifelong management rather than potential remission, that path now clearly exists.</p>
+
+<h2>Sources &amp; Further Reading</h2>
+<p>All claims in this post are traceable to the sources below.</p>
+
+<h3>Key Publications (Primary Sources)</h3>
+<div class="citations-block">
+  <p><strong>[1] Background and institutional detail</strong> — compiled from FAU and University Hospital Erlangen institutional sources; see also entry [10] below for the most recent FAU press release.</p>
+  <p style="margin-top:1rem;"><strong>[2] Landmark Nature Medicine paper — first 5 SLE patients (2022)</strong></p>
+  <p>Mackensen, A., Müller, F., Mougiakakos, D., et al. "Anti-CD19 CAR T cell therapy for refractory systemic lupus erythematosus." <em>Nature Medicine</em>, October 2022; 28(10): 2124–2132. DOI: 10.1038/s41591-022-02017-5. <a href="https://www.nature.com/articles/s41591-022-02017-5" target="_blank" rel="noopener">nature.com/articles/s41591-022-02017-5</a></p>
+  <p style="margin-top:1rem;"><strong>[3] NEJM case series — 15 patients across SLE, myositis, systemic sclerosis (2024)</strong></p>
+  <p>Müller, F., Taubmann, J., Bucci, L., et al. "CD19 CAR T-Cell Therapy in Autoimmune Disease — A Case Series with Follow-up." <em>New England Journal of Medicine</em>, February 22, 2024; 390(8): 687–700. DOI: 10.1056/NEJMoa2308917. <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2308917" target="_blank" rel="noopener">nejm.org/doi/full/10.1056/NEJMoa2308917</a></p>
+  <p style="margin-top:1rem;"><strong>[4] Lancet review — CAR-T in autoimmune disease (2023)</strong></p>
+  <p>Schett, G., Mackensen, A., Mougiakakos, D. "CAR T-cell therapy in autoimmune diseases." <em>The Lancet</em>, September 2023. DOI: 10.1016/S0140-6736(23)01126-1. <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(23)01126-1/abstract" target="_blank" rel="noopener">thelancet.com — PIIS0140-6736(23)01126-1</a></p>
+  <p style="margin-top:1rem;"><strong>CASTLE basket trial — Phase 1/2 results, Nature Medicine (2025)</strong></p>
+  <p>"CD19 CAR-T cells for treatment-refractory autoimmune diseases: the phase 1/2 CASTLE basket trial." <em>Nature Medicine</em>, January 2026; 84: 106–114. <a href="https://www.nature.com/articles/s41591-025-04185-6" target="_blank" rel="noopener">nature.com/articles/s41591-025-04185-6</a></p>
+</div>
+
+<h3>Lead Researcher Profiles &amp; Institutional Sources</h3>
+<div class="citations-block">
+  <p><strong>[10] Georg Schett — FAU profile and Vice President Research role</strong></p>
+  <p>Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU). "Hope for people with severe autoimmune diseases thanks to cell therapy in Erlangen." January 2026. <a href="https://www.fau.eu/2026/01/news/hope-for-people-with-severe-autoimmune-diseases-thanks-to-cell-therapy-in-erlangen/" target="_blank" rel="noopener">fau.eu — January 2026 news release</a></p>
+  <p style="margin-top:1rem;"><strong>[6] Schett Leibniz Prize 2023</strong></p>
+  <p>German Research Foundation (DFG) Leibniz Prize announcement. <a href="https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/leibniz-prize" target="_blank" rel="noopener">dfg.de — Leibniz Prize programme</a></p>
+</div>
+
+<h3>Regulatory Sources</h3>
+<div class="citations-block">
+  <p><strong>[5] EU Hospital Exemption pathway (legal basis for Erlangen trials)</strong></p>
+  <p>EU Regulation (EC) No 1394/2007 on Advanced Therapy Medicinal Products. <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32007R1394" target="_blank" rel="noopener">eur-lex.europa.eu — Regulation 1394/2007</a></p>
+  <p style="margin-top:1rem;"><strong>[7] Paul-Ehrlich-Institut (Germany's FDA equivalent for biologics)</strong></p>
+  <p>PEI official site. <a href="https://www.pei.de/EN/home/home-node.html" target="_blank" rel="noopener">pei.de</a></p>
+</div>
+
+<h3>Commercial &amp; IP Sources</h3>
+<div class="citations-block">
+  <p><strong>[8] Kyverna Therapeutics (KYV-101, Gilead-backed)</strong></p>
+  <p><a href="https://www.kyvernatx.com" target="_blank" rel="noopener">kyvernatx.com</a>; the Kyverna × Intellia CRISPR licensing deal (2022) is documented across biotech trade press covering the allogeneic CAR-T agreement.</p>
+  <p style="margin-top:1rem;"><strong>[9] Cabaletta Bio</strong></p>
+  <p><a href="https://www.cabalettabio.com" target="_blank" rel="noopener">cabalettabio.com</a></p>
+  <p style="margin-top:1rem;"><strong>Clinical trial registration (CASTLE, Erlangen)</strong></p>
+  <p>ClinicalTrials.gov NCT06347718. <a href="https://clinicaltrials.gov/study/NCT06347718" target="_blank" rel="noopener">clinicaltrials.gov/study/NCT06347718</a></p>
+</div>
+
+<h3>News and Secondary Sources</h3>
+<div class="citations-block">
+  <p>The Rheumatologist. "CAR-T Cell Therapy in Autoimmune Disease: The Next Frontier." September 2024. <a href="https://www.the-rheumatologist.org/article/car-t-cell-therapy-in-autoimmune-disease-the-next-frontier/" target="_blank" rel="noopener">the-rheumatologist.org</a></p>
+</div>`},
+  2:{cat:"Bioscience",title:"The first personalized CRISPR therapy: how CHOP and UPenn pulled it off",meta:"May 2026 &nbsp;&middot;&nbsp; 10 min read",body:`<p>In February 2025, a baby named KJ — full name KJ Muldoon — became the first human being ever treated with a fully personalized, bespoke CRISPR gene editing therapy: a therapy designed specifically for his unique genetic mutation, and no one else's.<sup class="citation">[1]</sup></p>
+<blockquote>This was not a repurposed therapy. It was precision medicine at its most literal: one patient, one disease, one tool built to match.</blockquote>
+<p>KJ was born with severe carbamoyl phosphate synthetase 1 (CPS1) deficiency, a rare and usually fatal metabolic disorder that prevents the liver from safely processing ammonia. Without treatment, toxic ammonia accumulates in the blood and causes catastrophic neurological damage or death in infancy.<sup class="citation">[1]</sup> He spent his first months of life in the hospital on a severely restricted diet while a team at CHOP (Children's Hospital of Philadelphia) and Penn Medicine raced to build something that had never existed before: a therapy custom-designed for his exact mutation.<sup class="citation">[1]</sup></p>
+
+<h2>The Scientific Challenge</h2>
+<p>Within six months of KJ's birth, the team designed, manufactured, safety-tested, and administered a custom-built base-editing therapy — delivered via lipid nanoparticles (LNPs) directly to liver cells — that corrected the specific mutation in his genome.<sup class="citation">[1]</sup> He received three doses, in February, March, and April of 2025. After treatment, he tolerated more dietary protein, needed less ammonia-lowering medication, and by late 2025 was home with his family, walking, and hitting normal developmental milestones.<sup class="citation">[1,4]</sup></p>
+<p>None of this was built from nothing. Base editing technology itself was pioneered by David Liu at the Broad Institute between roughly 2016 and 2019, and Musunuru's own lab had spent years — from around 2015 to 2024 — conducting preclinical research on CPS1 and related urea cycle disorders before KJ was ever born.<sup class="citation">[1]</sup> What changed in 2024 and 2025 was the ability to compress everything that normally happens over a decade — mutation characterization, guide RNA design, manufacturing, and safety testing — into a period of months, for a single patient who could not wait for a normal trial timeline.</p>
+<p>This case is widely described as a preview of the future of medicine: proof that personalized gene therapy for any of the roughly 7,000 known rare genetic diseases can, in principle, be designed and deployed in months rather than decades.<sup class="citation">[1]</sup></p>
+
+<h2>Who Made It Possible</h2>
+<p><strong>Dr. Kiran Musunuru</strong> served as co-lead investigator. Born in New York City and raised in Florida, he is of Telugu-American descent; his father immigrated from India in 1976 to practice cardiology.<sup class="citation">[1]</sup> Musunuru's own educational path is unusually wide-ranging: an AB (Artium Baccalaureus, the Latin form of a Bachelor of Arts) in Biochemical Sciences from Harvard College in 1997, a PhD in Biomedical Sciences from Rockefeller University in 2003, an MD from Weill Cornell in 2004, an MPH in Epidemiology from Johns Hopkins in 2009, a law degree (ML) from Penn Law in 2019, and a Master's in Regulatory Affairs from Penn's Perelman School of Medicine in 2024.<sup class="citation">[1]</sup> He trained in Internal Medicine at Brigham and Women's Hospital and in Cardiovascular Medicine at Johns Hopkins, with postdoctoral work at Massachusetts General Hospital and the Broad Institute.<sup class="citation">[1]</sup> He now holds the Barry J. Gertz Professorship for Translational Medicine at Penn and co-directs the Penn Medicine/CHOP Orphan Disease Center. His honors include a Presidential Early Career Award for Scientists and Engineers under the Obama administration, and his broader research focus includes work toward a single-shot gene-editing "vaccine" against heart attacks.<sup class="citation">[1]</sup></p>
+<p><strong>Dr. Rebecca Ahrens-Nicklas</strong>, a metabolic physician at CHOP and director of its Gene Therapy for Inherited Metabolic Disorders (GTIMD) Frontier Program, served as the other co-lead investigator and was the clinical lead for KJ's care from diagnosis all the way through treatment.<sup class="citation">[1]</sup></p>
+<p>Several other groups were essential to making the timeline possible at all. The Innovative Genomics Institute (IGI) — a UC Berkeley/UCSF institute co-founded by CRISPR pioneer Jennifer Doudna — characterized KJ's specific mutation, designed the guide RNAs, and performed the safety assessments the FDA needed to see; this partnership is the critical reason FDA review took one week rather than years.<sup class="citation">[1]</sup> Danaher Corporation provided in-kind manufacturing and instrumentation support for clinical-grade LNP production, while Acuitas Therapeutics, Integrated DNA Technologies, and Aldevron contributed in-kind work on LNP formulation and DNA synthesis.<sup class="citation">[1]</sup></p>
+<p>The work itself took place across CHOP, one of the world's oldest and most respected pediatric hospitals, and Penn's Perelman School of Medicine, with the IGI's mutation analysis and guide RNA design happening at UC Berkeley.<sup class="citation">[1]</sup></p>
+
+<h2>The Policy Implications — A New Regulatory Pathway</h2>
+<p>KJ's case forced a genuinely new regulatory moment at the FDA. The normal pathway for a gene therapy runs through preclinical studies, an IND submission, Phase I/II/III clinical trials over 10 to 15 years, a BLA submission, FDA review, and finally approval.<sup class="citation">[1]</sup> None of that timeline was available to KJ.</p>
+<p>Instead, the team filed a single-patient expanded-access IND — also called a compassionate use or emergency IND — under 21 CFR 312.36, a mechanism that allows treatment of a life-threatening condition outside a standard clinical trial when no approved alternative exists.<sup class="citation">[1,6]</sup> The FDA processed and approved that IND in approximately one week, exceptional even for emergency INDs, which normally take weeks to months.<sup class="citation">[1]</sup> No standard Phase I, II, or III trial data existed for this therapy; the FDA instead accepted preclinical animal model data along with the IGI's safety assessments, and IRB review was conducted on an expedited basis given the emergency.<sup class="citation">[1]</sup></p>
+<p>The story didn't end with KJ's treatment. In November 2025, FDA Commissioner Makary and CBER Director Prasad announced an entirely new bespoke gene therapy approval pathway, created directly in response to this case.<sup class="citation">[1,7]</sup> Its key features: no requirement for standard clinical trial data; the therapy must target a specific, well-characterized molecular abnormality; evidence of successful target editing is required; marketing authorization follows demonstrated success across several consecutive patients; and long-term real-world evidence is collected after approval rather than required beforehand.<sup class="citation">[1]</sup> The pathway is explicitly designed to let personalized therapies for rare genetic diseases reach patients in months instead of decades. The Accelerating Medicines Partnership (AMP) Bespoke Gene Therapy Consortium is doing parallel work, streamlining requirements across academic institutions so that the next case doesn't have to improvise a regulatory path from scratch.<sup class="citation">[1,8]</sup></p>
+<p>Every subsequent personalized therapy will be easier because of this case — not because the science gets simpler, but because the regulatory precedent, the manufacturing relationships, and the safety-data expectations are now established rather than invented under emergency pressure.</p>
+
+<h2>Funding</h2>
+<p>The work was primarily funded through federal NIH grants, including the NIH Somatic Cell Genome Editing (SCGE) Program (U01TR005355, U19NS132301) along with several additional grants (R35HL145203, U19NS132303, DP2CA281401, P01HL142494).<sup class="citation">[1,9]</sup> CHOP's own Research Institute supported the work through its GTIMD Frontier Program, and a set of companies — Acuitas Therapeutics, Integrated DNA Technologies, Aldevron, and Danaher — contributed in-kind technology and manufacturing support rather than direct cash funding.<sup class="citation">[1]</sup> The Accelerating Medicines Partnership Bespoke Gene Therapy Consortium represents a further public-private layer, working specifically to streamline FDA approval pathways for customized rare-disease gene therapies going forward.<sup class="citation">[1]</sup></p>
+
+<h2>IP and the Commercial Landscape</h2>
+<p>The specific therapy built for KJ is, by its very nature, not commercially licensable — it was designed for one unique mutation and has no market of its own. What is commercially relevant is the IP around the underlying platform and delivery mechanism.<sup class="citation">[1]</sup></p>
+<p>Base editing technology was pioneered by David Liu at the Broad Institute and is licensed through Beam Therapeutics, founded in 2017 and publicly traded on NASDAQ as BEAM since its 2020 IPO; Beam holds broad IP on base editors generally.<sup class="citation">[1,10]</sup> LNP delivery technology — the same delivery system used in COVID-19 mRNA vaccines — is licensed from Acuitas Therapeutics and Alnylam Pharmaceuticals, among others, and was a critical enabling technology for the entire approach.<sup class="citation">[1,11]</sup> Musunuru's own lab at Penn holds patents on specific gene editing approaches for cardiovascular and metabolic diseases, though the exact patents tied to KJ's particular therapy haven't been publicly disclosed, and CHOP's Gene Therapy Program has its own commercialization track managed through Penn's technology transfer office.<sup class="citation">[1]</sup></p>
+<p>The deeper commercial question is one of business model: how do you build a sustainable company around therapies that are each, by design, unique to a single patient? As one outside expert has put it, that's the real challenge facing this entire category.<sup class="citation">[1]</sup> The AMP Consortium and the FDA's new pathway are both aimed at solving this by enabling platform-level approval across families of related mutations, rather than requiring a bespoke regulatory process for every single patient. Beam Therapeutics, Prime Medicine, Intellia, and Editas Medicine are the public companies best positioned to commercialize the next generation of gene editing platforms that KJ's case has now validated in practice.<sup class="citation">[1]</sup></p>
+
+<h2>Sources &amp; Further Reading</h2>
+<p>All claims in this post are traceable to the sources below.</p>
+
+<h3>Key Publication (Primary Source)</h3>
+<div class="citations-block">
+  <p><strong>[1] The NEJM paper — KJ's case (the definitive source)</strong></p>
+  <p>Musunuru, K., Grandinette, S., Wang, X., et al. "Patient-Specific In Vivo Gene Editing to Treat a Rare Genetic Disease." <em>New England Journal of Medicine</em>, May 15, 2025. DOI: 10.1056/NEJMoa2504747. <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2504747" target="_blank" rel="noopener">nejm.org/doi/full/10.1056/NEJMoa2504747</a></p>
+</div>
+
+<h3>Institutional Press Releases &amp; Announcements</h3>
+<div class="citations-block">
+  <p><strong>[2] CHOP / Penn Medicine (primary institutional announcement)</strong></p>
+  <p>Children's Hospital of Philadelphia. "World's First Patient Treated with Personalized CRISPR Gene Editing Therapy." May 15, 2025. <a href="https://www.chop.edu/news/worlds-first-patient-treated-personalized-crispr-gene-editing-therapy-childrens-hospital" target="_blank" rel="noopener">chop.edu — May 2025 announcement</a></p>
+  <p style="margin-top:1rem;"><strong>[3] Innovative Genomics Institute (IGI — Jennifer Doudna's institute, safety assessment partner)</strong></p>
+  <p>IGI. "First Patient Treated with Personalized CRISPR Therapy, Developed in Just Six Months." May 15, 2025. <a href="https://innovativegenomics.org/news/first-patient-treated-with-on-demand-crispr-therapy/" target="_blank" rel="noopener">innovativegenomics.org</a></p>
+</div>
+
+<h3>News &amp; Conference Coverage</h3>
+<div class="citations-block">
+  <p><strong>ASGCT 2025 — Musunuru's plenary presentation (where KJ's case was first publicly unveiled)</strong></p>
+  <p>Genetic Engineering &amp; Biotechnology News. "ASGCT 2025: World's First Patient Treated with Personalized CRISPR Therapy." May 16, 2025. <a href="https://www.genengnews.com/topics/genome-editing/asgct-2025-worlds-first-patient-treated-with-personalized-crispr-therapy/" target="_blank" rel="noopener">genengnews.com</a></p>
+  <p style="margin-top:1rem;"><strong>[4] KJ discharged from hospital (August 2025)</strong></p>
+  <p>Inside Precision Medicine. "First Personalized CRISPR Gene Editing Therapy Patient Baby KJ Discharged." August 2025. <a href="https://www.insideprecisionmedicine.com/topics/precision-medicine/first-personalized-crispr-gene-editing-therapy-patient-baby-kj-discharged/" target="_blank" rel="noopener">insideprecisionmedicine.com</a></p>
+  <p style="margin-top:1rem;"><strong>[5] Chemical &amp; Engineering News explainer</strong></p>
+  <p>C&amp;EN. "A baby gets the world's first personalized CRISPR therapy." May 2025. <a href="https://cen.acs.org/biological-chemistry/gene-editing/baby-world39s-first-personalized-CRISPR/103/web/2025/05" target="_blank" rel="noopener">cen.acs.org</a></p>
+  <p style="margin-top:1rem;"><strong>PBS NewsHour</strong></p>
+  <p>PBS. "Experimental gene editing helped a desperately ill baby thrive." May 2025. <a href="https://www.pbs.org/newshour/science/experimental-gene-editing-helped-a-desperately-ill-baby-thrive-scientists-say-it-could-someday-treat-millions" target="_blank" rel="noopener">pbs.org</a></p>
+  <p style="margin-top:1rem;"><strong>CRISPR Medicine News</strong></p>
+  <p><a href="https://crisprmedicinenews.com/press-release-service/card/first-patient-treated-with-personalized-crispr-therapy-developed-in-just-six-months/" target="_blank" rel="noopener">crisprmedicinenews.com</a></p>
+</div>
+
+<h3>Regulatory Sources</h3>
+<div class="citations-block">
+  <p><strong>[6] FDA Expanded Access / Emergency IND (the regulatory pathway used)</strong></p>
+  <p>FDA. "Expanded Access (Compassionate Use)." <a href="https://www.fda.gov/patients/learn-about-expanded-access-and-other-treatment-options/expanded-access" target="_blank" rel="noopener">fda.gov — Expanded Access</a></p>
+  <p style="margin-top:1rem;"><strong>[7] FDA bespoke gene therapy pathway (announced November 2025, inspired by KJ)</strong></p>
+  <p>Announcement by FDA Commissioner Makary and CBER Director Prasad, November 2025; see contemporaneous coverage of the FDA bespoke gene therapy pathway announcement.</p>
+</div>
+
+<h3>IP &amp; Commercial Platform Sources</h3>
+<div class="citations-block">
+  <p><strong>[10] Base editing technology — David Liu / Broad Institute &rarr; Beam Therapeutics</strong></p>
+  <p>Beam Therapeutics (NASDAQ: BEAM): <a href="https://www.beamtx.com" target="_blank" rel="noopener">beamtx.com</a>. David Liu lab, Broad Institute: <a href="https://liugroup.us" target="_blank" rel="noopener">liugroup.us</a></p>
+  <p style="margin-top:1rem;"><strong>[11] LNP delivery technology — Acuitas Therapeutics</strong></p>
+  <p>Acuitas Therapeutics: <a href="https://acuitastx.com" target="_blank" rel="noopener">acuitastx.com</a></p>
+  <p style="margin-top:1rem;"><strong>[8] Accelerating Medicines Partnership (AMP) Bespoke Gene Therapy Consortium</strong></p>
+  <p><a href="https://fnih.org/our-programs/bespoke-gene-therapy-consortium/" target="_blank" rel="noopener">fnih.org/our-programs/bespoke-gene-therapy-consortium</a></p>
+</div>
+
+<h3>NIH Grant Numbers (for funding verification)</h3>
+<div class="citations-block">
+  <p><strong>[9]</strong> The following NIH grants are cited in the NEJM paper and can be looked up at NIH Reporter: U01TR005355, U19NS132301, R35HL145203, U19NS132303, DP2CA281401, P01HL142494. <a href="https://reporter.nih.gov" target="_blank" rel="noopener">reporter.nih.gov</a></p>
+</div>`},
+  3:{cat:"Systems thinking",title:"Framework — What It Takes for a Breakthrough to Happen",meta:"June 2026 &nbsp;&middot;&nbsp; 12 min read",body:`<p>This post explores the full ecosystem required for a scientific breakthrough to occur. It is not just the science itself, but the human, financial, institutional, political, and cultural conditions that make it possible.</p><p>A breakthrough is never just a scientific event. It is the output of a system. And like all system outputs, it can only be understood by studying the system that produced it — not just the moment of output itself. What follows is a framework for doing exactly that, organized around nine questions that together map the full ecosystem a breakthrough requires.</p><figure style="margin:2rem 0;"><img src="assets/gallery-9.jpg" alt="The breakthrough pipeline — Basic Science flowing through five valves: Education, Funding, Government Policy, Institutional Support, and Collaboration — to Breakthrough" style="width:100%;border-radius:8px;display:block;"><figcaption style="font-size:12px;color:var(--muted);margin-top:0.6rem;text-align:center;font-style:italic;">The breakthrough pipeline. Basic science must pass through five gates before it becomes a breakthrough — each one can stop the flow entirely if closed.</figcaption></figure>
+<h2>Education</h2><p>Before a breakthrough can happen, the people capable of producing it have to exist. That means asking: what kind of education produced the researchers who did this work? Was it narrow and specialized, or did it cross disciplines? Were they trained to follow consensus or to question it? The educational pipeline is the furthest upstream variable in any breakthrough story — it determines the shape of the talent pool a generation before the science happens. Institutions that produce paradigm-shifting researchers tend to share certain features: they reward intellectual risk, they expose students to unsolved problems early, and they create conditions for genuine mentorship rather than credential processing.</p>
+
+<p>The pipeline from student to independent researcher is long — often 15 or more years from undergraduate enrollment to a tenured position — and each stage selects for different qualities:</p>
+
+<table class="pipeline-table">
+  <thead>
+    <tr><th>Stage</th><th>Duration</th><th>What Is Learned</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Undergraduate (BSc/BA)</td><td>4 years</td><td>Foundational biology, chemistry, physics, math, statistics; early lab exposure</td></tr>
+    <tr><td>PhD</td><td>4–7 years</td><td>Deep expertise in one area; how to design experiments, handle failure, write, and publish</td></tr>
+    <tr><td>Postdoctoral fellowship</td><td>2–6 years</td><td>Broadening skills; building publication record; developing independent research agenda</td></tr>
+    <tr><td>Junior faculty / PI</td><td>5–10 years</td><td>Building a lab, training students, competing for grants, establishing reputation</td></tr>
+    <tr><td>Senior/tenured researcher</td><td>Ongoing</td><td>Accumulated expertise, networks, credibility to take larger risks</td></tr>
+  </tbody>
+</table>
+
+<h3>What Education Must Produce</h3>
+<p>Technical knowledge alone is insufficient. Every researcher entering this pipeline should arrive with a working foundation across multiple disciplines — not mastery, but enough literacy to collaborate across fields and read primary literature outside their specialty:</p>
+<div class="base-grid">
+  <span class="base-pill">Reading &amp; writing at a high level</span>
+  <span class="base-pill">English literacy</span>
+  <span class="base-pill">History of science</span>
+  <span class="base-pill">Mathematics</span>
+  <span class="base-pill">Physics</span>
+  <span class="base-pill">Chemistry</span>
+  <span class="base-pill">Biology</span>
+</div>
+<p>Beyond the base, breakthrough researchers need a set of capacities that formal coursework rarely teaches explicitly:</p>
+<ul class="check-list">
+  <li><strong>Statistical and experimental design literacy</strong> — to design studies that will actually produce valid results, not just publishable ones</li>
+  <li><strong>Writing and communication skills</strong> — grants, papers, and talks determine whether ideas get funded and recognized; a researcher who cannot communicate their work clearly will not have it built upon</li>
+  <li><strong>Failure tolerance</strong> — most experiments fail; researchers who cannot emotionally process that leave science, taking years of training with them</li>
+  <li><strong>Breadth alongside depth</strong> — many breakthroughs come from applying tools from one field to a problem in another; narrow specialists miss these connections</li>
+  <li><strong>Mentorship quality</strong> — who trained the researcher matters enormously; most breakthrough scientists trained under other breakthrough scientists. We are a product of our environment, and the lab a PhD student joins may matter more than the institution they attend</li>
+</ul>
+
+<h3>The Structural Problem</h3>
+<p>The PhD and postdoctoral pipeline is widely recognized as broken in several critical ways. The system trains more researchers than it can sustain, then loses many of its best people — not to failure, but to economic reality:</p>
+<ul class="struct-list">
+  <li><strong>US biomedical PhD students earn approximately $30,000–$40,000 per year</strong>, often in high cost-of-living cities like Boston, San Francisco, and New York — cities where that salary covers rent only with difficulty <span class="citation">[1]</span></li>
+  <li><strong>Postdocs earn approximately $55,000–$70,000 per year</strong>, often for five to eight years, with no job security, no benefits parity with faculty, and no guarantee of a position at the end <span class="citation">[2]</span></li>
+  <li><strong>The tenure-track faculty job market is extremely competitive</strong> — in many biomedical fields, roughly 200 PhDs are produced per faculty position created per year <span class="citation">[3]</span></li>
+  <li><strong>Many researchers leave academia not because they lack talent</strong>, but because the economic conditions are unsustainable — particularly for those with student debt, families, or obligations that a postdoc salary cannot accommodate <span class="citation">[4]</span></li>
+  <li><strong>Underrepresented groups — women, minorities, first-generation students — leave at higher rates at every transition point</strong> in the pipeline, a pattern that compounds over decades into a research workforce that is less diverse than the talent pool it draws from <span class="citation">[5]</span></li>
+</ul>
+<p>This is a structural threat to future breakthroughs. The pipeline filters out people based on economic endurance rather than scientific potential. That is not a selection for talent — it is a selection against anyone who cannot afford to wait.</p>
+<div class="citations-block">
+  <p><strong>Sources</strong></p>
+  <p>[1] NIH NRSA stipend levels and institutional salary data; see also surveys conducted by the National Postdoctoral Association and Future of Research.</p>
+  <p>[2] NIH Kirschstein-NRSA postdoctoral stipend scales; National Postdoctoral Association 2023 Institutional Policy Report.</p>
+  <p>[3] Alberts et al., "Rescuing US Biomedical Research from Its Systemic Flaws," <em>PNAS</em>, 2014; National Science Foundation Survey of Earned Doctorates.</p>
+  <p>[4] Future of Research, "Decrypting the Postdoc Experience," 2020; Nature survey on postdoc satisfaction and career intentions.</p>
+  <p>[5] National Academies of Sciences, Engineering, and Medicine, "The Science of Effective Mentorship in STEMM," 2019; NSF STEM workforce diversity reports.</p>
+</div>
+
+<h3>A Proposed Solution: Build the Conditions Into the University Itself</h3>
+<p>The standard policy responses to this problem — raise stipends, cap postdoc duration, create more faculty lines — are correct in principle and politically stalled in practice. They require money that universities claim not to have and federal will that has not materialized. A more tractable approach starts from a different premise: instead of waiting for the system to fix itself, build the conditions researchers need into the university as an ongoing project.</p>
+<div class="solution-box">
+  <p>The core idea is simple. Researchers need housing, food, healthcare, and childcare. These are expensive to provide in cities. But a university already has architects, engineers, artists, builders, educators, and students who need meaningful project-based work. The solution is to make providing these things a university project — not a charity, not an administrative line item, but a living curriculum that students are proud to be part of.</p>
+  <p>Engineering and architecture students design and help construct small, sustainable housing units — tiny homes and communal living spaces built from recycled and locally sourced materials, secured through a dedicated course where students work directly with local companies and suppliers. Artists contribute to the design of shared spaces. Early education students staff a childcare cooperative for a manageable shift per week, learning their field by practicing it. A separate course has students whose job is to secure resources, write grants, and build the partnerships that keep the project financially viable.</p>
+  <p>The communal design matters: shared kitchens, common areas, and gardens reduce the per-person cost of living while building the kind of cross-disciplinary social density that produces unexpected collaborations. These are not dormitories — they are small communities, designed intentionally, built and maintained by the university population itself.</p>
+  <p>What makes this work is that it becomes something the university can be proud of and publicly celebrate. It is not a subsidy — it is a demonstration. It shows that an institution committed to producing the next generation of breakthrough researchers is willing to invest in the conditions those researchers need to survive long enough to do the work. Set a budget. Start small. Build slowly. If parts of it fail, learn from them. The goal is not perfection — it is a culture where students, faculty, and researchers understand that making the university better is part of what it means to be here.</p>
+</div><h2>Who Is Involved</h2><p>Breakthroughs are rarely the product of a single researcher working alone. They are the product of a network — and the composition of that network matters enormously. Who is at the table? What disciplines are represented? Are the key players from academia, industry, government, or some combination? How did they find each other, and what kept them working together through the long periods when results weren't coming? The answer to "who is involved" also includes who is notably absent: breakthroughs often happen at the edges of established fields precisely because the people doing the work weren't fully socialized into the assumptions those fields take for granted.</p>
+
+<h3>The People, and the Traits They Share</h3>
+<p>A breakthrough requires scientists at varying levels of seniority and with very different personalities — there is no single profile. But across the biographies of researchers behind major breakthroughs, a consistent set of traits keeps showing up, regardless of the field or the personality type layered on top of them.</p>
+<ul class="check-list">
+  <li><strong>Obsessive focus with genuine curiosity.</strong> Schett spent over a decade studying B cells and autoantibodies before the CAR-T idea ever emerged. The curiosity has to be real, not performative — researchers chasing prizes or prestige tend to play it safe, and breakthroughs rarely come from playing it safe.</li>
+  <li><strong>High tolerance for ambiguity and failure.</strong> The vast majority of experiments in a breakthrough lab fail. Years can pass with no positive result. Researchers who need constant validation tend to leave the field before the work pays off.</li>
+  <li><strong>Willingness to be wrong publicly.</strong> Publishing negative results, revising hypotheses, and acknowledging failure in grant renewals all require real ego strength and intellectual honesty — qualities that are easy to claim and hard to actually sustain under career pressure.</li>
+  <li><strong>Cross-domain thinking.</strong> Musunuru is a cardiologist who applied gene editing — a tool from rare disease biology — using LNPs (lipid nanoparticles, a delivery technology developed for infectious disease vaccines) to treat a metabolic enzyme defect. Schett applied oncology's most powerful cell therapy to rheumatology, a field it had nothing to do with originally. The ability to pattern-match across fields is repeatedly the actual source of major breakthroughs, more often than any single field's internal progress.</li>
+  <li><strong>Networking and relationship-building.</strong> Neither breakthrough happened in isolation. Both involved large teams, institutional partnerships, and years of relationship-building within scientific communities. Introverts can absolutely succeed in this environment, but isolation kills breakthroughs — the work simply doesn't happen without a network to sustain it.</li>
+  <li><strong>Bureaucratic endurance.</strong> The regulatory, grant, and institutional compliance demands placed on researchers are enormous. The ability to navigate all of this without losing motivation or scientific focus is a genuine, underrated skill — and one that filters out a lot of otherwise talented people.</li>
+  <li><strong>Ethical seriousness.</strong> Both breakthroughs raised profound ethical questions: who gets access, what are the risks, how is consent obtained — especially for a baby who cannot consent at all. Researchers who haven't seriously thought through the ethics of their own work create crises that can derail not just their own careers, but entire fields.</li>
+</ul><h2>Government Policy</h2><p>Government shapes science at every level, often invisibly. Immigration policy determines whether the best researchers in the world can work where the best labs are. Export controls determine what technologies can be shared across borders. Defense priorities redirect entire research communities. The political appetite for long-horizon, uncertain investments — the kind that basic research requires — fluctuates with administrations and budget cycles in ways that leave decade-long marks on what science gets done. Understanding a breakthrough means understanding the policy environment it grew up inside, including the policies that almost stopped it.</p>
+
+<h3>Regulatory Frameworks</h3>
+<p>Regulation is both the barrier and the guarantor of trust in science. Without it, patients can be harmed and public confidence collapses. With too much of it, life-saving therapies are delayed by years. Every breakthrough that reaches a patient has to pass through one of these systems.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">United States (FDA)</h4>
+<p>The <strong>FDA</strong> (Food and Drug Administration) is the US agency responsible for approving drugs, biologics, and medical devices before they can be sold or used on patients.</p>
+<ul class="check-list">
+  <li><strong>Standard drug/biologic pathway:</strong> an <strong>IND</strong> (Investigational New Drug application, the filing that allows human testing to begin) leads into Phase I (safety testing in a small group), Phase II (testing dosing and early efficacy in a medium-sized group), and Phase III (a large randomized controlled trial). The results are then submitted as a <strong>BLA</strong> (Biologics License Application) or <strong>NDA</strong> (New Drug Application), followed by FDA review — typically one to two years — before approval. The total timeline is often 10 to 15 years and $1–2 billion in cost.</li>
+  <li><strong>Accelerated pathways:</strong> Breakthrough Therapy Designation, Fast Track Designation, Priority Review, and Accelerated Approval are all FDA mechanisms that can cut these timelines significantly for serious conditions with unmet medical need.</li>
+  <li><strong>Expanded Access / Compassionate Use</strong> (formally an Emergency <strong>IND</strong>): used in the case of KJ — this allows a single patient to be treated outside of any formal clinical trial, and the FDA can approve it in days when a patient's life is at immediate risk.</li>
+  <li><strong>Post-KJ bespoke pathway (2025):</strong> a new FDA framework created for personalized gene therapies. It does not require Phase I, II, or III trials — platform-level evidence (proof that the underlying delivery technology is safe and effective in general) plus real-world evidence is sufficient. This is a significant structural breakthrough for rare disease treatment.</li>
+  <li><strong>IRBs</strong> (Institutional Review Boards) are independent committees, typically housed at hospitals or universities, that review all research involving human subjects — separately from and in addition to FDA oversight.</li>
+</ul>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">Germany / European Union</h4>
+<p>The standard approval pathway in the EU follows a similar clinical logic to the US, but runs through different institutions and a centralized authorization step. The <strong>PEI</strong> (Paul-Ehrlich-Institut) is Germany's federal regulator for biologics, vaccines, and cell therapies, while the <strong>EMA</strong> (European Medicines Agency) handles marketing authorization across the entire EU — the rough equivalent of the FDA at a continental scale:</p>
+<ul class="check-list">
+  <li><strong>Standard pathway:</strong> a sponsor files a <strong>CTA</strong> (Clinical Trial Application) with the national regulator — the PEI in Germany — for the country where the trial will run. This is followed by Phase I, II, and III trials, the same staged structure as the US system. Results are then submitted to the EMA as an <strong>MAA</strong> (Marketing Authorisation Application).</li>
+  <li>The EMA's scientific committees review the MAA and issue a recommendation, which the European Commission then converts into a single authorization valid across all EU member states at once — unlike the US, a single approval covers the entire union rather than one country. This centralized review typically takes about a year, with the full path from first trial to approval running 8 to 12 years for novel biologics.</li>
+  <li><strong>PRIME</strong> (PRIority MEdicines) is the EMA's accelerated-pathway equivalent to the FDA's Breakthrough Therapy Designation — early and enhanced scientific support for medicines that target a significant unmet medical need.</li>
+  <li><strong>Conditional Marketing Authorisation</strong> allows approval based on less complete data than normally required, for medicines addressing unmet needs, with the requirement that the company complete further studies post-approval — roughly analogous to the FDA's Accelerated Approval.</li>
+  <li><strong>Hospital Exemption Pathway</strong> (EU Regulation 1394/2007): allows academic hospitals to manufacture and administer <strong>ATMPs</strong> (Advanced Therapy Medicinal Products — therapies based on genes, tissues, or cells) to small numbers of patients on a non-routine basis, without going through full EMA marketing authorization at all. This is the mechanism that let the Erlangen team treat patients directly rather than waiting for a multi-year centralized review — the closest EU equivalent to the FDA's Compassionate Use pathway, though grounded in a different legal logic: it exempts a specific hospital-made product from full authorization rather than granting emergency access to an otherwise-regulated one.</li>
+  <li>Ethics committees at each university must independently approve all human research, similar in function to US IRBs.</li>
+  <li><strong>GDPR</strong> (General Data Protection Regulation) adds patient data protection requirements that can slow research — but also exist specifically to protect patients.</li>
+</ul>
+
+<h3>Biosafety and Dual-Use Laws</h3>
+<p>Certain research is constrained not by clinical regulation but by national security and biosafety law — rules concerned with what could go wrong if dangerous biological material or techniques were misused:</p>
+<ul class="check-list">
+  <li><strong>Select Agent regulations</strong> (US) impose strict controls on pathogens that could potentially be weaponized.</li>
+  <li>The <strong>NIH Guidelines for Research Involving Recombinant or Synthetic DNA</strong> govern what gene editing work can legally be done and at what biocontainment level.</li>
+  <li><strong>CRISPR germline editing</strong> — editing heritable DNA in embryos, meaning changes that would be passed on to future generations — is effectively banned or heavily restricted in most countries following the He Jiankui scandal (China, 2018), in which a researcher edited human embryos in violation of international scientific norms. KJ's therapy, by contrast, edited only somatic cells (non-heritable, body cells that don't get passed to offspring), which is precisely why it was permissible.</li>
+</ul>
+
+<h3>Intellectual Property Law</h3>
+<p>Patent law shapes the entire commercial landscape of science — determining not just who profits, but who is incentivized to fund the expensive, risky work of turning a discovery into a usable therapy:</p>
+<ul class="check-list">
+  <li>The <strong>Bayh-Dole Act</strong> (US, 1980) allows universities to own and license patents on inventions that were developed using federal funding. This is the legal basis that allows institutions like CHOP and Penn to license IP from NIH-funded work. Before Bayh-Dole, federally funded intellectual property largely sat unused, with no clear path to commercialization.</li>
+  <li><strong>Patent term:</strong> patents last 20 years from the date of filing. For biotech specifically, the long road through clinical trials and regulatory review often means only 5 to 10 years of actual commercial exclusivity remain by the time a drug reaches market — this compressed window is the underlying basis for much of the pricing pressure seen in the industry.</li>
+  <li><strong>Evergreening</strong> (extending a patent's effective life through minor reformulations), <strong>patent thickets</strong> (overlapping patents that make a technology hard to use without licensing several at once), and orphan drug exclusivity provisions all affect how long companies retain monopoly pricing power over a given therapy.</li>
+</ul>
+
+<h3>Immigration and Visa Policy</h3>
+<p>Often overlooked, but critical: a large fraction of America's breakthrough researchers are foreign-born. Kiran Musunuru's father immigrated from India; the Erlangen team's careers involved cross-border movement throughout Europe. <strong>H-1B</strong> (a US visa category for skilled foreign workers) and <strong>O-1</strong> (a visa for individuals with extraordinary ability) visa processes, <strong>STEM OPT</strong> extensions (Optional Practical Training, which allows foreign STEM graduates to work in the US temporarily after their degree), and green card backlogs all directly affect whether the best researchers in the world can work in a given country. Restrictions in this area have measurable negative effects on national research output — talent that cannot get a visa simply does its breakthrough work somewhere else.</p>
+
+<h3>Problems with the FDA, and a Proposed Solution</h3>
+<p><em>The following is my own opinion, not a neutral summary of the regulatory landscape described above.</em></p>
+<p>One of the clearest recent illustrations of how regulation interacts with public trust came out of the COVID-19 pandemic. Under the <strong>PREP Act</strong> (Public Readiness and Emergency Preparedness Act), the federal government granted COVID-19 vaccine manufacturers broad liability protection — immunity from most lawsuits related to vaccine injury, with claims instead routed through a federal compensation program called the <strong>CICP</strong> (Countermeasures Injury Compensation Program) rather than the courts. That program has historically compensated only a small fraction of the claims filed against it. Whatever one believes about the vaccines themselves, this structure illustrates a real tension: emergency-use frameworks that move fast by also limiting who can be held accountable, and routing the injured through a compensation system that has been slow and difficult to actually collect from. A regulatory system that the public is meant to trust needs both speed and a credible path to accountability when something goes wrong — not one in place of the other.</p>
+<p>That tension points to a more general problem. The FDA's core process is often inefficient in exactly the cases where it matters most: when a treatment or drug is already known, from real-world use elsewhere, to be safe and effective. The same multi-year, multi-billion-dollar pathway designed to catch genuinely unknown risks also gets applied, by default, to therapies that other countries have already used safely on large populations for years. In those cases the system isn't protecting patients — it's just slow.</p>
+<p>My proposed solution is to build a second pipeline specifically for this category: drugs and treatments with an established safety and efficacy record from regulators in peer countries — the EMA, the UK's MHRA, Japan's PMDA, and similar bodies — should be eligible for an expedited US review that leans on that existing real-world evidence rather than restarting the full Phase I–III process from zero. The infrastructure for this already exists in pieces — reciprocal review arrangements and reliance pathways are used selectively today — the proposal is to make this the default route for any therapy with a multi-year safety record abroad, not a rare exception.</p>
+<p>The same logic should run in the other direction. Many countries — across the EU and elsewhere — have already banned specific food dyes and additives on safety grounds that the US has not acted on, despite the underlying science being available to American regulators too. Those bans should be implemented in the US on a similarly expedited basis: if a substance has already been restricted abroad on safety evidence, that evidence should be sufficient to trigger fast review here, not just abroad.</p>
+<p>I don't think this is purely a regulatory or technical problem, though. Part of why these bans haven't happened in the US is that large food and beverage corporations that profit from cheap, low-quality ingredients have significant political power, and changing food safety standards would mean confronting that directly. That, in turn, runs into a deeper structural issue: corporate concentration and political spending have become deeply intertwined in a way that makes it hard to pass policy that goes against the interests of the largest incumbents in a given industry — food, pharmaceuticals, or otherwise. Addressing that seriously would likely require some combination of antitrust enforcement against firms that have become too dominant, and campaign finance reform — caps on political donations and limits on corporate lobbying — to reduce the degree to which concentrated industries can shape the rules that govern them.</p>
+<p>I recognize this is a large ask, and reasonable people disagree about how realistic or how desirable that level of structural reform actually is. But my honest view is that on the narrower question — should it be harder for a small number of large companies to keep selling ingredients that other wealthy countries have already restricted — most Americans, across the political spectrum, would probably agree. The harder part is everything downstream of that agreement: building the political coalition and institutional will to actually act on it.</p>
+<p>In the meantime, the solution within an individual's own reach is smaller, but not nothing: promote health where you actually have influence, invest in your community, help the people around you, and make a genuine effort to interact with people outside your usual social bubble. None of that substitutes for structural reform — but it's the part of the system that doesn't require waiting on Congress. Ideally, the larger changes happen too, and the US ends up with food and drug safety standards closer to what much of Europe already has.</p><h2>Funding</h2><p>Money shapes what science gets done, and the source of that money shapes it further. Public funding through agencies like NIH or NSF operates on different incentive structures than private philanthropy, venture capital, or industry R&D budgets. Each comes with its own time horizon, risk tolerance, and definition of success. The question is not just whether funding existed, but what kind, from whom, on what terms, and with what strings attached.</p>
+
+<h3>The Core Tension</h3>
+<p>Scientific breakthroughs almost universally begin with public money and end with private money. The basic research that eventually cures a disease is almost never commercially attractive at the outset — it is too risky, too slow, and the payoff is too uncertain. That is precisely why governments fund it. Once the risk has been reduced enough to see a viable product, private capital rushes in.</p>
+
+<h3>Public Funding</h3>
+<p>Public funding flows through grant mechanisms that differ by country but share a similar underlying structure. In the United States, the dominant channels are:</p>
+<ul class="check-list">
+  <li><strong>NIH</strong> (National Institutes of Health) — the world's largest funder of biomedical research, at roughly $45 billion a year in normal years.<sup class="citation">[A]</sup> Mechanisms like <strong>R01</strong> grants (investigator-initiated research), <strong>U01</strong> grants (cooperative agreements), and <strong>P01</strong> grants (program project grants supporting multiple related research projects) fund the majority of academic lab science in the US.</li>
+  <li><strong>NSF</strong> (National Science Foundation) — funds more basic and fundamental science; less clinical in focus, but foundational to fields that later become clinically relevant.</li>
+  <li><strong>ARPA-H</strong> (Advanced Research Projects Agency for Health) — a new agency, created in 2022 and modeled on DARPA, that funds high-risk, high-reward research that would not pass standard NIH review because it is too speculative.</li>
+  <li><strong>DOD/DARPA</strong> — the Department of Defense and its Defense Advanced Research Projects Agency have historically funded transformative biomedical work when it overlaps with national security, including the mRNA vaccine platform, wound healing research, and neuroscience.</li>
+</ul>
+<p>In Germany, the equivalent channels are:</p>
+<ul class="check-list">
+  <li><strong>DFG</strong> (Deutsche Forschungsgemeinschaft, the German Research Foundation) — the core public funder, supporting both individual grants and large collaborative research centers known as <strong>SFBs</strong> (Sonderforschungsbereiche). Georg Schett's IMMUNOBONE SFB ran for roughly 15 years.</li>
+  <li><strong>BMBF</strong> (Federal Ministry of Education and Research) — mission-oriented applied research funding.</li>
+  <li><strong>ERC</strong> (European Research Council) — a pan-European, highly competitive funder offering Starting, Consolidator, and Advanced Grants that support individual researchers across different career stages.</li>
+  <li><strong>Helmholtz Association, Max Planck Society, and Leibniz Association</strong> — institutional public funders for independent research organizations that operate outside the traditional university system.</li>
+</ul>
+
+<h3>How to Get It</h3>
+<p>The grant-seeking process follows a fairly consistent sequence regardless of country:</p>
+<ul class="check-list">
+  <li>A researcher generates preliminary data, usually unfunded or drawn from a prior grant.</li>
+  <li>They write a grant application describing the scientific question, methodology, budget, and team.</li>
+  <li>The application is peer-reviewed — by a study section at the NIH, or an expert panel at the DFG or ERC.</li>
+  <li>It is scored on significance, approach, innovation, investigator quality, and research environment.</li>
+  <li>It gets funded only if the score is competitive — typically the top 10–20% for NIH, and the top 10–15% for ERC.</li>
+  <li>A typical grant cycle runs 3 to 5 years, after which the researcher must reapply and report results.</li>
+  <li>Grant writing itself is a full-time skill. Senior researchers at top institutions often employ dedicated grant writers and spend 30–40% of their working time on funding applications rather than on the research itself.</li>
+</ul>
+<p>Public funding pays for salaries — graduate students, postdocs, lab managers — along with equipment, consumables, animal care, sequencing costs, publication fees, and conference travel. It also pays <em>indirect costs</em>: the overhead an institution charges for building maintenance, safety, compliance, and IT, typically adding 50–70% on top of direct research costs in the US.</p>
+<p>Even with all of this, a gap remains. In 2023, US universities contributed roughly $27 billion of their own institutional money — drawn from endowments and clinical revenue — to cover research costs that federal grants did not reimburse.<sup class="citation">[B]</sup> Public funding is necessary, but it is never sufficient on its own.</p>
+
+<h3>Private Funding</h3>
+<p>Private funding enters in several distinct layers, each with a different relationship to risk and timing.</p>
+<p><strong>Philanthropic and nonprofit funding:</strong> foundations like the Gates Foundation, the Wellcome Trust, the Howard Hughes Medical Institute (<strong>HHMI</strong>), and disease-specific charities such as the Lupus Research Alliance or the National MPS Society fund work that the NIH typically won't — often because it's more speculative or has a longer time horizon than a standard grant cycle allows. HHMI is a particularly notable model: it funds <em>people</em>, not individual projects. Its investigators receive sustained funding without the pressure of annual renewal, which enables genuinely longer-horizon thinking. In KJ's case, the Orphan Disease Center at Penn/CHOP was partly donor-funded.</p>
+<p><strong>Venture capital:</strong> VC money tends to enter once there is proof-of-concept in humans, or sufficiently strong animal data. Kyverna Therapeutics, for example, was founded in 2020 and immediately backed by Gilead Sciences and Vida Ventures — before Schett's first patient had even been treated. A typical biotech VC trajectory runs through a Series A round ($30–100 million), a Series B round ($100–300 million), and then either an IPO or an acquisition. VC money moves faster and more flexibly than a grant, but it comes with equity dilution and real investor pressure to show results on a commercial — not a scientific — timeline.</p>
+<p><strong>Pharma and industry funding:</strong> large pharmaceutical companies like Novartis, Bristol Myers Squibb, and Janssen typically don't fund basic research directly. Instead, they license or acquire a therapy once its underlying pathway has already been validated by someone else. Industry money is the largest funding source in absolute dollar terms, but it is also the last to arrive — it monetizes breakthroughs that the public and philanthropic sectors already created.</p>
+<p>The lesson from both of the breakthroughs discussed throughout this framework is consistent: Schett's CAR-T work was entirely publicly funded, through the DFG and FAU. Musunuru's CRISPR work was primarily NIH-funded, with in-kind industry support layered on top. The private sector commercializes what the public sector proves. Neither one works without the other.</p><h2>What Enables the Scientist</h2><p>Even with education, collaborators, supportive policy, and funding in place, a researcher still needs the specific conditions that allow them to do their best work. This means access to equipment and infrastructure. It means institutional support — or at minimum, institutional tolerance — for unconventional lines of inquiry. It means time: the ability to think slowly in a system that increasingly rewards speed. It means data, computational resources, model organisms, clinical access, and all the other inputs that convert a good idea into testable science. The enabling conditions for a scientist are granular and specific, and their absence — even one of them — is often enough to stop a breakthrough that was otherwise ready to happen.</p>
+
+<h3>What Scientists Need to Live — The Human Infrastructure</h3>
+<p>Breakthroughs require years of sustained, focused effort. The conditions of daily life for researchers directly affect whether that effort is even possible — and this layer is consistently underweighted relative to the scientific infrastructure discussed above.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">Compensation</h4>
+<p>Graduate students and postdocs are chronically underpaid relative to the cost of living near major research universities — Boston, San Francisco, Philadelphia, New York, Berlin. A postdoc at Penn earning $60,000 in Philadelphia is just survivable; that same salary in San Francisco or New York is poverty-level. This systematically filters out researchers who don't have family money or other outside support, regardless of their scientific potential.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">Housing</h4>
+<p>Research clusters around a handful of expensive cities. That clustering isn't arbitrary — geographic proximity to peers, infrastructure, and institutions matters enormously for collaboration. But housing cost is a genuine barrier layered on top of that necessity. Several European countries, Germany in particular, have historically had lower housing costs than US research hubs, which partly explains why talented researchers there stay in the academic system longer.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">Healthcare</h4>
+<p>In the US, researchers on training grants or short-term postdoc appointments often have unstable or inadequate health insurance. This creates real personal risk and becomes a recruitment and retention problem for the institutions that depend on these researchers. German researchers in academic medicine, by contrast, receive standard statutory health insurance as a normal part of their employment.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">Time and Mental Health</h4>
+<p>The academic research environment has a well-documented mental health crisis. A 2018 <em>Nature</em> survey found that graduate students are roughly six times more likely to experience depression and anxiety than the general population.<sup class="citation">[G]</sup> The causes are not mysterious: isolation, long hours, uncertain career prospects, power imbalances with advisors, and the constant lived experience of failure. Breakthroughs require sustained creative effort, and sustained creative effort is incompatible with chronic stress and burnout. Institutions that invest in mental health support, reasonable working hours, and good mentorship produce more breakthroughs, not fewer — this is not a tradeoff between researcher wellbeing and scientific output, it is a precondition for it.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">Childcare and Family</h4>
+<p>Academic science's career timeline — roughly age 22 to 40, from PhD entry through tenure — overlaps almost exactly with peak family-formation years. Women leave research at higher rates than men at every career transition along that timeline, with childcare consistently cited as a leading reason. Institutions that provide on-site childcare, real parental leave, and clock-stopping tenure policies — pausing the tenure clock during parental leave rather than letting it run regardless — retain more talent than institutions that don't.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">Transportation</h4>
+<p>Being near a research cluster matters. Most major breakthroughs come from a relatively small number of geographic nodes — Boston/Cambridge, the San Francisco Bay Area, Philadelphia, San Diego, London, Berlin, Munich, Tokyo. But within those nodes, commute time and reliable transit determine who can actually participate day to day. Researchers who spend three hours a day commuting have measurably less time and mental bandwidth for the informal conversations — in hallways, at lunch, after seminars — that often generate the ideas behind breakthroughs in the first place.</p><h2>What Rewards the Science</h2><p>Science is done by human beings, and human beings respond to incentives. What does the reward system look like for the kind of science that produces breakthroughs? Publication metrics, grant renewal criteria, tenure clocks, prize structures, peer recognition — all of these shape what researchers pursue and what they avoid. Fields where the reward system is tightly aligned with short-term, measurable outputs tend to underinvest in the foundational work that makes long-term breakthroughs possible. Understanding what a scientific community rewards — and what it ignores or punishes — tells you a great deal about where its breakthroughs are likely to come from, and where they won't.</p>
+
+<h3>How Should Scientists Be Recognized?</h3>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">The Current System</h4>
+<p>Academic science rewards a fairly narrow set of outputs: publications, especially in high-impact journals like <em>Nature</em>, <em>Science</em>, <em>NEJM</em>, and <em>Cell</em>; citations, meaning how often a researcher's work is referenced by others; grant funding, where total dollars raised is often used as a rough proxy for scientific importance; prizes, such as the Nobel, the Leibniz, the Lasker, or the Breakthrough Prize; and tenure and promotion decisions, which are themselves largely based on the metrics above.</p>
+<p>What this system does well is create strong incentives to produce novel, publishable findings. What it does badly is more extensive:</p>
+<ul class="check-list">
+  <li><strong>It rewards positive results over negative ones.</strong> Failed experiments rarely get published, which means the field as a whole doesn't learn from them — the same dead end can get rediscovered by different labs over and over.</li>
+  <li><strong>It rewards quantity over quality.</strong> The "publish or perish" pressure pushes researchers to slice findings into the smallest publishable units rather than waiting to present a complete, well-tested body of work.</li>
+  <li><strong>It rewards individual recognition over team science.</strong> Most major breakthroughs involve large teams, but prizes and tenure cases are built almost entirely around lead authors and principal investigators.</li>
+  <li><strong>It does not reward mentorship, teaching, data sharing, reproducibility, or public communication</strong> — all of which are critical to a healthy scientific ecosystem, but none of which show up meaningfully on a CV.</li>
+  <li><strong>It creates perverse incentives around flashy findings.</strong> Schett's first CAR-T paper was a five-patient study — tiny by ordinary statistical standards — but it was published in <em>Nature Medicine</em> because the result was so dramatic. The pressure to publish early and publish big can lead to overstated claims that outrun the actual evidence.</li>
+</ul>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">Better Models</h4>
+<ul class="check-list">
+  <li><strong>HHMI's investigator model:</strong> fund people, not individual projects; no annual renewal; genuine tolerance for failure. This model produces a disproportionate share of major breakthroughs relative to its size.<sup class="citation">[F]</sup></li>
+  <li><strong>Prize-based funding:</strong> DARPA-style challenges that award a prize for achieving a clearly defined outcome, rather than for publishing a paper about it.</li>
+  <li><strong>Explicit reproducibility rewards:</strong> some journals and funders now give real credit for replication studies and for the work of preparing data to be shared, rather than treating that work as invisible.</li>
+  <li><strong>Team science credit:</strong> newer models for attributing contributions fairly across large research teams, rather than collapsing the credit onto a single lead author.</li>
+</ul><h2>How the Science Is Shared</h2><p>A discovery that isn't communicated isn't useful. The mechanisms by which science moves — from lab notebooks to preprints to peer review to clinical translation to public knowledge — determine how quickly a breakthrough can compound into further breakthroughs, and how broadly its benefits can spread. Open-access publishing, conference culture, data-sharing norms, science communication to non-specialist audiences: all of these are part of the system. So is the question of language — which scientific communities can read and build on each other's work, and which are siloed by geography, institution, or field-specific vocabulary.</p>
+
+<h3>Information Sharing — How Science Should Communicate</h3>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">The Traditional System and Its Problems</h4>
+<p>The traditional system works like this: researchers publish in peer-reviewed journals. Those journals rely on peer review performed unpaid by volunteer experts in the field, and then charge institutions subscription fees to access the resulting papers — often $30 to $50 per article for someone unaffiliated with a subscribing institution, or millions of dollars a year for institutional subscriptions covering an entire university. The research itself was frequently funded by taxpayers in the first place. This model is widely regarded, across the scientific community, as broken.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">The Open Access Movement</h4>
+<p>Open access, or OA, mandates that publicly funded research be freely available to anyone, not just subscribers. In the US, the NIH now requires that all NIH-funded research be deposited in PubMed Central within 12 months of publication.<sup class="citation">[C]</sup> The EU mandates similar requirements for its own publicly funded research. "Gold OA" — meaning immediate free access from the moment of publication — requires researchers themselves to pay article processing charges, or APCs, often running $3,000 to $5,000 per paper. This shifts the cost from the reader to the author, which in practice disadvantages labs that don't have the spare budget to absorb that fee.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">Preprints</h4>
+<p>Platforms like bioRxiv and medRxiv allow researchers to post papers before formal peer review — making the findings instantly available to the world rather than waiting months or years for the journal process to complete. The COVID-19 pandemic normalized this practice at scale: critical findings, including early mRNA vaccine data, were shared via preprint months before formal publication, because the speed mattered more than the formal credentialing process. The risk is real — preprints can amplify findings that later fail peer review, sometimes after they've already shaped public understanding or policy. The benefit is also real: speed, and a meaningful democratization of who gets to see new findings first.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">Data Sharing</h4>
+<p>The NIH increasingly requires researchers to share their raw underlying data, under a Data Management and Sharing Policy that took effect in 2023. This is genuinely good for reproducibility and for enabling cross-lab analysis that wouldn't otherwise be possible. But it creates real burdens in practice: preparing and documenting data so that it's actually usable by someone outside the original lab takes significant time and resources that aren't always funded separately. There are also legitimate patient privacy concerns — HIPAA in the US, GDPR in the EU — that have to be navigated carefully, especially for clinical data tied to identifiable individuals.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">Conference and Informal Sharing</h4>
+<p>The informal scientific conference is one of the most important innovation environments in existence, even though it rarely gets credited as part of the formal information infrastructure of science. The ASGCT conference in New Orleans in May 2025 was where Musunuru first presented KJ's case to the world — before the paper had even been formally processed through a journal. Hallway conversations, poster sessions, and informal dinners at conferences generate collaborations, data-sharing agreements, and the cross-pollination of ideas that no formal publication can fully replicate. Restricting conference travel, which is often one of the first things cut in a budget tightening, has direct and measurable negative effects on innovation — it isn't a discretionary perk, it's part of how science actually moves between people.</p><h2>Who Profits and What Is Owned</h2><p>Every breakthrough eventually encounters the question of intellectual property. Who owns the patents? Who licensed the underlying technology, and on what terms? What does that mean for who can manufacture the resulting therapy, at what price, and in which markets? The political economy of a breakthrough — who captures its value, and how that value is distributed — is as much a part of its story as the science itself. Ownership structures don't just affect equity; they affect what follow-on research gets done, because the incentive to invest in further development is shaped by who stands to benefit from it. A framework for understanding breakthroughs has to reckon with this dimension honestly, even when the answers are uncomfortable.</p>
+
+<h3>How Intellectual Property Should Work</h3>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">The Core Tension</h4>
+<p>IP law exists to incentivize investment in translation — no company will spend a billion dollars developing a drug if a competitor can simply copy it the moment it works. But IP also restricts access: a patented drug that costs $500,000 per patient is inaccessible to most of the world, regardless of how well it works. Getting this balance right is one of the most consequential policy questions in science, and it doesn't have a clean answer.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">University Tech Transfer</h4>
+<p>Under the Bayh-Dole Act,<sup class="citation">[E]</sup> universities own the IP that arises from federally funded research and can license it — exclusively or non-exclusively — to companies. They collect royalties on that licensing and typically share a portion with the original inventor. This system has real problems: universities sometimes over-patent defensively, creating patent thickets that slow down follow-on research rather than protecting it; licensing terms can be restrictive enough to block access in low-income countries entirely; and inventor-share rules vary widely between institutions — at some, inventors receive 30–50% of net royalties, which creates a strong personal financial incentive that can subtly distort which research directions get pursued.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">Open-Source and Patent Pools</h4>
+<p>Some researchers and institutions deliberately choose not to patent at all, or to place their patents into pools offering royalty-free licensing for developing countries. The COVID-19 pandemic produced C-TAP, the WHO's COVID Technology Access Pool, which attempted to pool vaccine IP across manufacturers — largely unsuccessfully, since the major vaccine makers declined to participate. The underlying tension between IP protection and global health equity remains unresolved.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">The CRISPR Patent Wars</h4>
+<p>The base-editing platform underlying KJ's therapy derives from CRISPR technology, and the most valuable patent dispute in the history of biotech has been fought over exactly that technology — between the Broad Institute (Harvard/MIT, represented by Feng Zhang) and the University of California, Berkeley (represented by Jennifer Doudna and Emmanuelle Charpentier). Billions of dollars in licensing revenue depend on the outcome of who holds which patents. This kind of IP warfare is a direct cost to science in its own right — it diverts resources into litigation, creates ongoing licensing uncertainty for anyone trying to build on the technology, and can block entire research directions while the dispute remains unsettled.</p>
+
+<h3>How Commercial Returns Should Be Managed</h3>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">The Pricing Problem</h4>
+<p>CAR-T therapies for cancer currently cost $400,000 to $500,000 per infusion.<sup class="citation">[D]</sup> If a CAR-T therapy for autoimmune disease is approved and priced similarly, the total addressable market is enormous — lupus alone affects roughly five million people globally — but the therapy would be financially out of reach for the vast majority of patients worldwide, and financially catastrophic even within well-insured health systems.</p>
+<p>KJ's therapy, by its very nature, has no market at all — it was built for one person. The cost of developing it was absorbed by NIH grants and in-kind industry contributions rather than recovered through sales. As bespoke gene therapies like this become more common, they will raise profound and largely unresolved questions about who pays and who gets access.</p>
+
+<h4 style="font-family:'DM Serif Display',serif;font-size:1rem;margin:1.5rem 0 0.6rem;color:var(--brand);">Models for Managing Returns</h4>
+<ul class="check-list">
+  <li><strong>Differential pricing:</strong> charging more in wealthy countries and less, or nothing, in low-income countries. Some vaccine manufacturers have used this model; it is broadly resisted by the rest of the pharmaceutical industry on IP-protection grounds.</li>
+  <li><strong>Outcomes-based contracting:</strong> paying for a treatment only if it actually works. Several gene therapy companies are piloting this with insurers — a model that is especially important for one-time curative therapies, where the clinical benefit can span decades but the payment is traditionally demanded entirely upfront.</li>
+  <li><strong>Government negotiation:</strong> in Germany, under the AMNOG process, pharmaceutical companies must negotiate price with the government based on the therapy's demonstrated added therapeutic value. This produces substantially lower prices than the US sees for the same drugs. The EU, more broadly, has more negotiating leverage than the fragmented, multi-payer US system.</li>
+  <li><strong>A public option for publicly funded IP:</strong> the argument that if taxpayers funded the basic research behind a therapy, taxpayers should see some benefit reflected in its eventual pricing. No such mechanism currently exists in the US — drugs developed entirely on NIH funding can be, and routinely are, priced with no reference at all to their development costs.</li>
+</ul>
+
+<h2>Collaboration vs. Competition</h2>
+<p>Every breakthrough exists somewhere on a spectrum between researchers working together and researchers racing each other. Both forces are present in every breakthrough story, and the question worth asking isn't which one is better — it's how a given field balances them, and what that balance costs.</p>
+
+<h3>Why Both Are Necessary</h3>
+<p>Competition drives urgency, quality, and efficiency. Knowing that another lab is working on the same problem motivates researchers to work harder and faster, and it provides a real check on sloppy science — your competitor will catch your errors, because they have every incentive to look for them.</p>
+<p>Collaboration enables scale, cross-disciplinary synthesis, and the pooling of resources that no single lab possesses on its own. KJ's therapy required CHOP clinicians, Penn geneticists, IGI safety scientists, and Danaher manufacturing engineers, all working together. No single group had all the pieces required to make it happen.</p>
+
+<h3>The Dysfunction of Pure Competition</h3>
+<p>The current system is heavily competitive in ways that actively damage science rather than improving it:</p>
+<ul class="check-list">
+  <li><strong>Researchers routinely withhold data and reagents from competitors until publication,</strong> which slows down the entire field rather than just the individual lab being protective.</li>
+  <li><strong>"Scooping"</strong> — being beaten to publication by a competitor working on the same question — is one of the most feared events in a scientific career. It can derail years of work and cost a researcher their funding, even when their own results are more rigorous than the ones that got published first.</li>
+  <li><strong>Grant competition is zero-sum in a way that creates perverse incentives:</strong> overselling preliminary data, understating limitations, and avoiding high-risk hypotheses that might not yield a publishable result in time for the next renewal.</li>
+  <li><strong>The replication crisis</strong> — the fact that many published findings in psychology, nutrition, and some biomedical fields cannot be reproduced — is partly a direct product of this competitive pressure.</li>
+</ul>
+
+<h3>The Best-Performing Model: Collaborative Competition</h3>
+<p>The highest-performing scientific environments tend to combine several things at once, rather than choosing collaboration or competition outright:</p>
+<ul class="check-list">
+  <li><strong>An open internal culture</strong> within a lab or institution — weekly seminars, genuine data sharing among colleagues who aren't direct competitors.</li>
+  <li><strong>A competitive external environment</strong> with clear performance standards that keep the work honest.</li>
+  <li><strong>Consortium structures</strong> that pool pre-competitive data while still allowing competitive commercialization downstream — examples include the Alzheimer's Disease Neuroimaging Initiative (ADNI), the Cancer Genome Atlas, and the Human Cell Atlas.</li>
+  <li><strong>Geographic clustering</strong> that allows informal collaboration even between nominally competing groups — the Broad Institute/Harvard/MIT ecosystem, the Penn/CHOP cluster in Philadelphia, and FAU Erlangen's integrated hospital-university structure are all examples of this in practice.</li>
+</ul>
+<p>Georg Schett's lab shares data with Charité Berlin and other German rheumatology centers while simultaneously competing with them for grants and prestige. Musunuru published his findings immediately in <em>NEJM</em> and presented at ASGCT before full commercial development had even been established — a deliberate choice to open the field rather than protect a first-mover advantage. Both of these decisions reflect the same underlying philosophy: that the field as a whole advances faster through openness, even when it comes at some personal competitive cost to the researcher making that choice.</p>
+
+<blockquote>Build the system, and the goals will follow.<sup class="citation">[1]</sup> A breakthrough is not an event. It is an outcome — the downstream product of a system that was ready to produce it.</blockquote>
+<div class="citations-block" style="margin-top:0.5rem;">
+  <p><strong>[1]</strong> Clear, J. <em>Atomic Habits: An Easy &amp; Proven Way to Build Good Habits &amp; Break Bad Ones.</em> Avery, 2018. The central argument of the book is that systems — the processes and environments that produce behavior — matter more than goals, which are merely the outcomes those systems generate.</p>
+</div><h2>Sources &amp; Further Reading</h2>
+<p>Citations marked [1]–[5] in the Education section refer to the sources immediately below that section. The following cover all other cited claims throughout this post.</p>
+<div class="citations-block">
+  <p><strong>[A] NIH budget (~$45 billion/year)</strong></p>
+  <p>NIH Office of Budget. "NIH Budget." <a href="https://www.nih.gov/about-nih/what-we-do/budget" target="_blank" rel="noopener">nih.gov/about-nih/what-we-do/budget</a></p>
+  <p style="margin-top:1rem;"><strong>[B] $27 billion university institutional research spending gap (2023)</strong></p>
+  <p>National Science Foundation, Higher Education Research and Development Survey (HERD), FY 2023. <a href="https://ncses.nsf.gov/surveys/higher-education-research-development/2023" target="_blank" rel="noopener">ncses.nsf.gov — HERD Survey 2023</a></p>
+  <p style="margin-top:1rem;"><strong>[C] NIH public access / PubMed Central mandate</strong></p>
+  <p>NIH. "NIH Public Access Policy." <a href="https://publicaccess.nih.gov" target="_blank" rel="noopener">publicaccess.nih.gov</a>. Effective for all NIH-funded research; 12-month deposit requirement updated under the 2023 Nelson Memo to zero embargo for federally funded research.</p>
+  <p style="margin-top:1rem;"><strong>[D] CAR-T therapy pricing ($400,000–$500,000 per infusion)</strong></p>
+  <p>ICER (Institute for Clinical and Economic Review). CAR-T therapy cost-effectiveness reports, 2021–2024. See also: Bach, P.B. "Drug Companies Are Making Huge Profits — And That's a Problem." <em>STAT News</em>, 2022. Pricing is publicly available from manufacturer list prices for tisagenlecleucel (Kymriah) and axicabtagene ciloleucel (Yescarta).</p>
+  <p style="margin-top:1rem;"><strong>[E] Bayh-Dole Act (1980)</strong></p>
+  <p>Pub. L. 96-517, codified at 35 U.S.C. §§ 200–212. See also: Sampat, B.N. "Patenting and US Academic Research in the 20th Century." <em>Research Policy</em>, 2006.</p>
+  <p style="margin-top:1rem;"><strong>[F] HHMI investigator model and research productivity</strong></p>
+  <p>Howard Hughes Medical Institute. "HHMI Investigators." <a href="https://www.hhmi.org/science/investigators" target="_blank" rel="noopener">hhmi.org/science/investigators</a>. See also: Azoulay, P., Graff-Zivin, J., Manso, G. "Incentives and Creativity: Evidence from the Academic Life Sciences." <em>RAND Journal of Economics</em>, 2011 — a peer-reviewed study showing HHMI investigators produce more novel, higher-impact science than NIH-funded peers.</p>
+  <p style="margin-top:1rem;"><strong>[G] Graduate student mental health (2018 Nature survey)</strong></p>
+  <p>Evans, T.M. et al. "Evidence for a mental health crisis in graduate education." <em>Nature Biotechnology</em>, 2018; 36(3): 282–284. DOI: 10.1038/nbt.4089. <a href="https://www.nature.com/articles/nbt.4089" target="_blank" rel="noopener">nature.com/articles/nbt.4089</a></p>
+</div>
+<h2>Author's Note</h2><p>This post grew out of two separate moments that pointed me toward the same idea. The first was a conversation with a senior engineering student at Pitt, who told me that the real money in tech wasn't in the new technology itself — it was in everything built around it that makes it work and last. The second was reading James Clear's <em>Atomic Habits</em>, which argues that if you build the right system, the goals take care of themselves. Both said the same thing in different words: outcomes follow structure. That is what this post is trying to map.</p>`},
+  4:{cat:"Bioscience",title:"The diagnosis before the cure: what an ME/CFS breakthrough actually requires",meta:"June 2026 &nbsp;&middot;&nbsp; 11 min read",body:`<p>Consider two facts in sequence.</p>
+<p>First: myalgic encephalomyelitis/chronic fatigue syndrome — ME/CFS — affects an estimated 65 to 71 million people worldwide. That is more than multiple sclerosis, more than Parkinson's disease, more than HIV.<sup class="citation">[1]</sup> Post-COVID, some estimates place the number significantly higher, as a meaningful fraction of Long COVID cases meet ME/CFS diagnostic criteria. A quarter of patients are severely ill: bedbound or housebound, unable to work, often unable to tolerate light or sound. The disease typically strikes in the prime of adult life, and most patients do not recover.</p>
+<p>Second: there are no FDA-approved treatments for ME/CFS. No validated diagnostic biomarker. No animal model. For most of the past forty years, the disease received less annual NIH funding than hay fever.<sup class="citation">[3]</sup></p>
+<blockquote>The gap between those two facts is not a scientific mystery. It is a systems failure.</blockquote>
+<p>If you've read the earlier posts in this series — about CAR-T therapy resetting autoimmunity in Erlangen, and a personalized CRISPR therapy built in six months for one child in Philadelphia — you already have most of the tools needed to understand both why ME/CFS is stuck, and what getting it unstuck would actually require. This is, in a real sense, the framework from the previous post applied to a single, very large, very neglected disease.</p>
+
+<h2>What the Syndrome Is</h2>
+<p>ME/CFS is currently diagnosed by symptom criteria, not by any objective biological test: post-exertional malaise — a severe worsening of symptoms after physical or mental exertion that can last days — unrefreshing sleep, cognitive impairment, and orthostatic intolerance, persisting for six months or more and not explained by another condition.<sup class="citation">[1]</sup> There is no blood test, no imaging finding, no electrophysiological signature that confirms the diagnosis. A patient either fits the symptom pattern or they don't; nothing in a lab report settles the question either way.</p>
+<p>The exhaustion at the center of this disease is not ordinary tiredness. It is a profound, whole-body fatigue that makes routine daily tasks — grocery shopping, household chores, holding down a job — genuinely difficult or impossible, not because the patient lacks willpower, but because the underlying biology limits how much exertion the body can tolerate before symptoms worsen. That creates a cruel feedback loop in the path to diagnosis itself: getting properly diagnosed requires appointments, travel, paperwork, and follow-up visits, and by the time a patient with severe ME/CFS is finally able to see a specialist, they may already be exhausted from the act of getting there. Telemedicine could meaningfully reduce this barrier — a video visit removes the physical toll of travel and waiting rooms that can set a patient back for days, and it deserves a more central role in how ME/CFS care is delivered, not as a lesser substitute for in-person care but as a genuinely better fit for a disease defined by exertion intolerance.</p>
+<p>There is another layer to this that is easy to miss and that compounds the public health problem described below: most people with ME/CFS do not look sick. They are not visibly approaching death the way a late-stage cancer patient might be. There is no wheelchair, no IV pole, no obvious external marker of how disabled they actually are. The damage this disease does is largely invisible from the outside — it shows up as a collapsed quality of life, an inability to work, a withdrawal from relationships and activities that used to be normal, rather than as something a doctor, an employer, or a disability reviewer can see at a glance. That invisibility is itself a barrier: to taking patients seriously, to approving disability claims, to treating the disease with anything close to the institutional urgency that a more visibly devastating illness would receive.</p>
+<p>That diagnostic gap is also, immediately, a public health gap. A disease with no objective test is a disease that is undercounted, underbilled, and underrepresented in the health statistics that drive funding decisions. Sixty-five million people is already a large number — and it is very likely an undercount, since an unknown fraction of people who meet the clinical picture are never formally diagnosed at all, particularly outside of specialty clinics that most patients never reach.</p>
+
+<h2>The Problems That Go Along With It</h2>
+<p>The bottlenecks in ME/CFS research are well documented individually. What's less often stated plainly is how they interact — how each one reinforces the others to produce a field that has been generating hypotheses for forty years without converting them into treatments.</p>
+
+<h3>The Biomarker Problem Is Primary</h3>
+<p>Every other bottleneck flows from this one. Without a biomarker, clinical trials cannot reliably enroll a biologically homogeneous population. The fifteen patients in the Erlangen CAR-T trial discussed earlier in this series all had SLE confirmed by ACR/EULAR criteria with documented autoantibody profiles — the trial could be designed around a biologically coherent group from the start. A ME/CFS trial enrolling on symptom criteria alone almost certainly captures multiple biologically distinct subtypes with different underlying mechanisms bundled together. When such a trial produces a null result — as the Norwegian rituximab Phase III trial did in 2019 — it is impossible to know whether the therapy failed because the mechanism was wrong for everyone, or because it was right for some subtype that got diluted into statistical noise by the heterogeneous enrollment.<sup class="citation">[2]</sup></p>
+<p>Without a biomarker, pharmaceutical companies also cannot perform the ordinary go/no-go decisions that structure drug development. There is no early signal to chase, and no patient stratification that would let a company design a trial it could actually win. This is where the public health consequence becomes concrete: an entire category of private investment simply never enters the field, because the basic infrastructure that would make that investment legible doesn't exist yet.</p>
+
+<h3>The Heterogeneity Problem Amplifies the Biomarker Problem</h3>
+<p>ME/CFS is almost certainly not one disease. The evidence increasingly points to several biologically distinct subtypes that converge on the same symptomatic presentation through entirely different upstream mechanisms. Some patients have documented autoantibodies against G protein-coupled receptors — specifically beta-adrenergic and muscarinic acetylcholine receptors — consistent with an autoimmune origin. Some show evidence of viral persistence, with elevated titers against herpesviruses or detectable SARS-CoV-2 components in the blood years after the original infection. Some show primarily mitochondrial dysfunction. Some show primarily neuroinflammation. Many patients show some combination of all of the above, in proportions that vary from person to person.<sup class="citation">[1]</sup></p>
+<p>These are not minor variations on a single accepted explanation — they are genuinely competing theories of what ME/CFS actually is, each with its own research community, its own proposed mechanism, and its own candidate treatments. The autoimmune theory points toward therapies that target or remove autoantibodies. The viral persistence theory points toward antivirals and immune modulation aimed at clearing a lingering infection. The mitochondrial dysfunction theory points toward metabolic and energy-pathway interventions. The neuroinflammation theory points toward treatments that target the central nervous system and its immune signaling. No single theory has won out, because the evidence suggests that more than one of them is correct — just not for every patient, and not in the same proportion from one patient to the next.</p>
+<p>This is precisely what makes the disease so difficult to treat in practice, beyond the research bottleneck described above. A patient without a biomarker has no way of knowing in advance which of these mechanisms is driving their own illness, and neither does their doctor. In the absence of that information, treatment becomes a slow process of trial and error: trying one drug aimed at one theory, waiting weeks or months to see whether it helps, often having to taper off carefully before trying something else, and repeating that cycle across a different theory entirely if the first approach fails. For a patient whose baseline energy is already severely limited, each of these trial-and-error cycles carries a real cost in time, money, and the physical toll of trying and failing — and for some patients, this process can stretch across years before anything resembling an effective treatment is found, if one is found at all.</p>
+<p>Treating all of this as a single disease and designing one trial around it is roughly equivalent to running a cancer trial that enrolls all solid tumors regardless of histology or mutation status — a design oncology abandoned decades ago in favor of molecularly defined patient selection.<sup class="citation">[2]</sup></p>
+
+<h3>The Funding and Visibility Problems Compound Everything Else</h3>
+<p>This is where the public health failure becomes hardest to separate from the scientific one. The NIH invested roughly five to seven million dollars per year in ME/CFS research through most of the 2000s and 2010s — a figure that constrained not just the number of studies that could be run, but the ambition of any individual study.<sup class="citation">[3]</sup> Deep phenotyping work of the kind Avindra Nath's team conducted at the NIH — the 2024 <em>Nature Communications</em> paper that enrolled seventeen patients for four weeks of intensive inpatient characterization — requires substantial infrastructure and sustained institutional commitment.<sup class="citation">[1]</sup> That single study took years to design, fund, and execute. At five million dollars a year in total field funding, one study of that scale consumed a significant fraction of the field's entire annual budget. A disease affecting 65 million people was, for most of two decades, funded at a level that allowed for a small handful of well-designed studies per year, total, worldwide.</p>
+
+<h2>What the Idealized Breakthrough Path Looks Like</h2>
+<p>None of this means a breakthrough is impossible. It means the path is specific, and it differs in instructive ways from the paths that produced CAR-T and KJ's CRISPR therapy — both of which had the advantage of a single identifiable patient population and an existing platform to repurpose.</p>
+
+<h3>Step One: A Validated Biomarker, Not a Treatment</h3>
+<p>This sounds counterintuitive. The field has been trying to find treatments for forty years; how does prioritizing a diagnostic tool accelerate that? The answer is that without a biomarker, no treatment can be reliably tested. Every dollar spent on a clinical trial in the absence of patient stratification is a dollar spent on a study that cannot produce an interpretable result. The single highest-leverage investment in ME/CFS right now is not a drug trial — it is a large-scale, deeply phenotyped biomarker study.</p>
+<p>The raw material for this study already exists, scattered across several labs. Avindra Nath's NIH intramural work identified consistent abnormalities in catecholamine metabolism, autonomic function, and immune activation.<sup class="citation">[1]</sup> Ron Davis's group at Stanford has been developing a nanoneedle-based diagnostic assay that can distinguish ME/CFS patient samples from healthy controls with high accuracy in preliminary data. Carmen Scheibenbogen's laboratory at Charité Berlin has validated a specific autoantibody profile in a subset of patients. The open question is whether these signals — each developed in a small, well-characterized cohort — can be validated in a large, multi-site, geographically and demographically diverse patient population. A validation study run at the scale of the NIH RECOVER initiative's Long COVID cohorts, which have enrolled hundreds of thousands of patients, would transform the field's capacity to do everything that follows.<sup class="citation">[3]</sup></p>
+
+<h3>Step Two: Subtyping, Not Treating</h3>
+<p>Once a validated biomarker — or, more likely, a panel of biomarkers corresponding to distinct biological subtypes — exists, the field can do what oncology already did with cancer: define molecularly distinct patient groups and design a separate trial for each one. The autoantibody-positive subgroup is probably the most tractable near-term target. BC007, an aptamer that neutralizes G protein-coupled receptor autoantibodies, produced statistically significant improvement in a Phase II trial, and larger randomized controlled trials are now advancing.<sup class="citation">[4]</sup> Immunoadsorption — physically removing autoantibodies from the blood, as Scheibenbogen has done at Charité — works within this subtype specifically. Applied to an unselected ME/CFS population, these approaches produce noise. Applied to the autoantibody-positive subtype alone, they may produce a real signal.</p>
+<p>For the viral persistence subtype — patients with evidence of ongoing SARS-CoV-2 or herpesvirus replication — the therapeutic question is different: targeted antivirals, potentially combined with immune modulation to clear chronically infected reservoirs. The RECOVER Long COVID trials are already generating data on exactly this approach, and ME/CFS research can and should leverage that existing investment rather than duplicating it from scratch.</p>
+
+<h3>Step Three: A Regulatory Pathway Designed for the Problem</h3>
+<p>The FDA's expanded drug development toolkit — Breakthrough Therapy Designation, accelerated approval based on biomarker endpoints, adaptive trial designs — exists precisely for diseases with unmet need and evolving scientific understanding. ME/CFS qualifies on every criterion. What it has lacked is the validated surrogate endpoint — the biomarker change that reliably predicts clinical improvement — that would allow accelerated approval to be granted on something other than years-long functional outcome measures. Step one, the biomarker validation work, is what unlocks step three. The regulatory tools already exist; they simply have nothing to attach to yet.</p>
+
+<h2>What This Requires That the Current System Doesn't Provide</h2>
+<p>The path described above is coherent. It is also not happening at the necessary scale or speed, for reasons that are structural rather than scientific — which is exactly the public health dimension of this problem.</p>
+<p>The NIH RECOVER initiative has brought unprecedented funding to Long COVID research, and by extension to ME/CFS research. But RECOVER's mandate is broad, and its enrollment criteria include many patients who would not meet formal ME/CFS diagnostic criteria. The ME/CFS-specific research infrastructure — the specialized clinical centers, the patient registries, the biobanks with deeply phenotyped samples — remains badly undersized relative to a disease affecting 65 million people.<sup class="citation">[3]</sup></p>
+<p>Pharmaceutical industry engagement is correspondingly limited. CAR-T therapy attracted commercial investment because the oncology proof of concept was already established and the addressable market was clear from day one. KJ's CRISPR therapy attracted in-kind support from industry partners because the underlying platform components — base editing, LNP delivery — were already developed, and the reputational upside of participating was high. ME/CFS offers neither an established clinical proof of concept nor a clearly segmented patient population that industry can target yet. The commercial pathway only becomes visible after the biomarker and subtyping work is complete, which means the early-stage investment has to come from public and philanthropic sources almost entirely — there is no private capital waiting in the wings to take over once the science gets interesting, because the science can't get interesting at scale until that early investment happens first.</p>
+<p>This is, in the end, the same argument that runs through every disease that hasn't yet had its breakthrough. The scientific questions are real and difficult. But the primary constraint is not the biology. It is the decision to fund, or not fund, the infrastructure that makes biological progress possible in the first place: the biobanks, the deep phenotyping studies, the data-sharing agreements, the specialized clinical networks that can enroll patients at the scale needed to produce an interpretable result.</p>
+<blockquote>ME/CFS has sixty-five million patients. It has Avindra Nath, Ron Davis, Carmen Scheibenbogen, and a growing international research community that has spent decades building toward the moment when the tools of modern immunology and genomics are finally applied to this problem at the necessary scale. What it needs is a decision — institutional, political, financial — that this problem is worth solving on a timeline commensurate with its size.</blockquote>
+<p>That decision has not yet been made. The science is ready for it.</p>
+
+<h2>A Dream: The Pittsburgh Model</h2>
+<p>What follows is not a policy proposal. It is an attempt to think seriously about what a breakthrough research effort would look like if you built it from scratch, with the full framework from the previous post in mind — not just the science, but the human conditions, the community, the funding structure, and the cultural environment that the science grows inside of. I am placing it in Pittsburgh because Pittsburgh is what I know, and because the Hill District specifically offers something that most research neighborhoods don't: a community that genuinely needs what this kind of institution could offer, and that could offer something back in return.</p>
+
+<h3>The Living Structure: A Shipping Container Community in the Hill District</h3>
+<p>The team lives together — not in a dormitory, not in separate apartments scattered across the city, but in a purpose-built community designed to reduce the friction of daily life while building the kind of social density that research environments need. The structure is made from shipping containers, stacked and arranged into a multilevel hexagonal form that houses roughly twenty individual adults, each with a two-bedroom, two-bathroom unit that includes a small kitchen, dining area, and living room. The hexagonal layout encloses a shared interior space — an outdoor grill, a small playground, a food garden, a fire pit, and a projector screen for warm months. For winter, two containers are configured as a large common room with couches and screens large enough to actually host a group gathering. Two additional containers are reserved for exercise equipment. Three containers serve as dedicated work and study space, separate from the living quarters — a place to think that isn't a bedroom.</p>
+<figure style="margin:1.8rem 0;"><img src="assets/gallery-10.jpg" alt="Architectural visualization of the Hill District shipping container research community" style="width:100%;border-radius:8px;display:block;"><figcaption style="font-size:12px;color:var(--muted);margin-top:0.6rem;text-align:center;font-style:italic;">AI-generated visualization of the proposed Hill District research community — shipping containers arranged in a hexagonal structure with an enclosed courtyard, fire pit, playground, gym, study space, and common room. Solar panels on the roof. Neighborhood rowhouses visible in the background.</figcaption></figure>
+<p>The structure is fully accessible: two elevator points at each level, glass walkways beginning at the third story that connect the levels and allow natural light into the interior. The design is done by Pitt engineering and architecture students as part of their capstone projects — not as charity toward the research team, but as a genuine design challenge that produces a real building in the real world, in a neighborhood that needs investment. The students who design it learn something that no studio project can teach. The researchers who live in it get a home that was built with intention.</p>
+
+<h3>The Research Team</h3>
+<p>The team is built around a set of principles that run against several default assumptions about how academic research groups are assembled.</p>
+<p>It is fifty percent women and fifty percent men. It draws from a genuine range of socioeconomic backgrounds — lower income through upper middle class — because the diversity of lived experience in a research team affects the questions the team thinks to ask, and because a team that looks like a cross-section of the country is better positioned to build trust with patients who also look like a cross-section of the country. Ages range from 24 to 55, deliberately spanning the gap between early-career researchers who are closer to the methodological frontier and senior researchers who carry the institutional and relational knowledge that takes decades to accumulate.</p>
+<p>The scientific composition is deliberately multidisciplinary: biologists, immunologists, computational biologists, chemists, physicists, mathematicians, and engineers all on the same team, because ME/CFS is the kind of problem that has resisted single-discipline approaches for forty years and may only yield to a genuinely cross-domain effort. Each researcher is also required to see patients once a month — not as a clinical obligation but as an orientation device, a way of keeping the lab grounded in the reality of what the disease actually does to a person's life rather than allowing the research to drift into abstraction.</p>
+<p>Two roles in the team are explicitly structural rather than purely scientific. One person serves as the political face of the team: they attend conferences, go to University of Pittsburgh events, represent the group at mixers and public functions, build the external relationships that make collaboration and funding possible. One person is dedicated almost entirely to grant writing and funding strategy — translating the science into the language that funding bodies respond to, tracking deadlines, and pursuing every available source. Both people maintain small active roles in the lab itself, because credibility in both directions requires it — the grants person needs to be able to speak to the work from the inside, and the public face needs to know the science well enough to answer real questions. Other team members can join events and conferences when it makes sense, but the consistent external presence of one person makes networking easier for everyone else, because there is always a familiar face that the broader community knows how to find.</p>
+
+<h3>The Research Approach: The Whole Human</h3>
+<p>The scientific strategy is built around a principle that has guided this entire post: ME/CFS is a multi-system disease, and the only research approach with a real chance of producing a breakthrough is one that monitors the whole human rather than isolating one variable at a time in the hope of finding the one lever that explains everything.</p>
+<p>The team works with approximately fifty patients, monitored continuously through a combination of wearable technology and regular clinical contact. Each patient wears two devices. The first is a pair of glasses with embedded cameras trained to recognize food — specifically, the camera begins saving data only when it can identify a plate, fork, or knife in the visual field, so that patients are not being recorded continuously and privacy is protected. The only data retained from the camera feed is meal composition: the food items visible, estimated calories, and macronutrient breakdown. Patients can supplement this with voice memos recorded through the second wearable, a watch, adding context about how they felt before or after eating, medications they took, or anything else they want to log. The watch itself tracks heart rate, blood oxygen, and any additional biometrics that become available as wearable sensor technology advances — blood glucose monitoring is an obvious near-term candidate, and white blood cell tracking, if it ever becomes feasible at the wrist, would be transformative for this particular patient population.</p>
+<p>From this continuous stream of data — meals, sleep, activity, physiological signals, medication timing, and patient-reported experience — the team tries to identify the patterns that precede crashes, the dietary factors that correlate with symptom changes, and the treatment responses that vary by patient in ways that might map onto the underlying subtype distinctions described earlier in this post.</p>
+<p>The four core scientific focuses are gut microbiome health, brain health and neuroinflammation, mitochondrial health and activity, and viral load monitoring across the body. These are not separate parallel projects — they are four lenses on the same fifty patients, generating data that the computational biologists and mathematicians on the team can look for cross-system patterns within. The goal is not to prove that one of the existing theories of ME/CFS is right and the others are wrong. It is to find the combinations of factors — the multi-system signatures — that characterize each patient's illness, and from those signatures, work backward toward the interventions most likely to help.</p>
+
+<h3>The Lab and the Community</h3>
+<p>The lab itself is built in the Hill District, and that choice is not incidental. The Hill District is a historically Black neighborhood in Pittsburgh that has absorbed the negative side of university expansion for decades without receiving proportionate benefit. Building a research center there, on those terms, would normally reproduce that pattern — bringing educated outsiders into a community, raising costs, and leaving when the grant runs out.</p>
+<p>The design here is different. The lab building is itself a Pitt capstone project: engineers and architects design it as functional research space, with high ceilings capable of housing large computational equipment and industrial freezers, easily cleanable surfaces throughout, and flexible interior configurations that can be reconfigured as the science evolves. The electrical infrastructure is built to handle the power demands of serious laboratory equipment from day one. Outside, a large garden produces fresh food for the team and surplus for the neighborhood — not as a symbolic gesture but as a genuine local food resource in a community that is frequently underserved by fresh produce access.</p>
+<p>The funding comes from everywhere it can be found: Pitt, the Commonwealth of Pennsylvania, NIH, and — because this is Pittsburgh — the Steelers, the Pirates, and the Penguins, whose charitable foundations would support youth programs that give Hill District high school students meaningful roles in the lab. Not as mascots, not as tour visitors, but as people who are doing real work, winning awards that translate into college scholarships, and building the kind of documented scientific experience that opens doors. When breakthrough researchers live in the Hill District, eat at neighborhood restaurants, and have high school kids from the neighborhood over for dinner and a game, those kids can see a path that wasn't visible before — not because someone told them about it, but because it is standing in their neighborhood and the people doing it look like them.</p>
+<p>When the research eventually produces commercially valuable discoveries — and the framework suggests it will, if the investment is made and sustained — the returns are structured to feed back into the community rather than out of it: scholarships, training pipelines, and the institutional capacity to bring the next generation of researchers up from inside the neighborhood that made the work possible.</p>
+<p>This is what gentrification looks like when it goes right instead of wrong. The university doesn't arrive as a colonizing force that raises rents and displaces people. It arrives as an institution that has decided its success and the community's success are the same thing — and then builds the structures that make that true. If it works in the Hill District, it is a model. If it works as a model, it is a template for how research institutions can generate scientific breakthroughs and socioeconomic mobility at the same time, in the same place, from the same investment.</p>
+<blockquote>The science is ready. The neighborhood is ready. What it requires is an institution willing to do something harder than publish a paper — willing to plant itself in a community and mean it.</blockquote>
+
+<h2>Key Sources</h2>
+<div class="citations-block">
+  <p><strong>[1]</strong> Walitt, B. et al. "Deep phenotyping of post-infectious myalgic encephalomyelitis/chronic fatigue syndrome." <em>Nature Communications</em>, 2024. DOI: 10.1038/s41467-024-45107-3</p>
+  <p style="margin-top:1rem;"><strong>[2]</strong> Seton, K.A. et al. "Advancing Research and Treatment: An Overview of Clinical Trials in ME/CFS and Future Perspectives." <em>Journal of Clinical Medicine</em>, 2024. DOI: 10.3390/jcm13020325</p>
+  <p style="margin-top:1rem;"><strong>[3]</strong> NINDS. "Report of the ME/CFS Research Roadmap Working Group." May 2024. <a href="https://www.ninds.nih.gov/sites/default/files/2024-05/Report%20of%20the%20MECFS%20Research%20Roadmap%20Working%20Group%20of%20Council_508C.pdf" target="_blank" rel="noopener">ninds.nih.gov — ME/CFS Research Roadmap report</a></p>
+  <p style="margin-top:1rem;"><strong>[4]</strong> BC007 trial results: RTHM. "ME/CFS Research Updates 2024." <a href="https://www.rthm.com/resources/blogs/myalgic-encephalomyelitis-research-2024" target="_blank" rel="noopener">rthm.com — ME/CFS Research Updates 2024</a></p>
+</div>`}
+};
+
+function slugify(text){
+  return 'sec-'+text.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+}
+
+function buildToc(bodyEl){
+  const toc=document.getElementById('post-toc');
+  const headers=bodyEl.querySelectorAll('h2, h3');
+  if(headers.length<3){
+    toc.classList.remove('has-items');
+    toc.innerHTML='';
+    return;
+  }
+  let items='';
+  headers.forEach(h=>{
+    const id=slugify(h.textContent);
+    h.id=id;
+    const cls=h.tagName==='H3'?'toc-sub':'';
+    items+=`<li class="${cls}"><a onclick="jumpToSection('${id}');return false;" href="#${id}">${h.textContent}</a></li>`;
+  });
+  toc.innerHTML=`<div class="post-toc-title" onclick="toggleToc()">On this page <span class="post-toc-caret open" id="toc-caret">&#9662;</span></div><ul class="post-toc-list" id="toc-list">${items}</ul>`;
+  toc.classList.add('has-items');
+}
+
+function toggleToc(){
+  document.getElementById('toc-list').classList.toggle('collapsed');
+  document.getElementById('toc-caret').classList.toggle('open');
+}
+
+function jumpToSection(id){
+  const el=document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  const map={home:'nav-home',blog:'nav-blog',post:'nav-blog',projects:'nav-projects',personal:'nav-personal'};
+  if(map[id]) document.getElementById(map[id]).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function openPost(n){
+  const p=posts[n];
+  document.getElementById('post-cat').textContent=p.cat;
+  document.getElementById('post-title').textContent=p.title;
+  document.getElementById('post-meta').innerHTML=p.meta;
+  document.getElementById('post-body').innerHTML=p.body;
+  buildToc(document.getElementById('post-body'));
+  show('post');
+}
+
+function filterPosts(btn,cat){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.blog-post').forEach(p=>{
+    const matches=cat==='all'||p.dataset.cat===cat||!!p.querySelector('.bp-tag.'+cat);
+    p.style.display=matches?'grid':'none';
+  });
+}
+</script>
+</body>
+</html>
