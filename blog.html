@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Corinthian Technologies Incorporated</title>
-<meta name="description" content="Independent app development, science-policy research, and consulting, plus long-form writing on the systems behind medical breakthroughs.">
-<link rel="canonical" href="https://corinthiantechnologies.com/index.html">
-<meta property="og:title" content="Corinthian Technologies Incorporated">
-<meta property="og:description" content="Independent app development, science-policy research, and consulting, plus long-form writing on the systems behind medical breakthroughs.">
+<title>Blog — Corinthian Technologies Incorporated</title>
+<meta name="description" content="Bioscience breakthroughs, systems thinking, and the policy conditions that make science happen.">
+<link rel="canonical" href="https://corinthiantechnologies.com/blog.html">
+<meta property="og:title" content="Blog — Corinthian Technologies Incorporated">
+<meta property="og:description" content="Bioscience breakthroughs, systems thinking, and the policy conditions that make science happen.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,8 +69,8 @@
     </div>
   </a>
   <div class="nav-links">
-    <a class="active" href="index.html">Home</a>
-    <a href="blog.html">Blog</a>
+    <a href="index.html">Home</a>
+    <a class="active" href="blog.html">Blog</a>
     <a href="projects.html">Projects</a>
     <a href="about.html">About</a>
     <a class="nav-cta" href="blog.html">Read latest</a>
@@ -79,64 +79,56 @@
 </nav>
 <main>
   <div class="disclaimer-banner">
-    <strong>&#9888; FOR INFORMATIONAL PURPOSES ONLY</strong>
-    <p>The author is not a medical professional, legal professional, financial professional, or expert of any kind. Nothing on this site constitutes medical advice, legal advice, financial advice, or professional guidance of any nature. All content is the personal opinion and independent work of the author. Information may be incomplete, out of date, or inaccurate. Do not make any medical, legal, financial, or personal decisions based on content found here. Always consult a qualified professional. The author accepts no liability whatsoever for any action taken or not taken based on the content of this site.</p>
+    <strong>&#9888; ACADEMIC PROJECT &mdash; FOR EDUCATIONAL PURPOSES ONLY</strong>
+    <p>This blog is a student school project created for educational purposes. Nothing here constitutes medical, legal, financial, or professional advice. All content is the personal opinion and academic work of the author. Information may be incomplete, out of date, or inaccurate. Always consult a qualified professional before making decisions based on content found here.</p>
   </div>
-  <div class="hero">
-    <div>
-      <div class="hero-eyebrow">Corinthian Technologies Incorporated</div>
-      <h1>Building, researching, and writing at the <em>edge</em> of science and systems.</h1>
-      <p class="hero-desc">Independent app development, science-policy research, and consulting &mdash; plus long-form writing on the systems behind medical breakthroughs. All under one roof.</p>
-      <div class="hero-tags">
-        <span class="hero-tag blue">App development</span>
-        <span class="hero-tag blue">Bioscience research</span>
-        <span class="hero-tag blue">Science policy</span>
-        <span class="hero-tag">Systems thinking</span>
-        <span class="hero-tag">Consulting</span>
+  <div class="page-header">
+    <h1>Blog</h1>
+    <p>Bioscience breakthroughs, systems thinking, and the policy conditions that make science happen.</p>
+  </div>
+  <div class="blog-filters">
+    <button class="filter-btn on" onclick="filterPosts(this,'all')">All</button>
+    <button class="filter-btn" onclick="filterPosts(this,'bio')">Bioscience</button>
+    <button class="filter-btn" onclick="filterPosts(this,'sys')">Systems thinking</button>
+    <button class="filter-btn" onclick="filterPosts(this,'pol')">Policy</button>
+  </div>
+  <div class="blog-list">
+    <a class="blog-post" data-cat="bio" href="blog/car-t-autoimmune-disease.html">
+      <div class="bp-num">01</div>
+      <div>
+        <div class="bp-cat">Bioscience</div>
+        <div class="bp-title">CAR-T for autoimmune disease: what Erlangen proved and what comes next</div>
+        <div class="bp-excerpt">University Hospital Erlangen's CAR-T trials in lupus, myositis, and systemic sclerosis didn't just show remission &mdash; they rewrote what remission means for autoimmune patients.</div>
+        <div class="bp-tags"><span class="bp-tag bio">Bioscience</span><span class="bp-tag sys">Systems</span></div>
       </div>
-      <div class="hero-actions">
-        <a class="btn-p" href="blog.html">Read the blog</a>
-        <a class="btn-g" href="projects.html">See projects</a>
+    </a>
+    <a class="blog-post" data-cat="bio" href="blog/personalized-crispr-therapy.html">
+      <div class="bp-num">02</div>
+      <div>
+        <div class="bp-cat">Bioscience</div>
+        <div class="bp-title">The first personalized CRISPR therapy: how CHOP and UPenn pulled it off</div>
+        <div class="bp-excerpt">In 2025, a child with a rare metabolic disorder became the first person treated with a bespoke CRISPR gene therapy designed for their specific mutation. Here is how it happened.</div>
+        <div class="bp-tags"><span class="bp-tag bio">Bioscience</span><span class="bp-tag pol">Policy</span></div>
       </div>
-    </div>
-    <div class="hero-mark">
-      <svg width="180" height="180" viewBox="0 0 80 80"><use href="#squid-logo"/></svg>
-    </div>
-  </div>
-  <div class="home-grid">
-    <a class="home-card" href="blog.html">
-      <div class="hc-icon">&#9652;</div>
-      <h2>Blog</h2>
-      <p>Long-form analysis of bioscience breakthroughs, systems thinking, and science policy.</p>
     </a>
-    <a class="home-card" href="projects.html">
-      <div class="hc-icon">&#9673;</div>
-      <h2>Projects</h2>
-      <p>Software I've built, including fr&uacute;to, an iOS app live on the App Store.</p>
+    <a class="blog-post" data-cat="sys" href="blog/breakthrough-framework.html">
+      <div class="bp-num">03</div>
+      <div>
+        <div class="bp-cat">Systems thinking</div>
+        <div class="bp-title">Framework &mdash; What It Takes for a Breakthrough to Happen</div>
+        <div class="bp-excerpt">This post explores the full ecosystem required for a scientific breakthrough to occur. It is not just the science itself, but the human, financial, institutional, political, and cultural conditions that make it possible.</div>
+        <div class="bp-tags"><span class="bp-tag sys">Systems</span><span class="bp-tag pol">Policy</span></div>
+      </div>
     </a>
-    <a class="home-card" href="about.html">
-      <div class="hc-icon">&#9632;</div>
-      <h2>About</h2>
-      <p>The researcher, writer, and systems thinker behind this work.</p>
+    <a class="blog-post" data-cat="bio" href="blog/me-cfs-diagnosis.html">
+      <div class="bp-num">04</div>
+      <div>
+        <div class="bp-cat">Bioscience</div>
+        <div class="bp-title">The diagnosis before the cure: what an ME/CFS breakthrough actually requires</div>
+        <div class="bp-excerpt">ME/CFS affects more people worldwide than MS, Parkinson's, and HIV combined &mdash; with no approved treatment, no biomarker, and a fraction of the research funding. What it would actually take to get unstuck.</div>
+        <div class="bp-tags"><span class="bp-tag bio">Bioscience</span><span class="bp-tag pol">Policy</span></div>
+      </div>
     </a>
-  </div>
-  <div class="sketch-gallery-wrap">
-    <p class="sketch-gallery-title">Sketches</p>
-    <div class="sketch-gallery">
-      <div class="gallery-item"><img src="assets/sketch-squid.jpg" alt="Squid" loading="lazy" width="160" height="200"></div>
-      <div class="gallery-item"><img src="assets/sketch-tree-of-knowledge.jpg" alt="Tree of Knowledge" loading="lazy" width="160" height="200"></div>
-      <div class="gallery-item"><img src="assets/sketch-structure.jpg" alt="Structure" loading="lazy" width="160" height="200"></div>
-      <div class="gallery-item"><img src="assets/sketch-turtle.jpg" alt="Turtle" loading="lazy" width="160" height="200"></div>
-      <div class="gallery-item"><img src="assets/sketch-hot-air-balloon.jpg" alt="Hot Air Balloon" loading="lazy" width="160" height="200"></div>
-      <div class="gallery-item"><img src="assets/sketch-car.jpg" alt="Car" loading="lazy" width="160" height="200"></div>
-      <div class="gallery-item"><img src="assets/sketch-angler.jpg" alt="Angler" loading="lazy" width="160" height="200"></div>
-      <div class="gallery-item"><img src="assets/sketch-bear.jpg" alt="Bear" loading="lazy" width="160" height="200"></div>
-    </div>
-  </div>
-  <div class="acknowledgements">
-    <p class="sketch-gallery-title">Acknowledgements</p>
-    <p>This project would not have been possible without the tools and resources that made the research, writing, and building of this site feasible for a single student. Thank you to <strong>Claude</strong> (Anthropic) for research assistance, writing support, and help constructing this website; <strong>Notion</strong> for organizing and storing the knowledge base behind every post; <strong>Google</strong> for search, Scholar, and the countless papers and sources that informed this work; and the <strong>University of Pittsburgh</strong> for its library resources, academic access, and the education that made it possible to engage with this material in the first place.</p>
-    <p>On a personal note: thank you to my <strong>mom</strong>, my cousin <strong>Gabriel</strong>, and my friend <strong>Hagen</strong> for amazing and inspiring conversations that shaped how I think about these topics. And to the <strong>Senior Knuckle Head Brigade</strong> and its entire extended family &mdash; thank you for the conversation, nourishment, distraction, and support while this project was being built. You know who you are.</p>
   </div>
 </main>
 <footer>
