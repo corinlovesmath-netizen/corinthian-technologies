@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" width="760" height="430"
+     font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <!-- Euler diagram of P, NP, NP-complete, NP-hard, drawn for the P != NP case.
+       Hand-authored SVG: plain text, editable by humans and agents alike.
+       Palette: validated categorical slots (dark surface #0f1117). -->
+  <defs>
+    <clipPath id="clipNP">
+      <ellipse cx="300" cy="300" rx="250" ry="110"/>
+    </clipPath>
+  </defs>
+
+  <!-- NP-hard: everything at least as hard as every problem in NP.
+       Extends above NP because NP-hard problems need not lie in NP at all. -->
+  <ellipse cx="300" cy="150" rx="250" ry="110"
+           fill="#d95926" fill-opacity="0.20" stroke="#d95926" stroke-width="2"/>
+  <!-- NP -->
+  <ellipse cx="300" cy="300" rx="250" ry="110"
+           fill="#3987e5" fill-opacity="0.20" stroke="#3987e5" stroke-width="2"/>
+  <!-- NP-complete = NP ∩ NP-hard, drawn as the genuine intersection -->
+  <g clip-path="url(#clipNP)">
+    <ellipse cx="300" cy="150" rx="250" ry="110" fill="#c98500" fill-opacity="0.38"/>
+  </g>
+  <!-- P, strictly inside NP under the assumption P != NP -->
+  <ellipse cx="205" cy="330" rx="120" ry="62"
+           fill="#199e70" fill-opacity="0.30" stroke="#199e70" stroke-width="2"/>
+
+  <text x="300" y="75"  fill="#e6e8ee" font-size="21" font-weight="600" text-anchor="middle">NP-hard</text>
+  <text x="300" y="98"  fill="#8b93a7" font-size="13" text-anchor="middle">at least as hard as everything in NP</text>
+
+  <text x="300" y="228" fill="#e6e8ee" font-size="17" font-weight="600" text-anchor="middle">NP-complete</text>
+
+  <text x="470" y="330" fill="#e6e8ee" font-size="21" font-weight="600" text-anchor="middle">NP</text>
+  <text x="470" y="352" fill="#8b93a7" font-size="13" text-anchor="middle">verifiable in poly time</text>
+
+  <text x="205" y="326" fill="#e6e8ee" font-size="21" font-weight="600" text-anchor="middle">P</text>
+  <text x="205" y="348" fill="#8b93a7" font-size="13" text-anchor="middle">solvable in poly time</text>
+  <text x="205" y="366" fill="#199e70" font-size="12.5" text-anchor="middle">linear programming lives here</text>
+
+  <text x="300" y="418" fill="#8b93a7" font-size="12.5" text-anchor="middle">
+    Drawn assuming P ≠ NP — which is unproven. If P = NP, the green and blue regions coincide.
+  </text>
+</svg>

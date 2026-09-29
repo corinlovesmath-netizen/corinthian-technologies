@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="deck_files/libs/clipboard/clipboard.min.js"></script>
+<script src="deck_files/libs/quarto-html/tabby.min.js"></script>
+<script src="deck_files/libs/quarto-html/popper.min.js"></script>
+<script src="deck_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="deck_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="deck_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="deck_files/libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Corin Winikoff">
+  <meta name="dcterms.date" content="2026-09-29">
+  <title>Scalability of Linear &amp; Nonlinear Optimization</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="deck_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="deck_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="deck_files/libs/revealjs/dist/theme/quarto-b2cbf4eef96de48593ba5e87f43adb19.css">
+  <link href="deck_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="deck_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="deck_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="deck_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-dark">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Scalability of Linear &amp; Nonlinear Optimization</h1>
+  <p class="subtitle">What scales, what doesn’t, and why hardness is worth protecting</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Corin Winikoff
+</div>
+</div>
+</div>
+
+  <p class="date">2026-09-29</p>
+</section>
+<section id="where-were-going" class="slide level2 smaller">
+<h2>Where we’re going</h2>
+<div class="cols">
+<div>
+<ol type="1">
+<li><strong>How LP and NLP scale</strong> — and why structure matters more than size</li>
+<li><strong>Measuring the cost</strong> — runtime, memory, energy</li>
+<li><strong>What makes a problem hard</strong> — P, NP, and NP-hardness</li>
+</ol>
+</div>
+<div>
+<ol start="4" type="1">
+<li><strong>Quantum</strong> — what it breaks, what it doesn’t</li>
+<li><strong>Case studies</strong> — theory meeting practice</li>
+<li><strong>The future of algorithm creation</strong></li>
+</ol>
+</div>
+</div>
+<div class="subtle">
+<p>Scaling numbers in this deck are measured on a local benchmark harness; other figures are cited.</p>
+</div>
+</section>
+<section>
+<section id="how-lp-and-nlp-scale" class="title-slide slide level1 center" data-background-color="#141824">
+<h1>How LP and NLP Scale</h1>
+
+</section>
+<section id="the-question" class="slide level2 smaller">
+<h2>The question</h2>
+<p>Given a solver and a problem family, how does cost grow with problem size <span class="math inline">\(n\)</span>?</p>
+<p><span class="math display">\[\text{cost}(n) \sim C \cdot n^{\alpha}\]</span></p>
+<p>The exponent <span class="math inline">\(\alpha\)</span> — not the constant <span class="math inline">\(C\)</span> — decides what is tractable. Doubling your hardware buys you a better <span class="math inline">\(C\)</span>. Only a better algorithm, or a better-structured problem, buys you a smaller <span class="math inline">\(\alpha\)</span>.</p>
+</section>
+<section id="linear-programs" class="slide level2 smaller">
+<h2>Linear programs</h2>
+<div class="cols">
+<div>
+<p><strong>Simplex</strong> (Dantzig, 1947) walks vertices of the feasible polytope. Exponential in the worst case — Klee–Minty, 1972 — and superb in practice.</p>
+<p><strong>Interior point</strong> cuts through the middle. Khachiyan (1979) proved LP is in P; Karmarkar (1984) made it practical.</p>
+</div>
+<div>
+<p>So LP is <em>theoretically</em> solved and <em>practically</em> a choice between two methods with different failure modes.</p>
+<p>We measured both. On banded problems they agree (<span class="math inline">\(\alpha = 0.90\)</span> vs <span class="math inline">\(1.00\)</span>). On dense ones they diverge (<span class="math inline">\(2.09\)</span> vs <span class="math inline">\(2.54\)</span>).</p>
+</div>
+</div>
+</section>
+<section id="nonlinear-programs" class="slide level2 smaller">
+<h2>Nonlinear programs</h2>
+<p>No vertices to walk. Instead: repeatedly build a local model, solve it, step.</p>
+<p>Each iteration of an interior point method solves a <strong>KKT system</strong></p>
+<p><span class="math display">\[\begin{bmatrix} H &amp; A^{\top} \\ A &amp; 0 \end{bmatrix}
+  \begin{bmatrix} \Delta x \\ \Delta \lambda \end{bmatrix} =
+- \begin{bmatrix} g \\ c \end{bmatrix}\]</span></p>
+<p>where <span class="math inline">\(H\)</span> is the Hessian of the Lagrangian and <span class="math inline">\(A\)</span> the constraint Jacobian. (Simplified: an interior point method also adds a diagonal barrier term to <span class="math inline">\(H\)</span>.)</p>
+<div class="subtle">
+<p>Everything about NLP scaling comes down to one question: <strong>how expensive is that linear solve?</strong></p>
+</div>
+</section>
+<section id="and-the-answer-is-it-depends-on-the-matrix" class="slide level2 smaller">
+<h2>And the answer is: it depends on the matrix</h2>
+<p>A dense factorization is <span class="math inline">\(O(n^3)\)</span>. A banded one, with fixed bandwidth, is <span class="math inline">\(O(n)\)</span>.</p>
+<p>That is not a small constant factor. It is the difference between a problem that finishes over lunch and one you cannot afford to solve at all.</p>
+<div class="subtle">
+<p>So the scaling of a nonlinear program is decided less by <em>how many variables it has</em> than by <em>how they are connected</em>.</p>
+</div>
+</section>
+<section id="what-one-iteration-looks-like" class="slide level2 smaller">
+<h2>What one iteration looks like</h2>
+<video data-autoplay="" loop="" muted="" playsinline="" controls="" width="62%" style="display:block;margin:0 auto;border-radius:6px">
+  <source src="videos/centralpath.mp4" type="video/mp4">
+</video>
+<div class="subtle">
+<p>The barrier subproblem solved for a decreasing sequence of μ, on a two-variable Rosenbrock problem with one constraint. Every point on this central path is a real solution, not a drawn curve — and the endpoint matches Ipopt’s answer.</p>
+</div>
+</section>
+<section id="the-matrices-for-real" class="slide level2 smaller">
+<h2>The matrices, for real</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/fig_sparsity.svg" class="quarto-figure quarto-figure-center" style="width:97.0%"></p>
+</figure>
+</div>
+<div class="subtle">
+<p>The actual matrices our solvers factorized, extracted from the same models the benchmark ran. <span class="math inline">\(n = 60\)</span> in every panel — identical size, 15× difference in nonzeros. The two NLP Hessians are symmetric, so only their lower triangle is stored — and shown.</p>
+</div>
+</section>
+<section id="same-size.-different-cost." class="slide level2 smaller">
+<h2>Same size. Different cost.</h2>
+<p>This is why the banded and dense families in our benchmark diverge so sharply at equal <span class="math inline">\(n\)</span> — <strong>~64×</strong> apart on the LP at <span class="math inline">\(n = 2000\)</span>.</p>
+<div class="subtle">
+<p>Sparsity is not a property of the solver. It is a property of the <em>model</em> — of how you chose to write the problem down.</p>
+</div>
+</section>
+<section id="but-sparsity-alone-is-not-enough" class="slide level2 smaller">
+<h2>But sparsity alone is not enough</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/fig_fillin.svg" class="quarto-figure quarto-figure-center" style="width:86.0%"></p>
+</figure>
+</div>
+<div class="subtle">
+<p>Factorization creates nonzeros that were not there before. The middle two bars are the <strong>same matrix</strong> — only the elimination order differs.</p>
+</div>
+</section>
+<section id="ordering-is-the-whole-game" class="slide level2 smaller">
+<h2>Ordering is the whole game</h2>
+<div class="cols">
+<div>
+<p>An arrow matrix has 119 nonzeros either way.</p>
+<p>Eliminate the dense row <strong>first</strong> and it fills in completely — 1830 nonzeros, as many as a fully dense matrix.</p>
+<p>Eliminate it <strong>last</strong> and there is no fill at all.</p>
+</div>
+<div>
+<p>Same problem. Same sparsity. Same solver.</p>
+<p><strong>15× more nonzeros</strong> to compute and store — and the arithmetic gap is larger still — decided entirely by the order you eliminate variables in.</p>
+</div>
+</div>
+<div class="subtle">
+<p>This is why sparse linear algebra libraries spend real effort on ordering heuristics (AMD, METIS) before they factor anything — and why a solver that looks slow may simply be ordering badly.</p>
+</div>
+</section>
+<section id="watch-it-happen" class="slide level2 smaller">
+<h2>Watch it happen</h2>
+<video data-autoplay="" loop="" muted="" playsinline="" controls="" width="78%" style="display:block;margin:0 auto;border-radius:6px">
+  <source src="videos/fillin.mp4" type="video/mp4">
+</video>
+<div class="subtle">
+<p>Fill computed by real symbolic elimination, the same method as the previous chart — on a 12×12 arrow matrix so every cell is visible, which is why the counts here are 78 and 23 rather than 1830 and 119.</p>
+</div>
+</section></section>
+<section>
+<section id="measuring-the-cost" class="title-slide slide level1 center" data-background-color="#141824">
+<h1>Measuring the Cost</h1>
+
+</section>
+<section id="runtime-vs-problem-size" class="slide level2 smaller">
+<h2>Runtime vs problem size</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/fig_runtime.svg" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
+</figure>
+</div>
+<div class="subtle">
+<p>Measured on this machine. All four panels share the same axes, so heights compare directly — the difference between them is structure, not size. Fits taken over <span class="math inline">\(n \geq 100\)</span>.</p>
+</div>
+</section>
+<section id="the-exponent-is-the-whole-story" class="slide level2 smaller">
+<h2>The exponent is the whole story</h2>
+<p>Same class, same size — only the structure differs:</p>
+<div class="facts">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>at <span class="math inline">\(n=2000\)</span></th>
+<th style="text-align: right;">banded</th>
+<th style="text-align: right;">dense</th>
+<th style="text-align: right;">ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>LP</strong> (HiGHS simplex)</td>
+<td style="text-align: right;">11 ms</td>
+<td style="text-align: right;">687 ms</td>
+<td style="text-align: right;"><strong>~64×</strong></td>
+</tr>
+<tr class="even">
+<td><strong>NLP</strong> (Ipopt)</td>
+<td style="text-align: right;">2.9 s</td>
+<td style="text-align: right;">21.5 s</td>
+<td style="text-align: right;"><strong>~7×</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="fact-hidden"></span></p>
+<p>Sparsity is not an optimization detail. It is the difference between a problem you can solve and one you cannot.</p>
+</section>
+<section id="where-the-curves-separate" class="slide level2 smaller">
+<h2>Where the curves separate</h2>
+<div class="cols">
+<div>
+<p>On the <strong>dense LP</strong>, simplex and interior point are indistinguishable at small <span class="math inline">\(n\)</span> — and an order of magnitude apart by <span class="math inline">\(n=2000\)</span>.</p>
+<p><span class="math display">\[\alpha_{\text{simplex}} = 2.09 \qquad \alpha_{\text{IPM}} = 2.54\]</span></p>
+<p>Asymptotics are not academic. They decide which solver you should have picked.</p>
+</div>
+<div>
+<p>Yet on the <strong>banded LP</strong> both are near-linear (<span class="math inline">\(\alpha = 0.90\)</span> and <span class="math inline">\(1.00\)</span>), and the choice barely matters.</p>
+<p>How far apart they end up depends on structure — so “which solver is faster?” has no answer without “on what?”</p>
+</div>
+</div>
+</section>
+<section id="why-iterations-or-cost-per-iteration" class="slide level2 smaller">
+<h2>Why? Iterations, or cost per iteration</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/fig_decomposition.svg" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
+</figure>
+</div>
+<div class="subtle">
+<p>On a log-log fit the exponents add: <span class="math inline">\(\alpha_{\text{total}} = \alpha_{\text{iters}} + \alpha_{\text{per-iter}}\)</span>. A slightly negative per-iteration exponent is noise around zero, not a solver getting faster with size.</p>
+</div>
+</section>
+<section id="two-different-reasons-to-be-slow" class="slide level2 smaller">
+<h2>Two different reasons to be slow</h2>
+<div class="cols">
+<div>
+<p><strong>Interior point</strong> — iteration count barely moves with <span class="math inline">\(n\)</span> (<span class="math inline">\(\alpha_{\text{iters}} = 0.17\)</span>). Each iteration gets expensive: a linear solve on a growing KKT system.</p>
+</div>
+<div>
+<p><strong>Simplex</strong> — each iteration stays cheap, but you need linearly more of them (<span class="math inline">\(\alpha_{\text{iters}} = 0.94\)</span>).</p>
+</div>
+</div>
+<p>The sparse NLP’s <span class="math inline">\(\alpha = 1.76\)</span> is not a dense factorization hiding somewhere — it is <span class="math inline">\(0.97\)</span> from iteration growth times <span class="math inline">\(0.79\)</span> from per-iteration cost. The tridiagonal structure <em>is</em> delivering near-linear linear algebra.</p>
+</section>
+<section id="memory" class="slide level2 smaller">
+<h2>Memory</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/fig_memory.svg" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+<div class="subtle">
+<p>Peak resident-set increase, Ipopt, all four families. The banded families stay flat near zero while dense NLP reaches ~667 MB. <strong>Caveat:</strong> this is process peak RSS. Julia-side allocation counters miss memory allocated inside Ipopt’s C++ internals, so RSS is the honest signal here — and it is noisy at small <span class="math inline">\(n\)</span>.</p>
+</div>
+</section>
+<section id="energy-from-an-architecture-standpoint" class="slide level2 smaller">
+<h2>Energy, from an architecture standpoint</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/fig_energy.svg" class="quarto-figure quarto-figure-center" style="width:88.0%"></p>
+</figure>
+</div>
+<div class="subtle">
+<p>Cited, not measured — Horowitz, <em>“Computing’s Energy Problem (and what we can do about it)”</em>, ISSCC 2014, 45 nm process.</p>
+</div>
+</section>
+<section id="arithmetic-is-cheap-memory-is-not" class="slide level2 smaller">
+<h2>Arithmetic is cheap; memory is not</h2>
+<p>A DRAM access costs <strong>~700× a floating-point add</strong>.</p>
+<p>So the sparse-vs-dense gap is not only about operation counts — a dense factorization touches vastly more memory, and memory traffic is where the energy goes.</p>
+<div class="subtle">
+<p>We did not measure energy. But these costs imply that cutting memory traffic — which is exactly what sparsity does — matters at least as much as cutting arithmetic.</p>
+</div>
+</section></section>
+<section>
+<section id="what-makes-a-problem-hard" class="title-slide slide level1 center" data-background-color="#141824">
+<h1>What Makes a Problem Hard</h1>
+
+</section>
+<section id="complexity-classes" class="slide level2 smaller">
+<h2>Complexity classes</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="diagrams/complexity.svg" class="quarto-figure quarto-figure-center" style="width:74.0%"></p>
+</figure>
+</div>
+</section>
+<section id="reading-that-diagram-carefully" class="slide level2 smaller">
+<h2>Reading that diagram carefully</h2>
+<div class="cols">
+<div>
+<p><strong>P</strong> — solvable in polynomial time.</p>
+<p><strong>NP</strong> — a <em>proposed solution</em> can be <strong>verified</strong> in polynomial time. NP stands for <em>nondeterministic polynomial</em>, not “non-polynomial.”</p>
+<p><strong>NP-hard</strong> — at least as hard as everything in NP. Need not be in NP itself, and need not even be a decision problem.</p>
+</div>
+<div>
+<p><strong>NP-complete</strong> — in NP <em>and</em> NP-hard. The hardest problems that are still verifiable.</p>
+<p>Whether <span class="math inline">\(P = NP\)</span> is open. Everything below assumes <span class="math inline">\(P \neq NP\)</span>, which is believed but unproven.</p>
+</div>
+</div>
+</section>
+<section id="where-our-problems-sit" class="slide level2 smaller">
+<h2>Where our problems sit</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Problem</th>
+<th>Class</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Linear programming</td>
+<td><strong>P</strong></td>
+<td>Khachiyan 1979 (ellipsoid)</td>
+</tr>
+<tr class="even">
+<td>Convex optimization</td>
+<td><strong>P</strong>-ish</td>
+<td>poly-time to <span class="math inline">\(\varepsilon\)</span> accuracy, under mild conditions</td>
+</tr>
+<tr class="odd">
+<td>Integer linear programming</td>
+<td><strong>NP-hard</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Nonconvex quadratic programming</td>
+<td><strong>NP-hard</strong></td>
+<td>Pardalos &amp; Vavasis 1991</td>
+</tr>
+</tbody>
+</table>
+<div class="subtle">
+<p>LP being in P fits what we measured: every runtime grew polynomially, from <span class="math inline">\(\alpha \approx 1\)</span> on banded problems to <span class="math inline">\(\approx 2.5\)</span> on dense ones. The wall is not <em>size</em> — it is <em>integrality and nonconvexity</em>.</p>
+</div>
+</section>
+<section id="worst-case-is-not-typical-case" class="slide level2 smaller">
+<h2>Worst case is not typical case</h2>
+<p>Simplex is <strong>exponential in the worst case</strong> (Klee–Minty, 1972) — yet it beat interior point on our dense LP at every size we measured.</p>
+<div class="subtle">
+<p>Complexity classes describe the worst input, not the input you have. Hold onto this — it is about to matter a great deal.</p>
+</div>
+</section></section>
+<section>
+<section id="hardness-as-a-feature" class="title-slide slide level1 center" data-background-color="#141824">
+<h1>Hardness as a Feature</h1>
+
+</section>
+<section id="the-inversion" class="slide level2 smaller">
+<h2>The inversion</h2>
+<p>Everywhere else in this talk, hardness is the enemy.</p>
+<p>Cryptography is the field that <strong>needs</strong> problems to be hard. Its security rests on the claim that an attacker cannot efficiently solve something:</p>
+<div class="cols">
+<div>
+<p><strong>RSA</strong> → factoring large integers</p>
+</div>
+<div>
+<p><strong>Diffie–Hellman, ECC</strong> → discrete logarithm</p>
+</div>
+</div>
+</section>
+<section id="but-not-the-hardness-you-would-expect" class="slide level2 smaller">
+<h2>But not the hardness you would expect</h2>
+<p>Two things are commonly said, and both are wrong:</p>
+<div class="cols">
+<div>
+<p><strong>“RSA is secure because factoring is NP-complete.”</strong></p>
+<p>Factoring is <strong>not known to be NP-complete</strong> — and is widely believed not to be. It sits in NP ∩ co-NP; if it were NP-complete, the polynomial hierarchy would collapse.</p>
+</div>
+<div>
+<p><strong>“Crypto is safe because P ≠ NP.”</strong></p>
+<p>NP-hardness is a statement about the <strong>worst case</strong>. Security needs problems that are hard on <strong>random</strong> instances — average-case hardness.</p>
+</div>
+</div>
+</section>
+<section id="worst-case-vs-average-case" class="slide level2 smaller">
+<h2>Worst case vs average case</h2>
+<p>A problem can be NP-hard and still easy almost always. That is useless for cryptography, which hands the attacker a <em>randomly generated</em> key.</p>
+<p>This gap is why <strong>lattice problems</strong> matter: Ajtai (1996) gave a worst-case to average-case reduction — breaking random instances would imply breaking the worst case of an (approximate) lattice problem.</p>
+<div class="subtle">
+<p>That line of work — Ajtai for SIS, Regev (2005) for LWE — is the theoretical backbone of today’s lattice-based standards. We return to it shortly.</p>
+</div>
+</section>
+<section id="what-cryptography-actually-assumes" class="slide level2 smaller">
+<h2>What cryptography actually assumes</h2>
+<p>Not <span class="math inline">\(P \neq NP\)</span>, but a stronger assumption: that <strong>one-way functions exist</strong> — easy to compute, hard to invert on average.</p>
+<p>If one-way functions exist, then <span class="math inline">\(P \neq NP\)</span>. The converse is <strong>not</strong> known.</p>
+<div class="subtle">
+<p>So modern cryptography rests on an assumption nobody has proved, about problems that were never NP-complete to begin with. It has held up remarkably well — but “hard” here is an empirical claim, not a theorem.</p>
+</div>
+</section></section>
+<section>
+<section id="quantum-and-the-shifting-ground" class="title-slide slide level1 center" data-background-color="#141824">
+<h1>Quantum and the Shifting Ground</h1>
+
+</section>
+<section id="two-very-different-speedups" class="slide level2 smaller">
+<h2>Two very different speedups</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/fig_quantum.svg" class="quarto-figure quarto-figure-center" style="width:86.0%"></p>
+</figure>
+</div>
+<div class="subtle">
+<p>Asymptotic cost of attacking an <span class="math inline">\(n\)</span>-bit problem — analytic curves, not measurements. Grover bends the line. Shor leaves it entirely.</p>
+</div>
+</section>
+<section id="shor-1994" class="slide level2 smaller">
+<h2>Shor, 1994</h2>
+<p>Factoring and discrete logarithm in <strong>polynomial time</strong> on a quantum computer.</p>
+<p>The best known classical algorithms are sub-exponential; Shor is polynomial. That is an exponential speedup over anything we know classically — and it lands exactly on the two problems public-key cryptography chose to stand on.</p>
+<div class="cols">
+<div>
+<p><strong>RSA</strong> — factoring → broken</p>
+</div>
+<div>
+<p><strong>Diffie–Hellman, ECC</strong> — discrete log → broken</p>
+</div>
+</div>
+</section>
+<section id="grover-1996" class="slide level2 smaller">
+<h2>Grover, 1996</h2>
+<p>Unstructured search in <span class="math inline">\(O(\sqrt{N})\)</span> — a <strong>quadratic</strong> speedup, and provably optimal for unstructured search.</p>
+<p>Quadratic sounds dramatic. It is not, against exponentials: it halves the <em>exponent</em>, so <span class="math inline">\(2^{128}\)</span> becomes <span class="math inline">\(2^{64}\)</span> of quantum work.</p>
+<div class="subtle">
+<p>The fix is embarrassingly simple — double the key. AES-256 restores the margin. Grover also parallelizes poorly, so the practical advantage is smaller still.</p>
+</div>
+</section>
+<section id="what-breaks-and-what-does-not" class="slide level2 smaller">
+<h2>What breaks, and what does not</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Primitive</th>
+<th>Rests on</th>
+<th>Quantum impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RSA-2048</td>
+<td>factoring</td>
+<td><strong>broken</strong> — Shor</td>
+</tr>
+<tr class="even">
+<td>ECDH / ECDSA P-256</td>
+<td>discrete log</td>
+<td><strong>broken</strong> — Shor</td>
+</tr>
+<tr class="odd">
+<td>AES-128</td>
+<td>brute-force search</td>
+<td>weakened — AES-256 recommended</td>
+</tr>
+<tr class="even">
+<td>SHA-256</td>
+<td>preimage resistance</td>
+<td>weakened, still considered secure</td>
+</tr>
+<tr class="odd">
+<td>ML-KEM, ML-DSA</td>
+<td>lattice problems</td>
+<td><strong>believed safe</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="subtle">
+<p>Symmetric cryptography survives with larger parameters. Today’s public-key cryptography — RSA and elliptic curves — does not survive at all. It must be replaced.</p>
+</div>
+</section>
+<section id="quantum-computers-are-not-magic" class="slide level2 smaller">
+<h2>Quantum computers are not magic</h2>
+<p>The problems Shor breaks were <strong>never NP-complete</strong> — that was the point of the last section. Factoring has structure, and Shor exploits exactly that structure.</p>
+<div class="cols">
+<div>
+<p><strong>BQP</strong> — what quantum computers solve efficiently — is <strong>not believed to contain NP-complete problems.</strong></p>
+</div>
+<div>
+<p>Against a genuinely unstructured NP-complete problem, the best known quantum tool is Grover: still exponential, just with half the exponent.</p>
+</div>
+</div>
+<div class="subtle">
+<p>A quantum computer is not a machine that makes hard problems easy. It is a machine that exploits <em>particular</em> algebraic structure — and most hard problems do not have it.</p>
+</div>
+</section>
+<section id="the-response-lattices" class="slide level2 smaller">
+<h2>The response: lattices</h2>
+<p>Most of the new post-quantum standards are built on lattice problems — and here the thread of this talk closes:</p>
+<div class="cols">
+<div>
+<p><strong>Shortest Vector Problem.</strong> Given a lattice basis, find the shortest nonzero vector.</p>
+<p><span class="math display">\[\min_{z \in \mathbb{Z}^n \setminus \{0\}} \; \lVert Bz \rVert\]</span></p>
+</div>
+<div>
+<p>That is an <strong>optimization problem</strong> — and precisely the kind this talk has been about: integer-constrained and nonconvex.</p>
+<p>Exact SVP is NP-hard (under randomized reductions). But note the lesson from before: the schemes rely on <em>approximate</em> versions, which are <strong>not</strong> known to be NP-hard.</p>
+</div>
+</div>
+</section>
+<section id="consistent-with-what-we-said-about-rsa" class="slide level2 smaller">
+<h2>Consistent with what we said about RSA</h2>
+<p>The security argument for lattices is <strong>not</strong> “this problem is NP-hard” — we already saw that worst-case hardness is the wrong currency.</p>
+<p>It is a <strong>worst-case to average-case reduction</strong> — Ajtai (1996) for SIS, Regev (2005) for LWE: solving <em>random</em> instances would let you solve the <em>hardest</em> instances of an approximate lattice problem.</p>
+<div class="subtle">
+<p>Factoring has no such reduction — its security rests on nobody having found a fast algorithm. Lattice schemes come with an actual theorem relating the two regimes. One honest caveat: the theorem is asymptotic, so the key sizes actually deployed are still chosen by cryptanalysis, not by the reduction alone.</p>
+</div>
+</section>
+<section id="the-standards" class="slide level2 smaller">
+<h2>The standards</h2>
+<p>NIST published the first post-quantum standards in August 2024:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Standard</th>
+<th>Scheme</th>
+<th>Type</th>
+<th>Basis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FIPS 203</td>
+<td>ML-KEM (Kyber)</td>
+<td>key encapsulation</td>
+<td>module lattices</td>
+</tr>
+<tr class="even">
+<td>FIPS 204</td>
+<td>ML-DSA (Dilithium)</td>
+<td>signatures</td>
+<td>module lattices</td>
+</tr>
+<tr class="odd">
+<td>FIPS 205</td>
+<td>SLH-DSA (SPHINCS+)</td>
+<td>signatures</td>
+<td>hash functions</td>
+</tr>
+</tbody>
+</table>
+<div class="subtle">
+<p>SLH-DSA rests only on hash security — deliberately, as a hedge in case lattices turn out to be weaker than believed. HQC (code-based) was added in 2025 as a backup KEM on different mathematics again.</p>
+</div>
+</section>
+<section id="why-this-is-urgent-now" class="slide level2 smaller">
+<h2>Why this is urgent now</h2>
+<p><strong>Harvest now, decrypt later.</strong> An adversary can record encrypted traffic today and decrypt it once a quantum computer exists. Anything that must stay secret for a decade is <em>already</em> at risk, if such a machine arrives within that decade.</p>
+<div class="subtle">
+<p>NIST’s draft transition plan (IR 8547) deprecates 112-bit-security public-key algorithms such as RSA-2048 after 2030, and disallows all quantum-vulnerable ones after 2035. The migration is not waiting for the hardware — it is happening now.</p>
+</div>
+</section></section>
+<section>
+<section id="from-theory-to-practice" class="title-slide slide level1 center" data-background-color="#141824">
+<h1>From Theory to Practice</h1>
+
+</section>
+<section id="case-study-1-the-cost-of-factoring" class="slide level2 smaller">
+<h2>Case study 1 — the cost of factoring</h2>
+<p>In August 1977, Scientific American published a 129-digit number and a $100 prize for factoring it.</p>
+<p>Rivest’s estimate, using the best method and hardware then known: <strong>40 quadrillion years.</strong></p>
+<div class="subtle">
+<p>It fell in <strong>1994</strong> — seventeen years later — to roughly 600 volunteers running the quadratic sieve for eight months.</p>
+</div>
+</section>
+<section id="what-actually-happened" class="slide level2 smaller">
+<h2>What actually happened</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/fig_factoring.svg" class="quarto-figure quarto-figure-center" style="width:78.0%"></p>
+</figure>
+</div>
+<div class="subtle">
+<p>Published records from the RSA Factoring Challenge and its successors. Historical data, not measured here.</p>
+</div>
+</section>
+<section id="the-theory-behind-it" class="slide level2 smaller">
+<h2>The theory behind it</h2>
+<p>Hardware got faster — but that explains only a small part of it. The <strong>algorithms</strong> moved too.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Trial division</td>
+<td>exponential, <span class="math inline">\(O(\sqrt{N})\)</span></td>
+</tr>
+<tr class="even">
+<td>Quadratic sieve (1981)</td>
+<td><span class="math inline">\(L_N[1/2]\)</span></td>
+</tr>
+<tr class="odd">
+<td>Number field sieve (~1990)</td>
+<td><span class="math inline">\(L_N[1/3]\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[L_N[\gamma] = \exp\!\left((c + o(1))(\ln N)^{\gamma}(\ln\ln N)^{1-\gamma}\right)\]</span></p>
+<div class="subtle">
+<p>The exponent moved from <span class="math inline">\(1/2\)</span> to <span class="math inline">\(1/3\)</span>. That is the same <span class="math inline">\(\alpha\)</span> story from the opening of this talk — except here a smaller exponent is <em>someone breaking your cryptography</em>.</p>
+</div>
+</section>
+<section id="the-lesson" class="slide level2 smaller">
+<h2>The lesson</h2>
+<div class="cols">
+<div>
+<p>Sub-exponential is <strong>not</strong> polynomial. RSA-2048 remains far out of reach classically, and the trend line does not threaten it soon.</p>
+</div>
+<div>
+<p>But the 40-quadrillion-year estimate was wrong by more than fifteen orders of magnitude — and faster, more numerous machines explain only a small part of that. Most of the gap was <strong>mathematics</strong>.</p>
+</div>
+</div>
+<div class="subtle">
+<p>Security margins erode from algorithmic progress at least as much as from Moore’s law. That is precisely why Shor’s algorithm is taken so seriously.</p>
+</div>
+</section>
+<section id="case-study-2-airline-crew-scheduling" class="slide level2 smaller">
+<h2>Case study 2 — airline crew scheduling</h2>
+<p>Assign crews to every flight in a schedule. Respect duty limits, rest rules, and get each crew home to base.</p>
+<div class="cols">
+<div>
+<p>A major carrier faces <strong>billions</strong> of legal crew pairings.</p>
+<p>Crew cost is second only to fuel — so a few percent is tens of millions of dollars a year.</p>
+</div>
+<div>
+<p>The problem is a <strong>set partitioning</strong> problem:</p>
+<p><span class="math display">\[\min_x \; c^{\top}x \quad \text{s.t.} \quad Ax = \mathbf{1}, \; x \in \{0,1\}^n\]</span></p>
+<p>one column per feasible pairing, one row per flight.</p>
+</div>
+</div>
+</section>
+<section id="this-should-be-hopeless" class="slide level2 smaller">
+<h2>This should be hopeless</h2>
+<p>Set partitioning is <strong>NP-complete</strong>. The number of columns is astronomical — you cannot even write the matrix down, let alone solve it.</p>
+<div class="subtle">
+<p>By the logic of the last section, this is exactly the kind of problem we should expect to be intractable.</p>
+</div>
+</section>
+<section id="the-theory-behind-it-1" class="slide level2 smaller">
+<h2>The theory behind it</h2>
+<p>It is solved routinely anyway, by refusing to enumerate:</p>
+<div class="cols">
+<div>
+<p><strong>Column generation.</strong> Start with a few columns. Solve the LP relaxation. Use the duals to ask “is there a pairing that would improve this?” — a constrained shortest-path problem. Add only that column. Repeat.</p>
+<p><strong>Branch-and-price</strong> does this at every node of the branch-and-bound tree.</p>
+</div>
+<div>
+<p>Two pieces of structure make it work:</p>
+<ul>
+<li>the LP relaxation is typically <strong>very tight</strong> for crew pairing, so the bound is good</li>
+<li>the pricing subproblem is a <strong>resource-constrained shortest path</strong> — NP-hard in general, but fast in practice on these flight networks</li>
+</ul>
+</div>
+</div>
+<div class="subtle">
+<p>Barnhart, Johnson, Nemhauser, Savelsbergh &amp; Vance, <em>Branch-and-Price</em>, Operations Research, 1998. American Airlines reported savings around $20M/year from crew-pairing optimization — Anbil et al., <em>Interfaces</em>, 1991.</p>
+</div>
+</section>
+<section id="what-these-two-have-in-common" class="slide level2 smaller">
+<h2>What these two have in common</h2>
+<div class="cols">
+<div>
+<p><strong>Factoring</strong> — a problem we <em>want</em> to be hard, which got easier than anyone predicted, through better mathematics.</p>
+</div>
+<div>
+<p><strong>Crew scheduling</strong> — a problem that is provably hard, solved routinely anyway, through better mathematics.</p>
+</div>
+</div>
+<p>In both cases the complexity class was not the answer. <strong>Structure was.</strong></p>
+<div class="subtle">
+<p>NP-hard is a statement about the worst input in an infinite family. It is not a prediction about the instance on your desk.</p>
+</div>
+</section></section>
+<section>
+<section id="try-it-live" class="title-slide slide level1 center" data-background-color="#141824">
+<h1>Try It Live</h1>
+
+</section>
+<section id="change-the-variables-watch-the-cost" class="slide level2 smaller">
+<h2>Change the variables, watch the cost</h2>
+<div class="scaling-widget"></div>
+<script src="scaling_data.js"></script>
+<script src="widget.js"></script>
+</section>
+<section id="what-to-try" class="slide level2 smaller">
+<h2>What to try</h2>
+<div class="cols">
+<div>
+<p><strong>Hold the solver, change the structure.</strong> Banded LP against dense LP, same size. Watch the ratio — that is the entire argument of this talk in one number.</p>
+<p><strong>Hold the structure, change the solver.</strong> Simplex against interior point on the dense LP. Simplex wins at <em>every</em> size we measured, and the gap keeps widening — <span class="math inline">\(\alpha\)</span> 2.09 against 2.54. A crossover is what you look for; here there isn’t one, and that is a result too.</p>
+</div>
+<div>
+<p><strong>Push past the shaded line.</strong> Everything to the right of it is extrapolation — the curve, not a measurement.</p>
+<p>That region is where scaling arguments are usually <em>made</em>, and where they are least trustworthy.</p>
+</div>
+</div>
+</section></section>
+<section>
+<section id="the-future-of-algorithm-creation" class="title-slide slide level1 center" data-background-color="#141824">
+<h1>The Future of Algorithm Creation</h1>
+
+</section>
+<section id="how-we-got-here" class="slide level2 smaller">
+<h2>How we got here</h2>
+<div class="cols">
+<div>
+<p><strong>Individual insight.</strong> Dantzig’s simplex (1947). Strassen’s <span class="math inline">\(O(n^{2.81})\)</span> multiplication (1969). Karmarkar (1984). Shor (1994).</p>
+<p>One person, one idea, and an exponent moves.</p>
+</div>
+<div>
+<p><strong>Structure exploitation.</strong> Sparse factorization, fill-reducing orderings (AMD, METIS), column generation.</p>
+<p>Not better asymptotics in general — better exploitation of the instances that actually occur.</p>
+</div>
+</div>
+</section>
+<section id="and-more-recently" class="slide level2 smaller">
+<h2>And more recently</h2>
+<div class="cols">
+<div>
+<p><strong>Automated selection.</strong> Algorithm portfolios and configuration — SATzilla won medals at the 2007 and 2009 SAT Competitions by <em>choosing</em> among existing solvers rather than being a new one.</p>
+</div>
+<div>
+<p><strong>Machine-discovered algorithms.</strong> AlphaTensor (2022) found a way to multiply 4×4 matrices in mod-2 arithmetic with 47 multiplications, beating Strassen’s 49; AlphaDev (2023) found sorting routines now shipping in LLVM’s libc++.</p>
+</div>
+</div>
+<div class="subtle">
+<p>Note what changed: the third era searches the <em>space of algorithms</em> rather than reasoning about it.</p>
+</div>
+</section>
+<section id="what-our-own-measurements-actually-showed" class="slide level2 smaller">
+<h2>What our own measurements actually showed</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Observation</th>
+<th>Measured</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Same class, same <span class="math inline">\(n\)</span>, sparse vs dense LP</td>
+<td><strong>~64×</strong> apart</td>
+</tr>
+<tr class="even">
+<td>Same matrix, two elimination orderings</td>
+<td><strong>15×</strong> more nonzeros in the factor</td>
+</tr>
+<tr class="odd">
+<td>Simplex vs interior point, dense LP</td>
+<td><span class="math inline">\(\alpha =\)</span> 2.09 vs 2.54</td>
+</tr>
+<tr class="even">
+<td>Interior point iteration count</td>
+<td><span class="math inline">\(\alpha =\)</span> 0.17 — nearly flat</td>
+</tr>
+</tbody>
+</table>
+<div class="subtle">
+<p>Not one of these numbers is derivable from the problem’s complexity class.</p>
+</div>
+</section>
+<section id="the-argument" class="slide level2 smaller">
+<h2>The argument</h2>
+<p>Complexity classes told us <strong>what kind of problem</strong> we had. They told us almost nothing about <strong>what it would cost.</strong></p>
+<p>LP is in P — and our dense LP still took ~64× longer than the banded one at the same size. Set partitioning is NP-complete — and airlines solve it routinely.</p>
+<div class="subtle">
+<p>The worst case classified the problem. <strong>Structure predicted the bill.</strong></p>
+</div>
+</section>
+<section id="so-what-should-algorithm-creation-look-like" class="slide level2 smaller">
+<h2>So what should algorithm creation look like?</h2>
+<div class="cols">
+<div>
+<p><strong>1. Measure the exponent; do not assume it.</strong> <span class="math inline">\(\alpha\)</span> is an empirical fact about <em>your</em> instances. We fitted 1.76 where the structure alone suggested nearer 1.</p>
+<p><strong>2. Treat modeling as algorithm design.</strong> Sparsity is not handed to you by the solver — it is a consequence of how the model was written. The modeler is already making algorithmic choices.</p>
+</div>
+<div>
+<p><strong>3. Let search propose; keep proof to dispose.</strong> Learned branching inside branch-and-bound still returns a <em>provably</em> optimal answer. AlphaTensor’s discoveries are checkable. That division is the one worth keeping.</p>
+<p><strong>4. Say which claim you are making.</strong> Worst case, average case, and measured case are three different statements. Much confusion in this field comes from conflating them.</p>
+</div>
+</div>
+</section>
+<section id="the-obvious-objection" class="slide level2 smaller">
+<h2>The obvious objection</h2>
+<p>If learned heuristics win on benchmarks, why keep the proofs?</p>
+<div class="subtle">
+<p>Because a heuristic tuned to a distribution fails silently off it — and you will not know until it matters.</p>
+</div>
+<p>Cryptography shows the value of keeping them. Lattice schemes carry <strong>worst-case to average-case reductions</strong> — theorems, not benchmarks — and that is part of why the field trusted lattices as factoring’s replacement once quantum attacks made a replacement necessary.</p>
+<div class="subtle">
+<p>The field already knows how to hold this line. It just does not hold it everywhere.</p>
+</div>
+</section>
+<section id="where-this-leaves-us" class="slide level2 smaller">
+<h2>Where this leaves us</h2>
+<div class="cols">
+<div>
+<p>Hardness is not one thing. It is a <strong>worst-case classification</strong> you can prove (relative to <span class="math inline">\(P \neq NP\)</span>), an <strong>average-case guarantee</strong> you sometimes can, and a <strong>runtime</strong> you can only measure.</p>
+</div>
+<div>
+<p>Progress has come from the gaps between them — and that is where the next algorithms will come from too.</p>
+</div>
+</div>
+<p><strong>Structure is the variable we actually control.</strong> Not the complexity class, and not the hardware.</p>
+</section>
+<section id="section" class="slide level2" data-background-color="#141824">
+<h2></h2>
+<section id="thank-you" style="text-align:center; margin-top:2em">
+<h3>Thank you</h3>
+<p><span class="subtle">Questions</span></p>
+</section>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="deck_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="deck_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="deck_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="deck_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="deck_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="deck_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="deck_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="deck_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="deck_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="deck_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'mathjax/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script src="glossary.js"></script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
