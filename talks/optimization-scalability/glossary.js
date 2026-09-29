@@ -396,7 +396,7 @@ window.GLOSSARY = [
   // an existing glossary span.
   const SKIP = "mjx-container, .math, h1, h2, h3, a, button, select, option, input, " +
                "textarea, svg, video, script, style, .gl, .scaling-widget, " +
-               ".slide-menu-wrapper, .controls, .progress, .slide-number, .footer";
+               ".slide-menu-wrapper, .controls, .progress, .slide-number, .footer, .notes";
   const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const html = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 

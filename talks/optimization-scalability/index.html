@@ -168,6 +168,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Scaling numbers in this deck are measured on a local benchmark harness; other figures are cited.</p>
 </div>
+
 </section>
 <section>
 <section id="how-lp-and-nlp-scale" class="title-slide slide level1 center" data-background-color="#141824">
@@ -179,6 +180,7 @@ Corin Winikoff
 <p>Given a solver and a problem family, how does cost grow with problem size <span class="math inline">\(n\)</span>?</p>
 <p><span class="math display">\[\text{cost}(n) \sim C \cdot n^{\alpha}\]</span></p>
 <p>The exponent <span class="math inline">\(\alpha\)</span> — not the constant <span class="math inline">\(C\)</span> — decides what is tractable. Doubling your hardware buys you a better <span class="math inline">\(C\)</span>. Only a better algorithm, or a better-structured problem, buys you a smaller <span class="math inline">\(\alpha\)</span>.</p>
+
 </section>
 <section id="linear-programs" class="slide level2 smaller">
 <h2>Linear programs</h2>
@@ -192,6 +194,7 @@ Corin Winikoff
 <p>We measured both. On banded problems they agree (<span class="math inline">\(\alpha = 0.90\)</span> vs <span class="math inline">\(1.00\)</span>). On dense ones they diverge (<span class="math inline">\(2.09\)</span> vs <span class="math inline">\(2.54\)</span>).</p>
 </div>
 </div>
+
 </section>
 <section id="nonlinear-programs" class="slide level2 smaller">
 <h2>Nonlinear programs</h2>
@@ -204,6 +207,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Everything about NLP scaling comes down to one question: <strong>how expensive is that linear solve?</strong></p>
 </div>
+
 </section>
 <section id="and-the-answer-is-it-depends-on-the-matrix" class="slide level2 smaller">
 <h2>And the answer is: it depends on the matrix</h2>
@@ -212,6 +216,7 @@ Corin Winikoff
 <div class="subtle">
 <p>So the scaling of a nonlinear program is decided less by <em>how many variables it has</em> than by <em>how they are connected</em>.</p>
 </div>
+
 </section>
 <section id="what-one-iteration-looks-like" class="slide level2 smaller">
 <h2>What one iteration looks like</h2>
@@ -221,6 +226,7 @@ Corin Winikoff
 <div class="subtle">
 <p>The barrier subproblem solved for a decreasing sequence of μ, on a two-variable Rosenbrock problem with one constraint. Every point on this central path is a real solution, not a drawn curve — and the endpoint matches Ipopt’s answer.</p>
 </div>
+
 </section>
 <section id="the-matrices-for-real" class="slide level2 smaller">
 <h2>The matrices, for real</h2>
@@ -232,6 +238,7 @@ Corin Winikoff
 <div class="subtle">
 <p>The actual matrices our solvers factorized, extracted from the same models the benchmark ran. <span class="math inline">\(n = 60\)</span> in every panel — identical size, 15× difference in nonzeros. The two NLP Hessians are symmetric, so only their lower triangle is stored — and shown.</p>
 </div>
+
 </section>
 <section id="same-size.-different-cost." class="slide level2 smaller">
 <h2>Same size. Different cost.</h2>
@@ -239,6 +246,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Sparsity is not a property of the solver. It is a property of the <em>model</em> — of how you chose to write the problem down.</p>
 </div>
+
 </section>
 <section id="but-sparsity-alone-is-not-enough" class="slide level2 smaller">
 <h2>But sparsity alone is not enough</h2>
@@ -250,6 +258,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Factorization creates nonzeros that were not there before. The middle two bars are the <strong>same matrix</strong> — only the elimination order differs.</p>
 </div>
+
 </section>
 <section id="ordering-is-the-whole-game" class="slide level2 smaller">
 <h2>Ordering is the whole game</h2>
@@ -267,6 +276,7 @@ Corin Winikoff
 <div class="subtle">
 <p>This is why sparse linear algebra libraries spend real effort on ordering heuristics (AMD, METIS) before they factor anything — and why a solver that looks slow may simply be ordering badly.</p>
 </div>
+
 </section>
 <section id="watch-it-happen" class="slide level2 smaller">
 <h2>Watch it happen</h2>
@@ -276,10 +286,64 @@ Corin Winikoff
 <div class="subtle">
 <p>Fill computed by real symbolic elimination, the same method as the previous chart — on a 12×12 arrow matrix so every cell is visible, which is why the counts here are 78 and 23 rather than 1830 and 119.</p>
 </div>
+
 </section></section>
 <section>
 <section id="measuring-the-cost" class="title-slide slide level1 center" data-background-color="#141824">
 <h1>Measuring the Cost</h1>
+
+</section>
+<section id="how-we-measured" class="slide level2 smaller">
+<h2>How we measured</h2>
+<div class="cols">
+<div>
+<p><strong>Four problem families</strong>, chosen as a 2×2 so class and structure can be separated:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>sparse</th>
+<th>dense</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>LP</strong></td>
+<td>production planning (banded)</td>
+<td>random dense LP</td>
+</tr>
+<tr class="even">
+<td><strong>NLP</strong></td>
+<td>extended Rosenbrock (tridiagonal)</td>
+<td>fully coupled objective</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<p><strong>12 sizes</strong>, from <span class="math inline">\(n = 10\)</span> to <span class="math inline">\(n = 2000\)</span>.</p>
+<p><strong>Solvers:</strong> HiGHS simplex, HiGHS interior point and Ipopt on the LPs; Ipopt and MadNLP on the NLPs.</p>
+<p>Every one of the 120 solves reached a verified optimal status.</p>
+</div>
+</div>
+<div class="subtle">
+<p>One command runs the whole sweep and writes a single table of results. Every chart and number in this talk is generated from that table.</p>
+</div>
+
+</section>
+<section id="measuring-time-honestly" class="slide level2 smaller">
+<h2>Measuring time honestly</h2>
+<p><strong>Throw away the first run.</strong> Julia compiles code the first time it runs it. In one check, the first solve of a small problem took more than 100× longer than the second — that was the compiler, not the solver. So every solver–problem pair gets one untimed warm-up solve first.</p>
+<p><strong>Keep the best of three.</strong> Background activity on a laptop only ever <em>adds</em> time, so the fastest of three runs is the cleanest estimate.</p>
+<p><strong>Fit only the tail.</strong> Below <span class="math inline">\(n = 100\)</span>, fixed per-solve overhead flattens the curve, so exponents are fitted on <span class="math inline">\(n \geq 100\)</span>.</p>
+<div class="subtle">
+<p>Limits, stated plainly: one laptop, one sweep. Repeating the sweep moved some timings by up to about 20% — which is why no measured number on these slides is typed by hand.</p>
+</div>
 
 </section>
 <section id="runtime-vs-problem-size" class="slide level2 smaller">
@@ -292,6 +356,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Measured on this machine. All four panels share the same axes, so heights compare directly — the difference between them is structure, not size. Fits taken over <span class="math inline">\(n \geq 100\)</span>.</p>
 </div>
+
 </section>
 <section id="the-exponent-is-the-whole-story" class="slide level2 smaller">
 <h2>The exponent is the whole story</h2>
@@ -324,6 +389,7 @@ Corin Winikoff
 </div>
 <p><span class="fact-hidden"></span></p>
 <p>Sparsity is not an optimization detail. It is the difference between a problem you can solve and one you cannot.</p>
+
 </section>
 <section id="where-the-curves-separate" class="slide level2 smaller">
 <h2>Where the curves separate</h2>
@@ -338,6 +404,7 @@ Corin Winikoff
 <p>How far apart they end up depends on structure — so “which solver is faster?” has no answer without “on what?”</p>
 </div>
 </div>
+
 </section>
 <section id="why-iterations-or-cost-per-iteration" class="slide level2 smaller">
 <h2>Why? Iterations, or cost per iteration</h2>
@@ -349,6 +416,7 @@ Corin Winikoff
 <div class="subtle">
 <p>On a log-log fit the exponents add: <span class="math inline">\(\alpha_{\text{total}} = \alpha_{\text{iters}} + \alpha_{\text{per-iter}}\)</span>. A slightly negative per-iteration exponent is noise around zero, not a solver getting faster with size.</p>
 </div>
+
 </section>
 <section id="two-different-reasons-to-be-slow" class="slide level2 smaller">
 <h2>Two different reasons to be slow</h2>
@@ -361,6 +429,7 @@ Corin Winikoff
 </div>
 </div>
 <p>The sparse NLP’s <span class="math inline">\(\alpha = 1.76\)</span> is not a dense factorization hiding somewhere — it is <span class="math inline">\(0.97\)</span> from iteration growth times <span class="math inline">\(0.79\)</span> from per-iteration cost. The tridiagonal structure <em>is</em> delivering near-linear linear algebra.</p>
+
 </section>
 <section id="memory" class="slide level2 smaller">
 <h2>Memory</h2>
@@ -372,6 +441,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Peak resident-set increase, Ipopt, all four families. The banded families stay flat near zero while dense NLP reaches ~667 MB. <strong>Caveat:</strong> this is process peak RSS. Julia-side allocation counters miss memory allocated inside Ipopt’s C++ internals, so RSS is the honest signal here — and it is noisy at small <span class="math inline">\(n\)</span>.</p>
 </div>
+
 </section>
 <section id="energy-from-an-architecture-standpoint" class="slide level2 smaller">
 <h2>Energy, from an architecture standpoint</h2>
@@ -383,6 +453,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Cited, not measured — Horowitz, <em>“Computing’s Energy Problem (and what we can do about it)”</em>, ISSCC 2014, 45 nm process.</p>
 </div>
+
 </section>
 <section id="arithmetic-is-cheap-memory-is-not" class="slide level2 smaller">
 <h2>Arithmetic is cheap; memory is not</h2>
@@ -391,6 +462,7 @@ Corin Winikoff
 <div class="subtle">
 <p>We did not measure energy. But these costs imply that cutting memory traffic — which is exactly what sparsity does — matters at least as much as cutting arithmetic.</p>
 </div>
+
 </section></section>
 <section>
 <section id="what-makes-a-problem-hard" class="title-slide slide level1 center" data-background-color="#141824">
@@ -404,6 +476,7 @@ Corin Winikoff
 <p><img data-src="diagrams/complexity.svg" class="quarto-figure quarto-figure-center" style="width:74.0%"></p>
 </figure>
 </div>
+
 </section>
 <section id="reading-that-diagram-carefully" class="slide level2 smaller">
 <h2>Reading that diagram carefully</h2>
@@ -418,6 +491,7 @@ Corin Winikoff
 <p>Whether <span class="math inline">\(P = NP\)</span> is open. Everything below assumes <span class="math inline">\(P \neq NP\)</span>, which is believed but unproven.</p>
 </div>
 </div>
+
 </section>
 <section id="where-our-problems-sit" class="slide level2 smaller">
 <h2>Where our problems sit</h2>
@@ -460,6 +534,7 @@ Corin Winikoff
 <div class="subtle">
 <p>LP being in P fits what we measured: every runtime grew polynomially, from <span class="math inline">\(\alpha \approx 1\)</span> on banded problems to <span class="math inline">\(\approx 2.5\)</span> on dense ones. The wall is not <em>size</em> — it is <em>integrality and nonconvexity</em>.</p>
 </div>
+
 </section>
 <section id="worst-case-is-not-typical-case" class="slide level2 smaller">
 <h2>Worst case is not typical case</h2>
@@ -467,6 +542,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Complexity classes describe the worst input, not the input you have. Hold onto this — it is about to matter a great deal.</p>
 </div>
+
 </section></section>
 <section>
 <section id="hardness-as-a-feature" class="title-slide slide level1 center" data-background-color="#141824">
@@ -485,6 +561,7 @@ Corin Winikoff
 <p><strong>Diffie–Hellman, ECC</strong> → discrete logarithm</p>
 </div>
 </div>
+
 </section>
 <section id="but-not-the-hardness-you-would-expect" class="slide level2 smaller">
 <h2>But not the hardness you would expect</h2>
@@ -499,6 +576,7 @@ Corin Winikoff
 <p>NP-hardness is a statement about the <strong>worst case</strong>. Security needs problems that are hard on <strong>random</strong> instances — average-case hardness.</p>
 </div>
 </div>
+
 </section>
 <section id="worst-case-vs-average-case" class="slide level2 smaller">
 <h2>Worst case vs average case</h2>
@@ -507,6 +585,7 @@ Corin Winikoff
 <div class="subtle">
 <p>That line of work — Ajtai for SIS, Regev (2005) for LWE — is the theoretical backbone of today’s lattice-based standards. We return to it shortly.</p>
 </div>
+
 </section>
 <section id="what-cryptography-actually-assumes" class="slide level2 smaller">
 <h2>What cryptography actually assumes</h2>
@@ -515,6 +594,7 @@ Corin Winikoff
 <div class="subtle">
 <p>So modern cryptography rests on an assumption nobody has proved, about problems that were never NP-complete to begin with. It has held up remarkably well — but “hard” here is an empirical claim, not a theorem.</p>
 </div>
+
 </section></section>
 <section>
 <section id="quantum-and-the-shifting-ground" class="title-slide slide level1 center" data-background-color="#141824">
@@ -531,6 +611,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Asymptotic cost of attacking an <span class="math inline">\(n\)</span>-bit problem — analytic curves, not measurements. Grover bends the line. Shor leaves it entirely.</p>
 </div>
+
 </section>
 <section id="shor-1994" class="slide level2 smaller">
 <h2>Shor, 1994</h2>
@@ -544,6 +625,7 @@ Corin Winikoff
 <p><strong>Diffie–Hellman, ECC</strong> — discrete log → broken</p>
 </div>
 </div>
+
 </section>
 <section id="grover-1996" class="slide level2 smaller">
 <h2>Grover, 1996</h2>
@@ -552,6 +634,7 @@ Corin Winikoff
 <div class="subtle">
 <p>The fix is embarrassingly simple — double the key. AES-256 restores the margin. Grover also parallelizes poorly, so the practical advantage is smaller still.</p>
 </div>
+
 </section>
 <section id="what-breaks-and-what-does-not" class="slide level2 smaller">
 <h2>What breaks, and what does not</h2>
@@ -594,6 +677,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Symmetric cryptography survives with larger parameters. Today’s public-key cryptography — RSA and elliptic curves — does not survive at all. It must be replaced.</p>
 </div>
+
 </section>
 <section id="quantum-computers-are-not-magic" class="slide level2 smaller">
 <h2>Quantum computers are not magic</h2>
@@ -609,6 +693,7 @@ Corin Winikoff
 <div class="subtle">
 <p>A quantum computer is not a machine that makes hard problems easy. It is a machine that exploits <em>particular</em> algebraic structure — and most hard problems do not have it.</p>
 </div>
+
 </section>
 <section id="the-response-lattices" class="slide level2 smaller">
 <h2>The response: lattices</h2>
@@ -623,6 +708,7 @@ Corin Winikoff
 <p>Exact SVP is NP-hard (under randomized reductions). But note the lesson from before: the schemes rely on <em>approximate</em> versions, which are <strong>not</strong> known to be NP-hard.</p>
 </div>
 </div>
+
 </section>
 <section id="consistent-with-what-we-said-about-rsa" class="slide level2 smaller">
 <h2>Consistent with what we said about RSA</h2>
@@ -631,6 +717,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Factoring has no such reduction — its security rests on nobody having found a fast algorithm. Lattice schemes come with an actual theorem relating the two regimes. One honest caveat: the theorem is asymptotic, so the key sizes actually deployed are still chosen by cryptanalysis, not by the reduction alone.</p>
 </div>
+
 </section>
 <section id="the-standards" class="slide level2 smaller">
 <h2>The standards</h2>
@@ -668,6 +755,7 @@ Corin Winikoff
 <div class="subtle">
 <p>SLH-DSA rests only on hash security — deliberately, as a hedge in case lattices turn out to be weaker than believed. HQC (code-based) was added in 2025 as a backup KEM on different mathematics again.</p>
 </div>
+
 </section>
 <section id="why-this-is-urgent-now" class="slide level2 smaller">
 <h2>Why this is urgent now</h2>
@@ -675,6 +763,7 @@ Corin Winikoff
 <div class="subtle">
 <p>NIST’s draft transition plan (IR 8547) deprecates 112-bit-security public-key algorithms such as RSA-2048 after 2030, and disallows all quantum-vulnerable ones after 2035. The migration is not waiting for the hardware — it is happening now.</p>
 </div>
+
 </section></section>
 <section>
 <section id="from-theory-to-practice" class="title-slide slide level1 center" data-background-color="#141824">
@@ -688,6 +777,7 @@ Corin Winikoff
 <div class="subtle">
 <p>It fell in <strong>1994</strong> — seventeen years later — to roughly 600 volunteers running the quadratic sieve for eight months.</p>
 </div>
+
 </section>
 <section id="what-actually-happened" class="slide level2 smaller">
 <h2>What actually happened</h2>
@@ -699,6 +789,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Published records from the RSA Factoring Challenge and its successors. Historical data, not measured here.</p>
 </div>
+
 </section>
 <section id="the-theory-behind-it" class="slide level2 smaller">
 <h2>The theory behind it</h2>
@@ -729,6 +820,7 @@ Corin Winikoff
 <div class="subtle">
 <p>The exponent moved from <span class="math inline">\(1/2\)</span> to <span class="math inline">\(1/3\)</span>. That is the same <span class="math inline">\(\alpha\)</span> story from the opening of this talk — except here a smaller exponent is <em>someone breaking your cryptography</em>.</p>
 </div>
+
 </section>
 <section id="the-lesson" class="slide level2 smaller">
 <h2>The lesson</h2>
@@ -743,6 +835,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Security margins erode from algorithmic progress at least as much as from Moore’s law. That is precisely why Shor’s algorithm is taken so seriously.</p>
 </div>
+
 </section>
 <section id="case-study-2-airline-crew-scheduling" class="slide level2 smaller">
 <h2>Case study 2 — airline crew scheduling</h2>
@@ -758,6 +851,7 @@ Corin Winikoff
 <p>one column per feasible pairing, one row per flight.</p>
 </div>
 </div>
+
 </section>
 <section id="this-should-be-hopeless" class="slide level2 smaller">
 <h2>This should be hopeless</h2>
@@ -765,6 +859,7 @@ Corin Winikoff
 <div class="subtle">
 <p>By the logic of the last section, this is exactly the kind of problem we should expect to be intractable.</p>
 </div>
+
 </section>
 <section id="the-theory-behind-it-1" class="slide level2 smaller">
 <h2>The theory behind it</h2>
@@ -785,6 +880,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Barnhart, Johnson, Nemhauser, Savelsbergh &amp; Vance, <em>Branch-and-Price</em>, Operations Research, 1998. American Airlines reported savings around $20M/year from crew-pairing optimization — Anbil et al., <em>Interfaces</em>, 1991.</p>
 </div>
+
 </section>
 <section id="what-these-two-have-in-common" class="slide level2 smaller">
 <h2>What these two have in common</h2>
@@ -800,6 +896,7 @@ Corin Winikoff
 <div class="subtle">
 <p>NP-hard is a statement about the worst input in an infinite family. It is not a prediction about the instance on your desk.</p>
 </div>
+
 </section></section>
 <section>
 <section id="try-it-live" class="title-slide slide level1 center" data-background-color="#141824">
@@ -811,6 +908,7 @@ Corin Winikoff
 <div class="scaling-widget"></div>
 <script src="scaling_data.js"></script>
 <script src="widget.js"></script>
+
 </section>
 <section id="what-to-try" class="slide level2 smaller">
 <h2>What to try</h2>
@@ -824,6 +922,7 @@ Corin Winikoff
 <p>That region is where scaling arguments are usually <em>made</em>, and where they are least trustworthy.</p>
 </div>
 </div>
+
 </section></section>
 <section>
 <section id="the-future-of-algorithm-creation" class="title-slide slide level1 center" data-background-color="#141824">
@@ -842,6 +941,7 @@ Corin Winikoff
 <p>Not better asymptotics in general — better exploitation of the instances that actually occur.</p>
 </div>
 </div>
+
 </section>
 <section id="and-more-recently" class="slide level2 smaller">
 <h2>And more recently</h2>
@@ -856,6 +956,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Note what changed: the third era searches the <em>space of algorithms</em> rather than reasoning about it.</p>
 </div>
+
 </section>
 <section id="what-our-own-measurements-actually-showed" class="slide level2 smaller">
 <h2>What our own measurements actually showed</h2>
@@ -892,6 +993,7 @@ Corin Winikoff
 <div class="subtle">
 <p>Not one of these numbers is derivable from the problem’s complexity class.</p>
 </div>
+
 </section>
 <section id="the-argument" class="slide level2 smaller">
 <h2>The argument</h2>
@@ -900,6 +1002,7 @@ Corin Winikoff
 <div class="subtle">
 <p>The worst case classified the problem. <strong>Structure predicted the bill.</strong></p>
 </div>
+
 </section>
 <section id="so-what-should-algorithm-creation-look-like" class="slide level2 smaller">
 <h2>So what should algorithm creation look like?</h2>
@@ -913,6 +1016,7 @@ Corin Winikoff
 <p><strong>4. Say which claim you are making.</strong> Worst case, average case, and measured case are three different statements. Much confusion in this field comes from conflating them.</p>
 </div>
 </div>
+
 </section>
 <section id="the-obvious-objection" class="slide level2 smaller">
 <h2>The obvious objection</h2>
@@ -924,6 +1028,7 @@ Corin Winikoff
 <div class="subtle">
 <p>The field already knows how to hold this line. It just does not hold it everywhere.</p>
 </div>
+
 </section>
 <section id="where-this-leaves-us" class="slide level2 smaller">
 <h2>Where this leaves us</h2>
@@ -936,6 +1041,7 @@ Corin Winikoff
 </div>
 </div>
 <p><strong>Structure is the variable we actually control.</strong> Not the complexity class, and not the hardware.</p>
+
 </section>
 <section id="section" class="slide level2" data-background-color="#141824">
 <h2></h2>
@@ -943,6 +1049,7 @@ Corin Winikoff
 <h3>Thank you</h3>
 <p><span class="subtle">Questions</span></p>
 </section>
+
 
 </section></section>
     </div>
